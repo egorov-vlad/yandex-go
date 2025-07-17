@@ -31,14 +31,16 @@ export const decrypt = (encryptedBase64) => {
 
 export const sendRequest = async (command, data) => {
   try {
-    const number = getVendingLastCommand.get().command_number || 0 + 1;
-    setVendingLastCommand.run(number);
+    const number = getVendingLastCommand.get()?.id || 0 + 1;
+    setVendingLastCommand.run();
 
-    const encrypted = encrypt({
-      command_number: number,
-      command_code: command,
-      data,
-    });
+    const encrypted = encrypt(
+      JSON.stringify({
+        command_number: number,
+        command_code: command,
+        data,
+      })
+    );
 
     console.log(`Command #${number}: ${encrypted}`);
     const socket = net.createConnection({
@@ -60,6 +62,8 @@ export const sendRequest = async (command, data) => {
     });
 
     console.log(`Command #${number}: ${r}`);
+
+    //TODO: error separation
 
     socket.end();
 

@@ -11,7 +11,6 @@ db.exec(`CREATE TABLE IF NOT EXISTS Codes(
 
 db.exec(`CREATE TABLE IF NOT EXISTS VendingLastCommand(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  command_code CHAR(4) NOT NULL UNIQUE,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
 
 db.exec(`CREATE TABLE IF NOT EXISTS VendingProduct(
@@ -37,5 +36,5 @@ export const getVendingLastCommand = db.prepare(
 );
 
 export const setVendingLastCommand = db.prepare(
-  "INSERT INTO VendingLastCommand (command_code) VALUES (?)"
+  "INSERT INTO VendingLastCommand DEFAULT VALUES"
 );

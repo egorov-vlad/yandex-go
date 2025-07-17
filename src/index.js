@@ -70,6 +70,7 @@ app.get("/products", (req, res) => {
 
 app.post("/vending", async (req, res) => {
   const { command, data } = req.body;
+  console.log(`Command: ${command}, Data: ${JSON.stringify(data)}`);
   const result = await sendRequest(command, data);
   res.send({ success: true, data: result });
 });
