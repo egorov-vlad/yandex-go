@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/tablet.css" />
+    <title>Yandex</title>
+  </head>
+
+  <body>
+    <main class="main is-active">
+      <div class="step step--1 is-active">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <h1 class="title">
+            Введите код и выбирайте то, что нужно именно вам
+          </h1>
+          <button class="btn">Ввести код</button>
+        </div>
+        <img src="img/icon_logos.png" class="logo__bottom" alt="" />
+      </div>
+      <div class="step step--2">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <div class="code__wrapper">
+            <input
+              id="code"
+              name="code"
+              type="text"
+              class="code__input"
+              maxlength="4"
+              placeholder="XXXX"
+              readonly
+            />
+            <div class="keyboard is-hidden">
+              <div class="keyboard__grid">
+                <button class="key">1</button>
+                <button class="key">2</button>
+                <button class="key">3</button>
+                <button class="key">4</button>
+                <button class="key">5</button>
+                <button class="key">6</button>
+                <button class="key">7</button>
+                <button class="key">8</button>
+                <button class="key">9</button>
+              </div>
+              <div class="keyboard__action">
+                <button class="key key--submit" data-id="codeSubmit">
+                  Отправить
+                </button>
+                <button class="key key--backspace">⌫</button>
+              </div>
+            </div>
+            <img
+              src="img/all-icons-tablet.png"
+              class="step__circle-image"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+      <div class="step step--3">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <h2 class="title">То, чего так не&nbsp;хватало</h2>
+          <div class="btn__wrap">
+            <button class="btn">Полезное из Маркета</button>
+            <button class="btn">Любимое от Лавки</button>
+            <button class="btn">Вкусное от Еды</button>
+          </div>
+        </div>
+        <img src="img/icon_logos.png" class="logo__bottom" alt="" />
+      </div>
+      <div class="step step--4">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content--choice step__content--market">
+          <div class="product__wrap" data-id="market">
+            <!-- <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item is-soldout">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div> -->
+          </div>
+        </div>
+        <div class="step__content--choice step__content--lavka">
+          <div class="product__wrap" data-id="lavka">
+            <!-- <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div> -->
+          </div>
+        </div>
+        <div class="step__content--choice step__content--food">
+          <div class="product__wrap" data-id="food">
+            <!-- <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div>
+            <div class="product__wrap-item">
+              <div class="product__wrap-item-img">
+                <img src="img/products/bread.png" alt="" />
+              </div>
+              <div class="product__wrap-item-name">Фруктовый хлеб</div>
+              <button class="btn--plus">+</button>
+              <button class="btn--submit">Подтвердить</button>
+              <button class="product__btn product__btn--soldout" disabled>
+                Разобрали
+              </button>
+            </div> -->
+          </div>
+        </div>
+        <img src="img/icon_logos.png" class="logo__bottom" alt="" />
+      </div>
+      <div class="step step--5">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <h2 class="title">Отгружаем...</h2>
+          <div class="progress">
+            <div class="progress__bar"></div>
+          </div>
+        </div>
+        <img src="img/icon_logos.png" class="logo__bottom" alt="" />
+      </div>
+      <div class="step step--6">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <h2 class="title title--big">Успех!</h2>
+          <h3 class="subheading">Заберите в нижней части терминала</h3>
+          <div class="location">
+            <img
+              src="img/arrow.svg"
+              width="100"
+              height="100"
+              alt=""
+              class="location__arrow"
+            />
+          </div>
+        </div>
+        <img src="img/icon_logos.png" class="logo__bottom" alt="" />
+      </div>
+
+      <div class="step step--locked">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <h2 class="title title--big">Упс!</h2>
+          <p class="subheading">Кажется, вы ввели неверный код.</p>
+          <p class="subheading">
+            Попробуйте снова или обратитесь за помощью к промо-персоналу.
+          </p>
+        </div>
+        <img src="img/icon_logos.png" class="logo__bottom" alt="" />
+      </div>
+
+      <div class="step step--failed">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <h2 class="title title--big">Упс!</h2>
+          <p class="subheading">
+            Что-то пошло не так, пожалуйста, обратитесь к промо-персоналу
+          </p>
+        </div>
+        <img src="img/icon_logos.png" class="logo__bottom" alt="" />
+      </div>
+    </main>
+
+    <template data-id="productCardTemplate">
+      <div class="product__wrap-item">
+        <div class="product__wrap-item-img">
+          <img src="img/products/bread.png" alt="" />
+        </div>
+        <div class="product__wrap-item-name">Фруктовый хлеб</div>
+        <button class="btn--plus">+</button>
+        <button class="btn--submit">Подтвердить</button>
+        <button class="product__btn product__btn--soldout" disabled>
+          Разобрали
+        </button>
+      </div>
+    </template>
+
+    <script src="js/tablet.js"></script>
+  </body>
+</html>
