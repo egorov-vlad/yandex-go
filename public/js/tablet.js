@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
 
+  const stepFailed = document.querySelector(".step--failed");
+
   nextButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const currentStep = document.querySelector(".step.is-active");
@@ -108,6 +110,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const img = container.querySelector(".product__wrap-item-img");
     const name = container.querySelector(".product__wrap-item-name");
 
+    container.dataset.id = data.product_code;
     img.querySelector("img").src = data.imgURL;
     name.innerHTML = data.name;
 
@@ -131,7 +134,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     });
 
-    const productItems = wrapBlocks[category].querySelectorAll(".product__wrap-item");
+    const productItems = wrapBlocks[category].querySelectorAll(
+      ".product__wrap-item"
+    );
 
     productItems.forEach((container) => {
       const plusBtn = container.querySelector(".btn--plus");
@@ -172,18 +177,34 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
       });
 
-      submitBtn.addEventListener("click", () => {
+      submitBtn.addEventListener("click", async () => {
         const step4 = document.querySelector(".step--4");
         const step5 = document.querySelector(".step--5");
         const step6 = document.querySelector(".step--6");
+        try {
+          step4.classList.remove("is-active");
+          step5.classList.add("is-active");
 
-        step4.classList.remove("is-active");
-        step5.classList.add("is-active");
-
-        setTimeout(() => {
+          await fetch(`/vending`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              command: "dispense",
+              data: {
+                product_code: container.getAttribute("data-id"),
+              },
+            }),
+          });
+          setTimeout(() => {
+            step5.classList.remove("is-active");
+            step6.classList.add("is-active");
+          }, 5000);
+        } catch (err) {
           step5.classList.remove("is-active");
-          step6.classList.add("is-active");
-        }, 5000);
+          stepFailed.classList.add("is-active");
+        }
       });
     });
   }
