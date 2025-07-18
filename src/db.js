@@ -42,3 +42,36 @@ export const getVendingLastCommand = db.prepare(
 export const setVendingLastCommand = db.prepare(
   "INSERT INTO VendingLastCommand DEFAULT VALUES"
 );
+
+const init = () => {
+  db.prepare(
+    `
+    INSERT INTO VendingProduct (name, product_code, imgURL, category) VALUES
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'market'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'market'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'market'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'market'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'market'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'lavka'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'lavka'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'lavka'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'lavka'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'lavka'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'food'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'food'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'food'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'food'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'food'),
+    ('Фруктовый хлеб', '1234', 'img/products/bread.png', 'food');
+  `
+  ).run();
+};
+
+const clear = () => {
+  db.prepare("DELETE FROM Codes").run();
+  db.prepare("DELETE FROM VendingLastCommand").run();
+  db.prepare("DELETE FROM VendingProduct").run();
+};
+
+// clear();
+// init();
