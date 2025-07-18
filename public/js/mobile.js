@@ -1,15 +1,26 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const serviceAvailable = await fetch("/service")
-    .then((res) => res.json())
-    .then((data) => data.available);
+  async function checkServiceAvailable() {
+    const serviceAvailable = await fetch("/service")
+      .then((res) => res.json())
+      .then((data) => data.available);
 
-  if (!serviceAvailable) {
+    console.log(`Service available: ${serviceAvailable}`);
+
     const main = document.querySelector(".main");
     const locked = document.querySelector(".locked");
-    main.classList.remove("is-active");
-    locked.classList.add("is-active");
-    return;
+
+    if (!serviceAvailable) {
+      main.classList.remove("is-active");
+      locked.classList.add("is-active");
+    } else {
+      main.classList.add("is-active");
+      locked.classList.remove("is-active");
+    }
   }
+
+  checkServiceAvailable();
+
+  setInterval(checkServiceAvailable, 20000);
 
   // step navigation
   const steps = document.querySelectorAll(".step");
