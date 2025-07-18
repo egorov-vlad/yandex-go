@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/admin.css" />
+    <title>Yandex | Admin</title>
+  </head>
+
+  <body>
+    <main class="main">
+      <h1 class="title">Панель управления</h1>
+      <div class="services">
+        <div class="service available">
+          <h2 class="subheading">Сервис доступен</h2>
+          <label class="switch">
+            <input type="checkbox" data-id="available" name="available" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="service products">
+          <div class="products__wrap--market">
+            <h2 class="product__category">Маркет</h2>
+            <div class="products" data-id="productsMarket"></div>
+          </div>
+          <div class="products__wrap--lavka" data-id="lavka">
+            <h2 class="product__category">Лавка</h2>
+            <div class="products" data-id="productsLavka"></div>
+          </div>
+          <div class="products__wrap--food" data-id="food">
+            <h2 class="product__category">Еда</h2>
+            <div class="products" data-id="productsFood"></div>
+          </div>
+          <!-- <h2 class="product__category">Маркет</h2>
+          <div class="product">
+            <h3 class="product__name">Фрукты</h3>
+            <label class="switch">
+              <input type="checkbox" data-id="productSwitch"/>
+              <span class="slider round"></span>
+            </label>
+          </div> -->
+        </div>
+      </div>
+
+      <template data-id="productCardTemplate">
+        <div class="product">
+          <h3 class="product__name">Фрукты</h3>
+          <label class="switch">
+            <input type="checkbox" data-id="productSwitch" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </template>
+    </main>
+
+    <script src="js/admin.js"></script>
+  </body>
+</html>

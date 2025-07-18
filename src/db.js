@@ -31,6 +31,10 @@ export const getCode = db.prepare("SELECT * FROM Codes WHERE code = ?");
 
 export const getAllVendingProduct = db.prepare("SELECT * FROM VendingProduct");
 
+export const setProductActiveById = db.prepare(
+  "UPDATE VendingProduct SET active = ? WHERE id = ?"
+);
+
 export const getVendingLastCommand = db.prepare(
   "SELECT * FROM VendingLastCommand ORDER BY created_at DESC LIMIT 1"
 );

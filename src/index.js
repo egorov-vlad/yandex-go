@@ -1,6 +1,11 @@
 import express from "express";
 import { PORT } from "./config.js";
-import { setCode, getCode, setCodeUsed, getAllVendingProduct } from "./db.js";
+import {
+  setCode,
+  getCode,
+  getAllVendingProduct,
+  setProductActiveById,
+} from "./db.js";
 import { sendRequest } from "./vending.js";
 
 const app = express();
@@ -19,9 +24,14 @@ const createRandomCode = () => {
 };
 
 //TODO: set default false
-const serviceAvailable = true;
+let serviceAvailable = false;
 
 app.get("/service", (req, res) => {
+  res.send({ available: serviceAvailable });
+});
+
+app.post("/service", (req, res) => {
+  serviceAvailable = req.body.available;
   res.send({ available: serviceAvailable });
 });
 
@@ -65,7 +75,17 @@ app.get("/products", (req, res) => {
     return acc;
   }, {});
 
-  res.send({ products: groupedProducts});
+  res.send({ products: groupedProducts });
+});
+
+app.post("/product/:id", async (req, res) => {
+  const id = req.params.id;
+  const { active } = req.body;
+
+  console.log(`Product: ${id}, Active: ${active}`);
+
+  setProductActiveById.run(active ? 1 : 0, id);
+  res.send({ success: true });
 });
 
 app.post("/vending", async (req, res) => {
