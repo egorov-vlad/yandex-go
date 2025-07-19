@@ -68,7 +68,7 @@
         <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
         <div class="step__content--choice step__content--market">
           <div class="product__wrap" data-id="market">
-            <div class="product__wrap-item">
+            <!-- <div class="product__wrap-item">
               <div class="product__wrap-item-img">
                 <img src="img/products/bread.png" alt="" />
               </div>
@@ -88,19 +88,22 @@
               </div>
               <div class="product__wrap-item-name">Фруктовый хлеб</div>
               <button class="btn--submit">Подтвердить</button>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="step__content--choice step__content--food">
-          <div class="product__wrap" data-id="food">
-          </div>
+          <div class="product__wrap" data-id="food"></div>
+        </div>
+
+        <div class="step__content--choice step__content--lavka">
+          <div class="product__wrap" data-id="lavka"></div>
         </div>
         <button class="step__btn--back">Назад</button>
       </div>
       <div class="step step--5">
         <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
         <div class="step__content">
-          <h2 class="title">Отгружаем...</h2>
+          <h2 class="title" data-id="loading">Отгружаем...</h2>
           <div class="progress">
             <div class="progress__bar"></div>
           </div>
@@ -109,8 +112,10 @@
       <div class="step step--6">
         <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
         <div class="step__content">
-          <h2 class="title title--big">Доставили то, чего так не хватало! </h2>
-          <h3 class="subheading">Заберите свой подарок от Яндекс Go в нижней части терминала.</h3>
+          <h2 class="title title--big">Доставили то, чего так не хватало!</h2>
+          <h3 class="subheading">
+            Заберите свой подарок от Яндекс Go в нижней части терминала.
+          </h3>
           <div class="location">
             <img
               src="img/arrow.svg"
@@ -151,12 +156,19 @@
           <img src="img/products/bread.png" alt="" />
         </div>
         <div class="product__wrap-item-name">Фруктовый хлеб</div>
+        <button class="btn--submit">Подтвердить</button>
+      </div>
+      <!-- <div class="product__wrap-item">
+        <div class="product__wrap-item-img">
+          <img src="img/products/bread.png" alt="" />
+        </div>
+        <div class="product__wrap-item-name">Фруктовый хлеб</div>
         <button class="btn--plus">+</button>
         <button class="btn--submit">Подтвердить</button>
         <button class="product__btn product__btn--soldout" disabled>
           Разобрали
         </button>
-      </div>
+      </div> -->
     </template>
 
     <script src="js/tablet.js"></script>

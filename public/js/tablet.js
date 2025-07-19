@@ -6,12 +6,26 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const products = await fetch("/products")
     .then(async (res) => await res.json())
+    //TODO: Move to error page
     .catch((err) => alert("Что-то пошло не так"));
 
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
 
   const stepFailed = document.querySelector(".step--failed");
+
+  const loadingElement = document.querySelector('[data-id="loading"');
+  const loadingTitles = {
+    lavka: "Выбираем любимое...",
+    market: "Выгружаем полезное...",
+    food: "Выдаёмвкусное...",
+  };
+
+  const toStartBtn = document.querySelector(".location");
+
+  toStartBtn.addEventListener("click", () => {
+    window.document.location.reload();
+  });
 
   nextButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -114,12 +128,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     const container = clone.querySelector(".product__wrap-item");
     const img = container.querySelector(".product__wrap-item-img");
     const name = container.querySelector(".product__wrap-item-name");
+    const submitBtn = container.querySelector(".btn--submit");
 
     container.dataset.id = data.product_code;
     img.querySelector("img").src = data.imgURL;
     name.innerHTML = data.name;
 
     if (!data.active) {
+      submitBtn.disabled = true;
+      name.innerHTML = "Разобрали";
       container.classList.add("is-soldout");
     }
 
@@ -201,12 +218,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (label.includes("Маркета")) {
         contentBlocks.market.classList.add("is-active");
         fillProductByCategory("market");
+        loadingElement.innerHTML = loadingTitles.market;
       } else if (label.includes("Лавки")) {
         contentBlocks.lavka.classList.add("is-active");
         fillProductByCategory("lavka");
+        loadingElement.innerHTML = loadingTitles.lavka;
       } else if (label.includes("Еды")) {
         contentBlocks.food.classList.add("is-active");
         fillProductByCategory("food");
+        loadingElement.innerHTML = loadingTitles.food;
       }
 
       currentStep.classList.remove("is-active");
@@ -229,19 +249,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   observer.observe(step5, { attributes: true, attributeFilter: ["class"] });
 
-  const backButton = document.querySelector('.step--4 .step__btn--back');
-  backButton.addEventListener('click', () => {
-    const shownItem = step4.querySelector('.product__wrap-item.is-shown');
+  const backButton = document.querySelector(".step--4 .step__btn--back");
+  backButton.addEventListener("click", () => {
+    const shownItem = step4.querySelector(".product__wrap-item.is-shown");
 
     if (shownItem) {
-      const allItems = step4.querySelectorAll('.product__wrap-item');
+      const allItems = step4.querySelectorAll(".product__wrap-item");
       allItems.forEach((item) => {
-        item.classList.remove('is-shown', 'is-hidden');
+        item.classList.remove("is-shown", "is-hidden");
       });
       return;
     }
 
-    step4.classList.remove('is-active');
-    step3.classList.add('is-active');
+    step4.classList.remove("is-active");
+    step3.classList.add("is-active");
   });
 });
