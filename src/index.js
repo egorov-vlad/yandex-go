@@ -5,6 +5,7 @@ import {
   getCode,
   getAllVendingProduct,
   setProductActiveById,
+  setCodeUsed,
 } from "./db.js";
 import { sendRequest } from "./vending.js";
 
@@ -24,7 +25,7 @@ const createRandomCode = () => {
 };
 
 //TODO: set default false
-let serviceAvailable = false;
+let serviceAvailable = true;
 
 app.get("/service", (req, res) => {
   res.send({ available: serviceAvailable });
@@ -89,10 +90,15 @@ app.post("/product/:id", async (req, res) => {
 });
 
 app.post("/vending", async (req, res) => {
-  const { command, data } = req.body;
-  console.log(`Command: ${command}, Data: ${JSON.stringify(data)}`);
-  const result = await sendRequest(command, data);
-  res.send({ success: true, data: result });
+  try {
+    const { command, data } = req.body;
+    console.log(`Command: ${command}, Data: ${JSON.stringify(data)}`);
+    const result = await sendRequest(command, data);
+    res.send({ success: true, data: result });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send({ success: false, error: e.message });
+  }
 });
 
 app.listen(PORT, () => {
