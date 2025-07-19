@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  const step3 = document.querySelector(".step--3");
+  const step4 = document.querySelector(".step--4");
+  const step5 = document.querySelector(".step--5");
+  const step6 = document.querySelector(".step--6");
+
   const products = await fetch("/products")
     .then(async (res) => await res.json())
     .catch((err) => alert("Что-то пошло не так"));
@@ -124,9 +129,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   function fillProductByCategory(category) {
     wrapBlocks[category].innerHTML = "";
 
-    console.log("category", category);
-    // console.log("products", products);
-
     products.products[category].forEach((item) => {
       if (item.category === category) {
         const container = createProductItem(item);
@@ -139,48 +141,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     );
 
     productItems.forEach((container) => {
-      const plusBtn = container.querySelector(".btn--plus");
       const submitBtn = container.querySelector(".btn--submit");
 
-      if (container.classList.contains("is-soldout")) {
-        plusBtn.textContent = "Разобрали";
-        plusBtn.classList.remove("is-active");
-        plusBtn.disabled = true;
-        submitBtn.style.display = "none";
-        return;
-      }
-
-      submitBtn.style.display = "none";
-
-      plusBtn.addEventListener("click", () => {
-        productItems.forEach((el) => {
-          if (el.classList.contains("is-soldout")) return;
-
-          el.classList.remove("is-selected", "is-fadeout");
-
-          const elPlus = el.querySelector(".btn--plus");
-          const elSubmit = el.querySelector(".btn--submit");
-
-          elPlus.classList.add("is-active");
-          elPlus.style.display = "inline-block";
-
-          elSubmit.style.display = "none";
-        });
-
-        container.classList.add("is-selected");
-        submitBtn.style.display = "inline-block";
-        plusBtn.style.display = "none";
+      container.addEventListener("click", (e) => {
+        if (e.target.closest(".btn--submit")) return;
+        if (container.classList.contains("is-soldout")) return;
 
         productItems.forEach((el) => {
-          if (el === container || el.classList.contains("is-soldout")) return;
-          el.classList.add("is-fadeout");
+          if (el === container) {
+            el.classList.add("is-shown");
+            el.classList.remove("is-hidden");
+          } else {
+            el.classList.add("is-hidden");
+            el.classList.remove("is-shown");
+          }
         });
       });
 
       submitBtn.addEventListener("click", async () => {
-        const step4 = document.querySelector(".step--4");
-        const step5 = document.querySelector(".step--5");
-        const step6 = document.querySelector(".step--6");
         try {
           step4.classList.remove("is-active");
           step5.classList.add("is-active");
@@ -197,6 +175,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               },
             }),
           });
+
           setTimeout(() => {
             step5.classList.remove("is-active");
             step6.classList.add("is-active");
@@ -235,7 +214,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
-  const step5 = document.querySelector(".step--5");
   const progressBar = step5.querySelector(".progress__bar");
 
   const observer = new MutationObserver(() => {
@@ -250,4 +228,20 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   observer.observe(step5, { attributes: true, attributeFilter: ["class"] });
+
+  const backButton = document.querySelector('.step--4 .step__btn--back');
+  backButton.addEventListener('click', () => {
+    const shownItem = step4.querySelector('.product__wrap-item.is-shown');
+
+    if (shownItem) {
+      const allItems = step4.querySelectorAll('.product__wrap-item');
+      allItems.forEach((item) => {
+        item.classList.remove('is-shown', 'is-hidden');
+      });
+      return;
+    }
+
+    step4.classList.remove('is-active');
+    step3.classList.add('is-active');
+  });
 });

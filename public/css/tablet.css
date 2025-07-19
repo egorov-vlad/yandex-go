@@ -1,504 +1,562 @@
 @font-face {
-    font-family: 'YS Text';
-    src: url('../fonts/YSText-Bold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'YS Text';
+  src: url('../fonts/YSText-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'YS Text';
-    src: url('../fonts/YSText-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'YS Text';
+  src: url('../fonts/YSText-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'YS Text';
-    src: url('../fonts/YSText-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'YS Text';
+  src: url('../fonts/YSText-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'YS Display Cond';
-    src: url('../fonts/YSDisplayCond-Bold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'YS Display Cond';
+  src: url('../fonts/YSDisplayCond-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'YS Display Cond';
-    src: url('../fonts/YSDisplayCond-Black.woff2') format('woff2');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'YS Display Cond';
+  src: url('../fonts/YSDisplayCond-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'YS Display Cond';
-    src: url('../fonts/YSDisplayCond-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'YS Display Cond';
+  src: url('../fonts/YSDisplayCond-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
-    --yellow: #ffea00;
+  --yellow: #ffea00;
 }
 
 * {
-    font-family: 'YS Text';
-    box-sizing: border-box;
+  font-family: 'YS Text';
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    background-color: var(--yellow);
+  margin: 0;
+  background-color: var(--yellow);
 }
 
 .logo__top img {
-    width: 220px;
+  width: 220px;
 }
 
 .title,
 .title * {
-    font-family: 'YS Display Cond';
-    font-weight: 900;
-    font-size: 60px;
-    line-height: 1;
+  font-family: 'YS Display Cond';
+  font-weight: 900;
+  font-size: 60px;
+  line-height: 1;
 }
 
 .title--big {
-    font-size: 80px;
+  font-size: 80px;
 }
 
 .subheading {
-    font-size: 40px;
-    font-weight: 900;
-    font-family: 'YS Display Cond';
+  font-size: 40px;
+  font-weight: 900;
+  font-family: 'YS Display Cond';
 }
 
 .main,
 .locked {
-    min-height: 100vh;
-    display: none;
+  min-height: 100vh;
+  display: none;
 }
 
 .main {
-    background-color: var(--yellow);
-    background: radial-gradient(circle, rgba(255, 234, 0, 1) 26%, rgba(255, 255, 255, 1) 100%);
-    position: relative;
-    margin: 0 auto;
+  background-color: var(--yellow);
+  background: radial-gradient(circle, rgba(255, 234, 0, 1) 26%, rgba(255, 255, 255, 1) 100%);
+  position: relative;
+  margin: 0 auto;
 }
 
 .main.is-active,
 .locked.is-active {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .locked {
-    background-color: black;
-    background-image: url(../img/bg-dark.png);
-    background-size: cover;
-    background-position: center;
+  background-color: black;
+  background-image: url(../img/bg-dark.png);
+  background-size: cover;
+  background-position: center;
 }
 
 .locked .title {
-    color: white;
+  color: white;
 }
 
 .step--1 .title {
-    margin: 0 0 40px;
+  margin: 0 0 40px;
 }
 
 .highlight {
-    color: var(--yellow);
+  color: var(--yellow);
 }
 
 .btn {
-    background-color: black;
-    color: white;
-    border-radius: 20px;
-    display: block;
-    cursor: pointer;
-    padding: 13px 20px;
-    font-weight: 500;
-    max-width: 100%;
-    width: 400px;
-    margin: 0 auto;
-    font-size: 32px;
-    border: 0;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  display: block;
+  cursor: pointer;
+  padding: 13px 20px;
+  font-weight: 500;
+  max-width: 100%;
+  width: 400px;
+  margin: 0 auto;
+  font-size: 32px;
+  border: 0;
 }
 
 .logo__top {
-    text-align: center;
+  text-align: center;
 }
 
 .logo__bottom {
-    max-width: 100%;
-    width: 480px;
-    margin: 0 auto;
+  max-width: 100%;
+  width: 480px;
+  margin: 0 auto;
 }
 
 .no-bg {
-    background: unset;
+  background: unset;
 }
 
 .step {
-    text-align: center;
-    height: 100%;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 35px 45px;
-    display: none;
-    max-width: 640px;
-    margin: 0 auto;
+  text-align: center;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 35px 45px;
+  display: none;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 .step.is-active {
-    display: flex;
+  display: flex;
 }
 
 .locked .step {
-    background-image: url(../img/circle-dark.svg);
+  background-image: url(../img/circle-dark.svg);
 }
 
 .step__circle-button {
-    background: transparent;
-    border: 0;
-    padding: 15px;
-    cursor: pointer;
-    outline: none;
-    background: radial-gradient(circle, rgba(255, 234, 0, 1) 0%, rgba(255, 255, 255, 1) 100%);
-    border-radius: 100px;
-    position: absolute;
-    transition: .3s;
-    font-size: 0;
+  background: transparent;
+  border: 0;
+  padding: 15px;
+  cursor: pointer;
+  outline: none;
+  background: radial-gradient(circle, rgba(255, 234, 0, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  border-radius: 100px;
+  position: absolute;
+  transition: .3s;
+  font-size: 0;
 }
 
 .step__circle-button img {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 .step__circle-button.is-active {
-    background: radial-gradient(circle, rgba(255, 234, 0, 1) 4%, rgba(255, 255, 255, 1) 56%);
+  background: radial-gradient(circle, rgba(255, 234, 0, 1) 4%, rgba(255, 255, 255, 1) 56%);
 }
 
 .step__circle-button:nth-child(1) {
-    top: 4%;
-    left: 25%;
+  top: 4%;
+  left: 25%;
 }
 
 .step__circle-button:nth-child(2) {
-    top: 6%;
-    right: 25%;
+  top: 6%;
+  right: 25%;
 }
 
 .step__circle-button:nth-child(3) {
-    top: 20%;
-    right: 10px;
+  top: 20%;
+  right: 10px;
 }
 
 .step__circle-button:nth-child(4) {
-    bottom: 20%;
-    right: 20px;
+  bottom: 20%;
+  right: 20px;
 }
 
 .step__circle-button:nth-child(5) {
-    bottom: 4%;
-    right: 23%;
+  bottom: 4%;
+  right: 23%;
 }
 
 .step__circle-button:nth-child(6) {
-    bottom: 3%;
-    left: 28%;
+  bottom: 3%;
+  left: 28%;
 }
 
 .step__circle-button:nth-child(7) {
-    bottom: 80px;
-    left: 20px;
+  bottom: 80px;
+  left: 20px;
 }
 
 .step__circle-button:nth-child(8) {
-    top: 23%;
-    left: 10px;
+  top: 23%;
+  left: 10px;
 }
 
 .step__content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
 }
 
 .step__circle {
-    position: absolute;
-    background-image: url(../img/go.svg);
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: calc(100% - 20px);
-    min-height: 50vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  background-image: url(../img/go.svg);
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: calc(100% - 20px);
+  min-height: 50vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .step--4 {
-    background-image: unset;
+  background-image: unset;
+}
+
+.step__btn--back {
+  background-color: transparent;
+  background-image: url(../img/arrow-back.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 75px;
+  height: 75px;
+  display: block;
+  border: 0;
+  outline: none;
+  font-size: 0;
+  margin: 0 auto;
 }
 
 .code {
-    font-size: 60px;
-    border-radius: 20px;
-    background-color: white;
-    font-family: 'YS Display Cond';
-    font-weight: 900;
-    line-height: 1;
-    padding: 7px 40px;
-    margin: 10px auto;
+  font-size: 60px;
+  border-radius: 20px;
+  background-color: white;
+  font-family: 'YS Display Cond';
+  font-weight: 900;
+  line-height: 1;
+  padding: 7px 40px;
+  margin: 10px auto;
 }
 
 .text {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 15px;
 }
 
 .note {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 10px 0 20px;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px 0 20px;
 }
 
 .keyboard.is-hidden {
-    opacity: 0;
-    bottom: -300px;
+  opacity: 0;
+  bottom: -300px;
 }
 
 .keyboard {
-    position: absolute;
-    left: 50%;
-    background: var(--yellow);
-    padding: 20px;
-    border-radius: 20px 20px 0 0;
-    z-index: 5;
-    bottom: 0;
-    width: 100vw;
-    display: flex;
-    gap: 10px;
-    transform: translateY(100%);
-    opacity: 1;
-    transition: .5s;
-    transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  background: var(--yellow);
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
+  z-index: 5;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  gap: 10px;
+  transform: translateY(100%);
+  opacity: 1;
+  transition: .5s;
+  transform: translateX(-50%);
 }
 
 .keyboard__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    justify-content: center;
-    flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .keyboard__action {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex-basis: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-basis: 30%;
 }
 
 .key {
-    font-size: 24px;
-    padding: 15px;
-    border: none;
-    border-radius: 20px;
-    background: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    flex-grow: 1;
+  font-size: 24px;
+  padding: 15px;
+  border: none;
+  border-radius: 20px;
+  background: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  flex-grow: 1;
 }
 
 .key--submit {
-    width: 100%;
-    padding: 15px;
-    background: #000;
-    color: var(--yellow);
-    font-size: 24px;
+  width: 100%;
+  padding: 15px;
+  background: #000;
+  color: var(--yellow);
+  font-size: 24px;
 }
 
 .step__circle-image {
-    position: absolute;
-    width: 90%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .code__input {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    background-color: white;
-    border: 0;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 96px;
-    width: 90%;
-    padding: 20px;
-    font-weight: 900;
-    font-family: 'YS Display Cond';
-    outline: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background-color: white;
+  border: 0;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 96px;
+  width: 90%;
+  padding: 20px;
+  font-weight: 900;
+  font-family: 'YS Display Cond';
+  outline: none;
 }
 
 .btn__wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
 }
 
 .btn__wrap .btn {
-    background-color: white;
-    color: black;
-    padding: 25px 34px;
-    width: 420px;
+  background-color: white;
+  color: black;
+  padding: 25px 34px;
+  width: 420px;
 }
 
 .step__content--choice {
-    display: none;
+  display: none;
 }
 
 .step__content--choice.is-active {
-    display: flex;
+  display: flex;
 }
 
 .product__wrap {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
 }
 
 .product__wrap-item {
-    padding: 10px;
-    background: rgba(255, 255, 255, .5);
-    border-radius: 20px;
+  padding: 10px;
+  background: rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  transition: .3s;
+  position: relative;
+}
+
+.product__wrap-item.is-hidden {
+  display: none;
+}
+
+.product__wrap-item.is-shown {
+  display: block;
+}
+
+.product__wrap-item.is-shown .btn--submit {
+    display: block;
+    opacity: 1;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -95px;
+    font-size: 32px;
+    height: 75px;
 }
 
 .product__wrap-item-name {
-    text-align: left;
-    margin: 12px 0 12px 5px;
-    font-size: 14px;
+  margin: 12px 0 4px;
+  font-size: 24px;
 }
 
-.btn--plus, .btn--submit, .product__btn--soldout {
-    background-color: white;
-    border-radius: 20px;
-    height: 35px;
-    text-align: center;
-    width: 100%;
-    border: 0;
-    font-size: 0;
-    background-image: url(../img/plus.svg);
-    background-size: 14px;
-    background-repeat: no-repeat;
-    background-position: center;
-    box-shadow: 4px 4px rgba(0, 0, 0, .05);
+.product__wrap-item .product__wrap-item-img {
+  width: 280px;
+  height: 320px;
+}
+
+.btn--plus,
+.btn--submit,
+.product__btn--soldout {
+  background-color: white;
+  border-radius: 20px;
+  height: 35px;
+  text-align: center;
+  width: 100%;
+  border: 0;
+  font-size: 0;
+  background-image: url(../img/plus.svg);
+  background-size: 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 4px 4px rgba(0, 0, 0, .05);
 }
 
 .product__wrap-item-img {
-    width: 152px;
-    height: 130px;
+  width: 152px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
 .product__wrap-item-img img {
-        width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .btn--submit {
-    background-color: black;
-    color: white;
-    font-size: 16px;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  opacity: 0;
+  display: none;
+  transition: .3s;
 }
 
-.is-fadeout, .is-soldout {
-    opacity: .5;
+.is-fadeout,
+.is-soldout {
+  opacity: .5;
 }
 
 .product__btn--soldout {
-    display: none;
-    font-size: 16px;
-    background-image: unset;
+  display: none;
+  font-size: 16px;
+  background-image: unset;
+}
+
+.is-soldout {
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .is-soldout .product__btn--soldout {
-    display: inline-block;
+  display: inline-block;
 }
 
 .is-soldout .btn--plus {
-    display: none;
+  display: none;
 }
 
 .progress {
-    width: 100%;
-    height: 24px;
-    background-color: rgba(255, 255, 255, .5);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 20px;
+  width: 100%;
+  height: 24px;
+  background-color: rgba(255, 255, 255, .5);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 20px;
 }
 
 .progress__bar {
-    width: 0;
-    height: 100%;
-    background-color: black;
-    transition: width 5s linear;
-    border-radius: 50px;
+  width: 0;
+  height: 100%;
+  background-color: black;
+  transition: width 5s linear;
+  border-radius: 50px;
 }
 
 .location {
-    text-align: center;
-    margin-top: 60px;
+  text-align: center;
+  margin-top: 60px;
 }
 
-.step--6 .title, .step--locked .title, .step--failed .title {
-    margin-bottom: 0;
+.step--6 .title,
+.step--locked .title,
+.step--failed .title {
+  margin-bottom: 0;
 }
 
-.step--6 .subheading, .step--locked .subheading, .step--failed .subheading {
-    margin-top: 20px;
+.step--6 .subheading,
+.step--locked .subheading,
+.step--failed .subheading {
+  margin-top: 20px;
 }
 
 @media (max-width: 380px) {
-    .step {
-        padding: 25px 35px;
-    }
+  .step {
+    padding: 25px 35px;
+  }
 
-    .title,
-    .title * {
-        font-size: 36px;
-    }
+  .title,
+  .title * {
+    font-size: 36px;
+  }
 
-    .btn {
-        font-size: 24px;
-    }
+  .btn {
+    font-size: 24px;
+  }
 
-    .logo__top img {
-        width: 160px;
-    }
+  .logo__top img {
+    width: 160px;
+  }
 }
