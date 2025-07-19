@@ -440,7 +440,7 @@ body {
   font-size: 24px;
 }
 
-.product__wrap-item .product__wrap-item-img {
+.product__wrap-item.is-shown .product__wrap-item-img {
   width: 280px;
   height: 320px;
 }
