@@ -176,11 +176,17 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
 
       submitBtn.addEventListener("click", async () => {
+        let timeoutId;
         try {
           step4.classList.remove("is-active");
           step5.classList.add("is-active");
 
-          await fetch(`/vending`, {
+          timeoutId = setTimeout(() => {
+            step5.classList.remove("is-active");
+            step6.classList.add("is-active");
+          }, 5000);
+
+          const response = await fetch(`/vending`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -193,11 +199,14 @@ document.addEventListener("DOMContentLoaded", async function () {
             }),
           });
 
-          setTimeout(() => {
+          if (!response.ok) {
+            clearTimeout(timeoutId);
             step5.classList.remove("is-active");
-            step6.classList.add("is-active");
-          }, 5000);
+            stepFailed.classList.add("is-active");
+            return;
+          }
         } catch (err) {
+          clearTimeout(timeoutId);
           step5.classList.remove("is-active");
           stepFailed.classList.add("is-active");
         }
@@ -237,13 +246,18 @@ document.addEventListener("DOMContentLoaded", async function () {
   const progressBar = step5.querySelector(".progress__bar");
 
   const observer = new MutationObserver(() => {
-    if (step5.classList.contains("is-active")) {
-      progressBar.style.width = "0";
-      requestAnimationFrame(() => {
-        progressBar.style.width = "100%";
-      });
-    } else {
-      progressBar.style.width = "0";
+    try {
+      if (step5.classList.contains("is-active")) {
+        progressBar.style.width = "0";
+        requestAnimationFrame(() => {
+          progressBar.style.width = "100%";
+        });
+      } else {
+        progressBar.style.width = "0";
+      }
+    } catch (err) {
+      step5.classList.remove("is-active");
+      stepFailed.classList.add("is-active");
     }
   });
 
