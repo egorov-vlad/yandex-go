@@ -53,7 +53,7 @@ app.post("/code/verify/:code", (req, res) => {
   const foundCode = getCode.get(code);
 
   if (foundCode && !foundCode.used) {
-    setCodeUsed.run(code);
+    // setCodeUsed.run(code);
     return res.send({ success: true });
   }
 
@@ -79,13 +79,13 @@ app.get("/products", (req, res) => {
   res.send({ products: groupedProducts });
 });
 
-app.post("/product/:id", async (req, res) => {
+app.post("/product/:id", (req, res) => {
   const id = req.params.id;
   const { active } = req.body;
 
   console.log(`Product: ${id}, Active: ${active}`);
 
-  setProductActiveById.run(active ? 1 : 0, id);
+  setProductActiveById.run(active ? 1 : 0, active ? 5 : 0, id);
   res.send({ success: true });
 });
 
@@ -95,9 +95,9 @@ app.post("/vending", async (req, res) => {
     console.log(`Command: ${command}, Data: ${JSON.stringify(data)}`);
     const result = await sendRequest(command, data);
     res.send({ success: true, data: result });
-  } catch (e) {
-    console.error(e);
-    res.status(500).send({ success: false, error: e.message });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ success: false });
   }
 });
 

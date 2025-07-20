@@ -1,7 +1,11 @@
 import crypto from "crypto";
 import net from "net";
 import { VENDING_SECRET_KEY, VENDING_PORT, VENDING_HOST } from "./config.js";
-import { getVendingLastCommand, setVendingLastCommand } from "./db.js";
+import {
+  decreaseProductQuantityByProductCode,
+  getVendingLastCommand,
+  setVendingLastCommand,
+} from "./db.js";
 
 export const encrypt = (message) => {
   const key = Buffer.from(VENDING_SECRET_KEY, "hex");
@@ -33,6 +37,8 @@ export const sendRequest = async (command, data) => {
   try {
     const number = getVendingLastCommand.get()?.id || 0 + 1;
     setVendingLastCommand.run();
+
+    decreaseProductQuantityByProductCode.run(data.product_code);
 
     const encrypted = encrypt(
       JSON.stringify({
