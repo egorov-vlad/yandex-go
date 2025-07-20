@@ -409,6 +409,9 @@ body {
 }
 
 .product__wrap-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 10px;
   background: rgba(255, 255, 255, .5);
   border-radius: 20px;
