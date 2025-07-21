@@ -4,10 +4,26 @@ document.addEventListener("DOMContentLoaded", async function () {
   const step5 = document.querySelector(".step--5");
   const step6 = document.querySelector(".step--6");
 
-  const products = await fetch("/products")
-    .then(async (res) => await res.json())
-    //TODO: Move to error page
-    .catch((err) => alert("Что-то пошло не так"));
+  const products = await fetch("/products/active").then(
+    async (res) => await res.json()
+  );
+  //TODO: Move to error page
+  // .catch((err) => alert("Что-то пошло не так"));
+
+  console.log(products.products);
+
+  products.products.forEach((product) => {
+    if (product.active === 0) {
+      console.log(product);
+      const element = document.querySelector(
+        `[data-inner-id="${product.inner_id}"]`
+      );
+      element.classList.add("is-soldout");
+      const btn = element.querySelector(".btn--submit");
+      btn.disabled = true;
+      btn.textContent = "Разобрали";
+    }
+  });
 
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
@@ -116,103 +132,98 @@ document.addEventListener("DOMContentLoaded", async function () {
     food: document.querySelector(".step__content--food"),
   };
 
-  const wrapBlocks = {
-    market: document.querySelector('[data-id="market"]'),
-    lavka: document.querySelector('[data-id="lavka"]'),
-    food: document.querySelector('[data-id="food"]'),
-  };
-  const template = document.querySelector('[data-id="productCardTemplate"]');
+  // const wrapBlocks = {
+  //   market: document.querySelector('[data-id="market"]'),
+  //   lavka: document.querySelector('[data-id="lavka"]'),
+  //   food: document.querySelector('[data-id="food"]'),
+  // };
+  // const template = document.querySelector('[data-id="productCardTemplate"]');
 
-  function createProductItem(data) {
-    const clone = template.content.cloneNode(true);
-    const container = clone.querySelector(".product__wrap-item");
-    const img = container.querySelector(".product__wrap-item-img");
-    const name = container.querySelector(".product__wrap-item-name");
+  // function createProductItem(data) {
+  //   const clone = template.content.cloneNode(true);
+  //   const container = clone.querySelector(".product__wrap-item");
+  //   const img = container.querySelector(".product__wrap-item-img");
+  //   const name = container.querySelector(".product__wrap-item-name");
+  //   const submitBtn = container.querySelector(".btn--submit");
+
+  //   container.dataset.id = data.product_code;
+  //   img.querySelector("img").src = data.imgURL;
+  //   name.innerHTML = data.name;
+
+  //   if (!data.active) {
+  //     submitBtn.disabled = true;
+  //     name.innerHTML = "Разобрали";
+  //     container.classList.add("is-soldout");
+  //   }
+
+  //   return container;
+  // }
+
+  // function fillProductByCategory(category) {
+  //   wrapBlocks[category].innerHTML = "";
+
+  //   products.products[category].forEach((item) => {
+  //     if (item.category === category) {
+  //       const container = createProductItem(item);
+  //       wrapBlocks[category].appendChild(container);
+  //     }
+  //   });
+
+  const productItems = document.querySelectorAll(".product__wrap-item");
+
+  productItems.forEach((container) => {
     const submitBtn = container.querySelector(".btn--submit");
 
-    container.dataset.id = data.product_code;
-    img.querySelector("img").src = data.imgURL;
-    name.innerHTML = data.name;
+    container.addEventListener("click", (e) => {
+      if (e.target.closest(".btn--submit")) return;
+      if (container.classList.contains("is-soldout")) return;
 
-    if (!data.active) {
-      submitBtn.disabled = true;
-      name.innerHTML = "Разобрали";
-      container.classList.add("is-soldout");
-    }
-
-    return container;
-  }
-
-  function fillProductByCategory(category) {
-    wrapBlocks[category].innerHTML = "";
-
-    products.products[category].forEach((item) => {
-      if (item.category === category) {
-        const container = createProductItem(item);
-        wrapBlocks[category].appendChild(container);
-      }
-    });
-
-    const productItems = wrapBlocks[category].querySelectorAll(
-      ".product__wrap-item"
-    );
-
-    productItems.forEach((container) => {
-      const submitBtn = container.querySelector(".btn--submit");
-
-      container.addEventListener("click", (e) => {
-        if (e.target.closest(".btn--submit")) return;
-        if (container.classList.contains("is-soldout")) return;
-
-        productItems.forEach((el) => {
-          if (el === container) {
-            el.classList.add("is-shown");
-            el.classList.remove("is-hidden");
-          } else {
-            el.classList.add("is-hidden");
-            el.classList.remove("is-shown");
-          }
-        });
-      });
-
-      submitBtn.addEventListener("click", async () => {
-        let timeoutId;
-        try {
-          step4.classList.remove("is-active");
-          step5.classList.add("is-active");
-
-          timeoutId = setTimeout(() => {
-            step5.classList.remove("is-active");
-            step6.classList.add("is-active");
-          }, 5000);
-
-          const response = await fetch(`/vending`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              command: "dispense",
-              data: {
-                product_code: container.getAttribute("data-id"),
-              },
-            }),
-          });
-
-          if (!response.ok) {
-            clearTimeout(timeoutId);
-            step5.classList.remove("is-active");
-            stepFailed.classList.add("is-active");
-            return;
-          }
-        } catch (err) {
-          clearTimeout(timeoutId);
-          step5.classList.remove("is-active");
-          stepFailed.classList.add("is-active");
+      productItems.forEach((el) => {
+        if (el === container) {
+          el.classList.add("is-shown");
+          el.classList.remove("is-hidden");
+        } else {
+          el.classList.add("is-hidden");
+          el.classList.remove("is-shown");
         }
       });
     });
-  }
+
+    submitBtn.addEventListener("click", async () => {
+      let timeoutId;
+      try {
+        step4.classList.remove("is-active");
+        step5.classList.add("is-active");
+
+        timeoutId = setTimeout(() => {
+          step5.classList.remove("is-active");
+          step6.classList.add("is-active");
+        }, 5000);
+
+        const response = await fetch(`/vending`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            innerId: container.dataset.innerId,
+          }),
+        });
+
+        if (!response.ok) {
+          clearTimeout(timeoutId);
+          step5.classList.remove("is-active");
+          stepFailed.classList.add("is-active");
+          return;
+        }
+      } catch (err) {
+        clearTimeout(timeoutId);
+        step5.classList.remove("is-active");
+        stepFailed.classList.add("is-active");
+      }
+    });
+  });
+  // }
 
   categoryButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -226,15 +237,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       if (label.includes("Маркета")) {
         contentBlocks.market.classList.add("is-active");
-        fillProductByCategory("market");
+        // fillProductByCategory("market");
         loadingElement.innerHTML = loadingTitles.market;
       } else if (label.includes("Лавки")) {
         contentBlocks.lavka.classList.add("is-active");
-        fillProductByCategory("lavka");
+        // fillProductByCategory("lavka");
         loadingElement.innerHTML = loadingTitles.lavka;
       } else if (label.includes("Еды")) {
         contentBlocks.food.classList.add("is-active");
-        fillProductByCategory("food");
+        // fillProductByCategory("food");
         loadingElement.innerHTML = loadingTitles.food;
       }
 

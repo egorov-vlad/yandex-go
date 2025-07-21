@@ -55,7 +55,7 @@ app.post("/code/verify/:code", (req, res) => {
   const foundCode = getCode.get(code);
 
   if (foundCode && !foundCode.used) {
-    // setCodeUsed.run(code);
+    setCodeUsed.run(code);
     return res.send({ success: true });
   }
 
