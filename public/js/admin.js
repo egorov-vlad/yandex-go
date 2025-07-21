@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .then(async (res) => await res.json())
     .catch((err) => alert("Что-то пошло не так"));
 
-  const categories = Object.keys(products.products);
+  const categories = Object.keys(products);
 
   const productContainer = {
     market: document.querySelector('[data-id="productsMarket"]'),
@@ -29,35 +29,47 @@ document.addEventListener("DOMContentLoaded", async () => {
     food: document.querySelector('[data-id="productsFood"]'),
   };
 
-  const productTemplate = document.querySelector(
+  const productCardTemplate = document.querySelector(
     '[data-id="productCardTemplate"]'
   );
+  const productTemplate = document.querySelector('[data-id="productTemplate"]');
 
   if (products) {
+    console.log(products);
+    console.log(categories);
     categories.forEach((category) => {
       const wrap = productContainer[category];
+      const positions = Object.keys(products[category]);
 
-      products.products[category].forEach((product) => {
-        const container = productTemplate.content.cloneNode(true);
+      positions.forEach((position) => {
+        const container = productCardTemplate.content.cloneNode(true);
+        const positionWrap = container.querySelector(".product__wrap");
         const name = container.querySelector(".product__name");
-        const switchInput = container.querySelector(
-          '[data-id="productSwitch"]'
-        );
+        name.textContent = position;
 
-        name.dataset.id = product.id;
-        name.textContent = product.name;
-        switchInput.checked = product.active;
+        products[category][position].forEach((product) => {
+          const container = productTemplate.content.cloneNode(true);
+          const switchInput = container.querySelector(
+            '[data-id="productSwitch"]'
+          );
+          const productCode = container.querySelector(
+            '[data-id="productCode"]'
+          );
 
-        switchInput.addEventListener("change", async () => {
-          await fetch(`/product/${product.id}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ active: switchInput.checked }),
-          }).catch((err) => alert("Что-то пошло не так"));
+          productCode.textContent = product.product_code;
+          switchInput.checked = product.active;
+
+          switchInput.addEventListener("change", async () => {
+            await fetch(`/product/${product.id}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ active: switchInput.checked }),
+            }).catch((err) => alert("Что-то пошло не так"));
+          });
+          positionWrap.appendChild(container);
         });
-
         wrap.appendChild(container);
       });
     });

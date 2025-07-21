@@ -66,17 +66,21 @@ app.get("/products", (req, res) => {
   if (!products.length) {
     return res.send({ products: [] });
   }
-
   const groupedProducts = products.reduce((acc, current) => {
     const category = current.category;
     if (!acc[category]) {
-      acc[category] = [];
+      acc[category] = {};
     }
-    acc[category].push(current);
+    const name = current.name;
+    if (!acc[category][name]) {
+      acc[category][name] = [];
+    }
+
+    acc[category][name].push(current);
     return acc;
   }, {});
 
-  res.send({ products: groupedProducts });
+  res.send({ ...groupedProducts });
 });
 
 app.post("/product/:id", (req, res) => {

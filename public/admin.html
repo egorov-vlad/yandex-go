@@ -44,8 +44,15 @@
       </div>
 
       <template data-id="productCardTemplate">
-        <div class="product">
+        <div class="product__card">
           <h4 class="product__name">Фрукты</h4>
+          <div class="product__wrap"></div>
+        </div>
+      </template>
+
+      <template data-id="productTemplate">
+        <div class="product">
+          <h5 class="product__code" data-id="productCode">123</h5>
           <label class="switch">
             <input type="checkbox" data-id="productSwitch" />
             <span class="slider round"></span>
