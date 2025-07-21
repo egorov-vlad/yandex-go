@@ -37,8 +37,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (isRestart) {
         nextIndex = 0;
 
+        steps.forEach(step => step.classList.remove("is-active"));
+        steps[nextIndex].classList.add("is-active");
+
         circleButtons.forEach((b) => b.classList.remove("is-active"));
         localStorage.removeItem("activeCircleButtons");
+        return;
       } else {
         const currentIndex = Array.from(steps).indexOf(currentStep);
         nextIndex = currentIndex + 1;
@@ -54,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (steps[nextIndex + 1]) {
               steps[nextIndex + 1].classList.add("is-active");
             }
-          }, 3000);
+          }, 5000);
         }
 
         // Если это шаг с контейнером, запускаем круги
@@ -126,6 +130,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           // Не меняем цвет — он и так станет красным
         } else {
           this.magnetToMainCircle();
+          circle.classList.add('highlight');
           this.changeColor();
         }
       });
@@ -134,18 +139,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     changeColor() {
-      this.element.classList.remove('blue', 'white');
+      // this.element.classList.remove('blue', 'white');
 
-      if (this.color === 'red') {
-        this.color = 'blue';
-        this.element.classList.add('blue');
-      } else if (this.color === 'blue') {
-        this.color = 'white';
-        this.element.classList.add('white');
-      } else {
-        this.color = 'red';
-        // Красный цвет - базовый, классы не нужны
-      }
+      // if (this.color === 'red') {
+      //   this.color = 'blue';
+      //   this.element.classList.add('blue');
+      // } else if (this.color === 'blue') {
+      //   this.color = 'white';
+      //   this.element.classList.add('white');
+      // } else {
+      //   this.color = 'red';
+      //   this.element.classList.add('red');
+      //   // Красный цвет - базовый, классы не нужны
+      // }
     }
 
     magnetToMainCircle() {
@@ -330,7 +336,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       this.stopped = false;
       this.magnetizing = false;
       this.color = 'red';
-      this.element.classList.remove('blue', 'white');
+      this.element.classList.remove('highlight');
       // Задаём случайную скорость
       const angle = Math.random() * 2 * Math.PI;
       this.vx = Math.cos(angle) * this.speed;
@@ -376,7 +382,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     for (let i = 0; i < numCircles; i++) {
-      const radius = 25;
+      const radius = 40;
       let x, y;
       let tries = 0;
       let overlaps;

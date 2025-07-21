@@ -58,11 +58,10 @@
 body {
   margin: 0;
   background-color: var(--yellow);
-  overflow: hidden;
 }
 
 .logo__top img {
-  width: 220px;
+  width: 200px;
 }
 
 .title,
@@ -135,21 +134,34 @@ body {
 }
 
 .step {
-  text-align: center;
-  background-image: url(../img/circle.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  height: 100%;
-  flex-grow: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s, transform 0.4s;
+  pointer-events: none;
+  visibility: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 45px 35px;
+  background-image: url(../img/circle.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
   display: none;
 }
 
 .step.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+  z-index: 1;
   display: flex;
 }
 
@@ -177,46 +189,6 @@ body {
 
 .step__circle-button.is-active {
   background: radial-gradient(circle, rgba(255, 234, 0, 1) 4%, rgba(255, 255, 255, 1) 56%);
-}
-
-.step__circle-button:nth-child(1) {
-  top: 4%;
-  left: 25%;
-}
-
-.step__circle-button:nth-child(2) {
-  top: 6%;
-  right: 25%;
-}
-
-.step__circle-button:nth-child(3) {
-  top: 20%;
-  right: 10px;
-}
-
-.step__circle-button:nth-child(4) {
-  bottom: 20%;
-  right: 20px;
-}
-
-.step__circle-button:nth-child(5) {
-  bottom: 4%;
-  right: 23%;
-}
-
-.step__circle-button:nth-child(6) {
-  bottom: 3%;
-  left: 28%;
-}
-
-.step__circle-button:nth-child(7) {
-  bottom: 80px;
-  left: 20px;
-}
-
-.step__circle-button:nth-child(8) {
-  top: 23%;
-  left: 10px;
 }
 
 .step__content {
@@ -287,7 +259,7 @@ body {
   height: calc(100vh - 340px);
   max-width: 400px;
   max-height: 600px;
-  background-image: url('img/circle.svg');
+  background-image: url(../img/go.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -297,17 +269,6 @@ body {
   pointer-events: none;
   min-width: 300px;
   min-height: 400px;
-}
-
-#container::after {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  border: 2px dashed rgba(255, 0, 0, 0.3);
-  pointer-events: none;
 }
 
 #main-circle {
@@ -328,24 +289,24 @@ body {
   position: absolute;
   border-radius: 50%;
   background-color: #ff6b6b;
-  border: 3px solid #fff;
+  padding: 17px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: background-color 0.3s ease;
   user-select: none;
+  background: radial-gradient(circle, rgba(255, 234, 0, 1) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
-.circle:hover {
+/* .circle:hover {
   transform: scale(1.1);
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
-}
+} */
 
-.circle.blue {
-  background-color: #4ecdc4;
-}
-
-.circle.white {
-  background-color: #ffffff;
+.circle.blue,
+.circle.red,
+.circle.white,
+.circle.highlight {
+  background: radial-gradient(circle, rgba(255, 234, 0, 1) 4%, rgba(255, 255, 255, 1) 56%);
 }
 
 .step--2 .note {
@@ -363,9 +324,18 @@ body {
   pointer-events: auto;
 }
 
+.step--4 .note {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.btn--restart {
+  margin-top: 20px;
+}
+
 @media (max-width: 380px) {
   .step {
-    padding: 25px 35px;
+    padding: 35px 25px;
   }
 
   .title,
