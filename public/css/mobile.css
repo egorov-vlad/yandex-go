@@ -291,6 +291,12 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  min-width: 300px;
+  min-height: 400px;
 }
 
 #container::after {
@@ -348,13 +354,6 @@ body {
 
 .step--2 {
   background-image: none;
-}
-
-#container {
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
 }
 
 .step--2 #container,

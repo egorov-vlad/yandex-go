@@ -56,6 +56,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
           }, 3000);
         }
+
+        // Если это шаг с контейнером, запускаем круги
+        if (steps[nextIndex].classList.contains("step--2")) {
+          setTimeout(() => {
+            createCirclesAndAnimate();
+          }, 50); // небольшой таймаут для корректной отрисовки
+        }
       }
     });
   });
@@ -232,6 +239,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       this.x += this.vx;
       this.y += this.vy;
 
+      // Store the parent dimensions
+      const parentWidth = this.element.parentNode.clientWidth;
+      const parentHeight = this.element.parentNode.clientHeight;
+
       // Ограничение максимальной скорости
       const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
       if (currentSpeed > this.maxSpeed) {
@@ -240,16 +251,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       // Отскок от границ экрана
-      // Bounce on horizontal edges
-      if (this.x - this.radius <= 0 || this.x + this.radius >= window.innerWidth) {
+      if (this.x <= this.radius || this.x >= parentWidth - this.radius) {
         this.vx = -this.vx;
-        this.x = Math.max(this.radius, Math.min(window.innerWidth - this.radius, this.x));
+        this.x = Math.max(this.radius, Math.min(parentWidth - this.radius, this.x));
       }
-
-      // Bounce on vertical edges
-      if (this.y - this.radius <= 0 || this.y + this.radius >= window.innerHeight) {
+      if (this.y <= this.radius || this.y >= parentHeight - this.radius) {
         this.vy = -this.vy;
-        this.y = Math.max(this.radius, Math.min(window.innerHeight - this.radius, this.y));
+        this.y = Math.max(this.radius, Math.min(parentHeight - this.radius, this.y));
       }
 
       // Обновление позиции элемента
@@ -330,7 +338,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  // Создание кружочков
+  // --- КОНЕЦ КЛАССА ---
+
   const circles = [];
   const container = document.getElementById('container');
   const numCircles = 13;
@@ -350,36 +359,56 @@ document.addEventListener("DOMContentLoaded", async function () {
     'img/yandex/zaryad.svg',
   ];
 
-  for (let i = 0; i < numCircles; i++) {
-    const radius = 25;
-    let x, y;
-    let tries = 0;
-    let overlaps;
+  // --- ФУНКЦИЯ СОЗДАНИЯ КРУГОВ И ЗАПУСКА АНИМАЦИИ ---
+  function createCirclesAndAnimate() {
+    // Очищаем контейнер и массив кругов (если нужно)
+    circles.length = 0;
+    container.innerHTML = '';
 
-    do {
-      x = Math.random() * (window.innerWidth - radius * 2) + radius;
-      y = Math.random() * (window.innerHeight - radius * 2) + radius;
-      overlaps = false;
-      for (let j = 0; j < circles.length; j++) {
-        const other = circles[j];
-        const dx = x - other.x;
-        const dy = y - other.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < radius * 2 + 30) { // 4 — запас, можно увеличить/уменьшить
-          overlaps = true;
-          break;
+    // Получаем размеры контейнера
+    const parentWidth = container.clientWidth;
+    const parentHeight = container.clientHeight;
+
+    // Если контейнер всё ещё скрыт — пробуем позже
+    if (parentWidth < 50 || parentHeight < 50) {
+      setTimeout(createCirclesAndAnimate, 100);
+      return;
+    }
+
+    for (let i = 0; i < numCircles; i++) {
+      const radius = 25;
+      let x, y;
+      let tries = 0;
+      let overlaps;
+
+      do {
+        x = Math.random() * (parentWidth - radius * 2) + radius;
+        y = Math.random() * (parentHeight - radius * 2) + radius;
+        overlaps = false;
+        for (let j = 0; j < circles.length; j++) {
+          const other = circles[j];
+          const dx = x - other.x;
+          const dy = y - other.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < radius * 2 + 30) {
+            overlaps = true;
+            break;
+          }
         }
-      }
-      tries++;
-    } while (overlaps && tries < 100);
+        tries++;
+      } while (overlaps && tries < 100);
 
-    const iconPath = iconPaths[i % iconPaths.length];
-    const circle = new Circle(x, y, radius, iconPath);
-    circles.push(circle);
-    container.appendChild(circle.element);
+      const iconPath = iconPaths[i % iconPaths.length];
+      const circle = new Circle(x, y, radius, iconPath);
+      circles.push(circle);
+      container.appendChild(circle.element);
+    }
+
+    // Запуск анимации
+    animate();
   }
 
-  // Анимационный цикл
+  // --- АНИМАЦИОННЫЙ ЦИКЛ ---
   function animate() {
     // Проверка столкновений между всеми парами кружков
     for (let i = 0; i < circles.length; i++) {
@@ -399,22 +428,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     requestAnimationFrame(animate);
   }
 
-  // Обработка изменения размера окна
+  // --- ОБРАБОТКА ИЗМЕНЕНИЯ РАЗМЕРА ОКНА ---
   window.addEventListener('resize', () => {
     circles.forEach(circle => {
-      if (circle.x > window.innerWidth - circle.radius) {
-        circle.x = window.innerWidth - circle.radius;
+      const parentWidth = container.clientWidth;
+      const parentHeight = container.clientHeight;
+      if (circle.x > parentWidth - circle.radius) {
+        circle.x = parentWidth - circle.radius;
       }
-      if (circle.y > window.innerHeight - circle.radius) {
-        circle.y = window.innerHeight - circle.radius;
+      if (circle.y > parentHeight - circle.radius) {
+        circle.y = parentHeight - circle.radius;
       }
     });
   });
 
-  // Запуск анимации
-  animate();
-
-  // Функция для случайного толчка незафиксированным кружкам
+  // --- ФУНКЦИЯ ДЛЯ СЛУЧАЙНОГО ТОЛЧКА ---
   function randomPush() {
     circles.forEach(circle => {
       if (!circle.stopped && !circle.magnetizing) {
@@ -430,6 +458,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Запуск толчка раз в 5 секунд
   setInterval(randomPush, 5000);
 
+  // --- ПРОВЕРКА СТОЛКНОВЕНИЯ С ЦЕНТРАЛЬНЫМ КРУГОМ ---
   function checkCentralCircleCollision(circle) {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
@@ -456,5 +485,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         circle.vy -= 2 * dot * ny;
       }
     }
+  }
+
+  // --- ЕСЛИ КОНТЕЙНЕР ВИДИМ СРАЗУ, МОЖНО ЗАПУСТИТЬ ---
+  if (container.clientWidth > 50 && container.clientHeight > 50) {
+    createCirclesAndAnimate();
   }
 });
