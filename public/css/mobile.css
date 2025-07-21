@@ -55,9 +55,15 @@
   box-sizing: border-box;
 }
 
+html {
+  position: relative;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   background-color: var(--yellow);
+  overflow: auto;
 }
 
 .logo__top img {
@@ -156,6 +162,30 @@ body {
   display: none;
 }
 
+.step--3,
+.step--4 {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+  transition: 0.3s;
+}
+.step--3:not(.is-active),
+.step--4:not(.is-active) {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 0;
+}
+.step--3.is-active,
+.step--4.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  z-index: 2;
+}
+
 .step.is-active {
   opacity: 1;
   transform: translateY(0);
@@ -163,6 +193,50 @@ body {
   visibility: visible;
   z-index: 1;
   display: flex;
+}
+
+.fade-anim {
+  opacity: 0;
+  transition: 1s;
+}
+
+.fadein-anim {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s;
+}
+
+.step.is-active .fadein-anim {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 0.7s cubic-bezier(.4, 0, .2, 1);
+  animation-fill-mode: forwards;
+}
+
+.step.is-active .fade-anim {
+  opacity: 1;
+  animation: fade 0.7s cubic-bezier(.4, 0, .2, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .locked .step {
@@ -208,6 +282,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: transform 0.7s cubic-bezier(.4, 0, .2, 1);
 }
 
 .step--4 {

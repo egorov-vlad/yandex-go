@@ -44,22 +44,44 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
+  function animateMainCircleFLIP() {
+    // Найти .step__circle на step--3 и step--4
+    const oldCircle = document.querySelector('.step--3 .step__circle[data-id="mainCircle"]');
+    const newCircle = document.querySelector('.step--4 .step__circle[data-id="mainCircle"]');
+    if (!oldCircle || !newCircle) return;
+
+    // Получить координаты и размеры
+    const oldRect = oldCircle.getBoundingClientRect();
+    const newRect = newCircle.getBoundingClientRect();
+
+    // Вычислить разницу
+    const dx = oldRect.left - newRect.left;
+    const dy = oldRect.top - newRect.top;
+    const dw = oldRect.width / newRect.width;
+    const dh = oldRect.height / newRect.height;
+
+    // Сброс transition, выставить стартовое положение
+    newCircle.style.transition = 'none';
+    newCircle.style.transformOrigin = 'top left';
+    newCircle.style.transform = `translate(${dx}px, ${dy}px) scale(${dw}, ${dh})`;
+
+    // Запустить анимацию на следующем кадре
+    requestAnimationFrame(() => {
+      newCircle.style.transition = 'transform 0.7s cubic-bezier(.4,0,.2,1)';
+      newCircle.style.transform = '';
+    });
+  }
+
   nextButtons.forEach((btn, index) => {
     btn.addEventListener("click", () => {
       const currentStep = document.querySelector(".step.is-active");
-      currentStep.classList.remove("is-active");
-
       const isRestart = btn.classList.contains("btn--restart");
 
       let nextIndex;
       if (isRestart) {
         nextIndex = 0;
-
         steps.forEach((step) => step.classList.remove("is-active"));
         steps[nextIndex].classList.add("is-active");
-
-        // circleButtons.forEach((b) => b.classList.remove("is-active"));
-        // localStorage.removeItem("activeCircleButtons");
         return;
       } else {
         const currentIndex = Array.from(steps).indexOf(currentStep);
@@ -67,7 +89,23 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       if (steps[nextIndex]) {
+        // --- Не скрываем текущий шаг сразу ---
         steps[nextIndex].classList.add("is-active");
+
+        // FLIP-анимация для step--4
+        if (steps[nextIndex].classList.contains("step--4")) {
+          setTimeout(() => {
+            animateMainCircleFLIP();
+
+            // Скрываем предыдущий шаг только после анимации (0.7s)
+            setTimeout(() => {
+              currentStep.classList.remove("is-active");
+            }, 700);
+          }, 50);
+        } else {
+          // Если не step--4, скрываем сразу
+          currentStep.classList.remove("is-active");
+        }
 
         // автопереход с step--3
         if (steps[nextIndex].classList.contains("step--3")) {
@@ -83,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (steps[nextIndex].classList.contains("step--2")) {
           setTimeout(() => {
             createCirclesAndAnimate();
-          }, 50); // небольшой таймаут для корректной отрисовки
+          }, 50);
         }
       }
     });
