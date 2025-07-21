@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       img.style.pointerEvents = 'none'; // чтобы клик шел по div
       circle.appendChild(img);
 
-      circle.addEventListener('touchstart', () => {
+      circle.addEventListener('click', () => {
         if (this.stopped || this.magnetizing) {
           this.releaseFromMainCircle();
           // Не меняем цвет — он и так станет красным
