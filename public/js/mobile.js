@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function getYandexArchetype() {
     //8. Гуру/более 8 сервисов
-    if (selectedService.length > 8) {
+    if (selectedService.length > 4) {
       return {
         image: 8,
         title: "Гуру",
@@ -109,7 +109,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     //2. Хранитель очага/Продукты+Магазины+Доставка
-    if (selectedService.includes("dostavka") && selectedService.includes("")) {
+    if (
+      selectedService.includes("dostavka") &&
+      selectedService.includes("lavka") &&
+      selectedService.includes("delivery")
+    ) {
       return {
         image: 2,
         title: "Хранитель очага",
@@ -134,6 +138,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         text: "В вашей корзине только лучшие предложения.",
       };
     }
+
     //5. Дирижер улиц/Самокат+Транспорт
     if (
       selectedService.includes("transport") &&
@@ -145,17 +150,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         text: "Не тратите драгоценное время на пробки.",
       };
     }
+
     //6. Созерцатель пути/Межгород+Драйв
-    if (
-      selectedService.includes("drive") &&
-      selectedService.includes("transport")
-    ) {
+    if (selectedService.includes("drive") && selectedService.includes("taxi")) {
       return {
         image: 6,
         title: "Созерцатель пути",
         text: "Открытый к новому исследователь пространств.",
       };
     }
+
     //7. Собиратель историй/Путешествия+Афиша
     if (
       selectedService.includes("afisha") &&
@@ -168,10 +172,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       };
     }
 
+    if (selectedService.length == 1) {
+      return {
+        image: 1,
+        title: "Первооткрыватель",
+        text: "Похоже, вы только в начале пути — откройте для себя все возможности Яндекс Go.",
+      };
+    }
+
     return {
-      image: 1,
-      title: "Первооткрыватель",
-      text: "Похоже, вы только в начале пути — откройте для себя все возможности Яндекс Go.",
+      image: 6,
+      title: "Созерцатель пути",
+      text: "Открытый к новому исследователь пространств.",
     };
   }
 
