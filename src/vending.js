@@ -3,6 +3,7 @@ import net from "net";
 import { VENDING_SECRET_KEY, VENDING_PORT, VENDING_HOST } from "./config.js";
 import {
   decreaseProductQuantityByProductCode,
+  disableProductByProductCode,
   getVendingLastCommand,
   setVendingLastCommand,
 } from "./db.js";
@@ -33,18 +34,22 @@ export const decrypt = (encryptedBase64) => {
   );
 };
 
-export const sendRequest = async (command, data) => {
+export const sendRequest = async ({ product_code }) => {
   try {
     const number = getVendingLastCommand.get()?.id || 0 + 1;
     setVendingLastCommand.run();
 
-    decreaseProductQuantityByProductCode.run(data.product_code);
+    //TODO:move to end of function
+    decreaseProductQuantityByProductCode.run(product_code);
+    disableProductByProductCode.run(product_code);
 
     const encrypted = encrypt(
       JSON.stringify({
         command_number: number,
-        command_code: command,
-        data,
+        command_code: "dispense",
+        data: {
+          product_code: String(product_code),
+        },
       })
     );
 

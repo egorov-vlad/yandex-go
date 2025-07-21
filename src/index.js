@@ -6,6 +6,7 @@ import {
   getAllVendingProduct,
   setProductActiveById,
   setCodeUsed,
+  getProductByInnerId,
 } from "./db.js";
 import { sendRequest } from "./vending.js";
 
@@ -60,6 +61,12 @@ app.post("/code/verify/:code", (req, res) => {
   res.send({ success: false });
 });
 
+// app.get("/products/active", (req, res) => {
+//   const products = getAllVendingProduct.all() || [];
+//   const activeProducts = products.filter((product) => product.active);
+//   res.send({ products: activeProducts });
+// });
+
 app.get("/products", (req, res) => {
   const products = getAllVendingProduct.all() || [];
 
@@ -95,9 +102,14 @@ app.post("/product/:id", (req, res) => {
 
 app.post("/vending", async (req, res) => {
   try {
-    const { command, data } = req.body;
-    console.log(`Command: ${command}, Data: ${JSON.stringify(data)}`);
-    const result = await sendRequest(command, data);
+    const { innerId } = req.body;
+    console.log(`Vending, innerId: ${innerId}`);
+    const product = getProductByInnerId.get(innerId);
+    if (!product) {
+      return res.status(404).send({ success: false });
+    }
+
+    const result = await sendRequest(product);
     res.send({ success: true, data: result });
   } catch (err) {
     console.error(err);
