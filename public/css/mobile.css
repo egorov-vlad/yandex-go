@@ -221,6 +221,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   transition: .3s;
+  max-width: 90vw;
 }
 
 .code {
@@ -231,7 +232,7 @@ body {
   font-weight: 900;
   line-height: 1;
   padding: 7px 40px;
-  margin: 10px auto;
+  margin: 20px auto;
 }
 
 .text {
@@ -356,6 +357,32 @@ body {
   justify-content: flex-end;
 }
 
+.step--3 {
+  background-size: 130%;
+}
+
+.step__result--text {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+}
+
+.step__result--text-8 {
+  max-height: 40px;
+  width: unset;
+}
+
+.step--4 .title {
+  margin: 5px 0 0;
+  font-size: 32px;
+}
+
+.step--4 .text {
+  margin: 10px 0;
+}
+
 @media (max-width: 380px) {
   .step {
     padding: 35px 25px;
@@ -384,5 +411,9 @@ body {
 
   .logo__top img {
     width: 160px;
+  }
+
+  .step__result--text {
+    bottom: 0;
   }
 }
