@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       const centerX = parentWidth / 2;
       const centerY = parentHeight / 2;
-      const bigRadius = 80;
+      const bigRadius = 90;
       const minAngleDist = 2 * Math.asin(this.radius / bigRadius) + 0.05; // минимальный угол между кружками (с запасом)
 
       // 2. Собираем углы уже магнитных кружков
@@ -480,7 +480,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   function checkCentralCircleCollision(circle) {
     const centerX = parentWidth / 2;
     const centerY = parentHeight / 2;
-    const bigRadius = 80;
+    const bigRadius = 90;
 
     // Расстояние от центра до центра кружка
     const dx = circle.x - centerX;

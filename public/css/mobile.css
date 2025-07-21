@@ -252,7 +252,7 @@ body {
   margin: 20px 0 0;
 }
 
-#container {
+.circle__container {
   position: relative;
   overflow: hidden;
   width: calc(100vw - 60px);
@@ -262,7 +262,7 @@ body {
   background-image: url(../img/go.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: 80%;
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -271,7 +271,7 @@ body {
   min-height: 400px;
 }
 
-#main-circle {
+/* #main-circle {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -283,7 +283,7 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 500;
-}
+} */
 
 .circle {
   position: absolute;
@@ -320,8 +320,8 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.step--2 #container,
-.step.step--2.is-active #container {
+.step--2 .circle__container,
+.step.step--2.is-active .circle__container {
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
