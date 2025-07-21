@@ -32,6 +32,13 @@ export const getCode = db.prepare("SELECT * FROM Codes WHERE code = ?");
 
 export const getAllVendingProduct = db.prepare("SELECT * FROM VendingProduct");
 
+export const getAllVendingProductGroupByName = db.prepare(`
+  SELECT inner_id, sum(active) as active
+  FROM VendingProduct
+  GROUP BY name 
+  ORDER BY inner_id ASC
+`);
+
 export const setProductActiveById = db.prepare(
   "UPDATE VendingProduct SET active = ?, quantity = ? WHERE id = ?"
 );

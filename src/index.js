@@ -7,6 +7,7 @@ import {
   setProductActiveById,
   setCodeUsed,
   getProductByInnerId,
+  getAllVendingProductGroupByName,
 } from "./db.js";
 import { sendRequest } from "./vending.js";
 
@@ -61,11 +62,11 @@ app.post("/code/verify/:code", (req, res) => {
   res.send({ success: false });
 });
 
-// app.get("/products/active", (req, res) => {
-//   const products = getAllVendingProduct.all() || [];
-//   const activeProducts = products.filter((product) => product.active);
-//   res.send({ products: activeProducts });
-// });
+app.get("/products/active", (req, res) => {
+  const products = getAllVendingProductGroupByName.all() || [];
+
+  res.send({ products });
+});
 
 app.get("/products", (req, res) => {
   const products = getAllVendingProduct.all() || [];
