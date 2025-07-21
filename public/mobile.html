@@ -2,88 +2,94 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/mobile.css">
-    <title>Yandex</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/mobile.css">
+  <title>Yandex</title>
 </head>
 
 <body>
-    <main class="main is-active">
-        <div class="step step--1 is-active">
-            <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
-            <div class="step__content">
-                <h1 class="title">Узнай свой ID и забери из мега-вендинга то, чего так не хватает здесь и сейчас.</h1>
-                <button class="btn">Начать</button>
-            </div>
-            <img src="img/icon_logos.png" class="logo__bottom" alt="">
-        </div>
-        <div class="step step--2">
-            <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
-            <div class="step__content">
-                <div class="step__circle">
-                    <button class="step__circle-button">
-                        <img src="img/yandex/1.svg" alt="">
-                    </button>
-                    <button class="step__circle-button">
-                        <img src="img/yandex/2.svg" alt="">
-                    </button>
-                    <button class="step__circle-button">
-                        <img src="img/yandex/3.svg" alt="">
-                    </button>
-                    <button class="step__circle-button">
-                        <img src="img/yandex/4.svg" alt="">
-                    </button>
-                    <button class="step__circle-button">
-                        <img src="img/yandex/5.svg" alt="">
-                    </button>
-                    <button class="step__circle-button">
-                        <img src="img/yandex/6.svg" alt="">
-                    </button>
-                    <button class="step__circle-button">
-                        <img src="img/yandex/7.svg" alt="">
-                    </button>
-                    <button class="step__circle-button">
-                        <img src="img/yandex/8.svg" alt="">
-                    </button>
-                </div>
-            </div>
-            <button class="btn" data-id="confirm">Подтвердить</button>
-        </div>
-        <div class="step step--3">
-            <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
-            <div class="step__content">
-                <div class="step__circle">
-                    <img src="img/class/illustration.svg" class="step__result" alt="">
-                </div>
-            </div>
-            <img src="img/icon_logos.png" class="logo__bottom" alt="">
-        </div>
-        <div class="step step--4">
-            <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
-            <div class="step__content">
-                <img src="img/class/illustration.svg" class="step__result--small" alt="">
-                <p class="text">Похоже, вы только в начале пути — откройте для себя все возможности Яндекс Go.</p>
-                <div class="code">0001</div>
-                <p class="note">введите этот код в вендинге и заберите то, что нужно именно вам</p>
-            </div>
-            <button class="btn btn--restart">В начало</button>
-        </div>
-    </main>
-
-    <div class="locked">
-        <div class="step is-active">
-            <div class="logo__top"><img src="img/logo-yellow.svg" alt="Logo"></div>
-            <div class="step__content">
-                <h2 class="title">Приходи утром чтобы <span class="highlight">узнать свой ID</span>, и забери из мега-вендинга то, чего так не хватает здесь и сейчас.</h2>
-                <h3 class="title">Время работы:<br>
-                    <span class="highlight">с 10:00 до 22:00</span>
-                </h3>
-            </div>
-            <img src="img/icon_logos_dark.png" class="logo__bottom" alt="">
-        </div>
+  <main class="main is-active">
+    <div class="step step--1 is-active">
+      <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
+      <div class="step__content">
+        <h1 class="title">Узнай свой ID и забери из мега-вендинга то, чего так не хватает здесь и сейчас.</h1>
+        <button class="btn">Начать</button>
+      </div>
     </div>
-    <script src="js/mobile.js"></script>
+    <div class="step step--2">
+      <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
+      <div class="step__content">
+        <div id="go-bg"></div>
+        <div id="container">
+          <div id="main-circle"></div>
+        </div>
+        <!-- <div class="step__circle">
+          <button class="step__circle-button">
+            <img src="img/yandex/1.svg" alt="">
+          </button>
+          <button class="step__circle-button">
+            <img src="img/yandex/2.svg" alt="">
+          </button>
+          <button class="step__circle-button">
+            <img src="img/yandex/3.svg" alt="">
+          </button>
+          <button class="step__circle-button">
+            <img src="img/yandex/4.svg" alt="">
+          </button>
+          <button class="step__circle-button">
+            <img src="img/yandex/5.svg" alt="">
+          </button>
+          <button class="step__circle-button">
+            <img src="img/yandex/6.svg" alt="">
+          </button>
+          <button class="step__circle-button">
+            <img src="img/yandex/7.svg" alt="">
+          </button>
+          <button class="step__circle-button">
+            <img src="img/yandex/8.svg" alt="">
+          </button>
+        </div> -->
+      </div>
+      <button class="btn" data-id="confirm">Подтвердить</button>
+
+      <p class="note">Выберите сервисы, которыми вы уже пользуетесь в Яндекс Go.</p>
+      <p class="note">Тапните на одну или более иконок.</p>
+    </div>
+    <div class="step step--3">
+      <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
+      <div class="step__content">
+        <div class="step__circle">
+          <img src="img/class/illustration.svg" class="step__result" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="step step--4">
+      <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
+      <div class="step__content">
+        <img src="img/class/illustration.svg" class="step__result--small" alt="">
+        <p class="text">Похоже, вы только в начале пути — откройте для себя все возможности Яндекс Go.</p>
+        <div class="code">0001</div>
+        <p class="note">введите этот код в вендинге и заберите то, что нужно именно вам</p>
+      </div>
+      <button class="btn btn--restart">В начало</button>
+    </div>
+  </main>
+
+  <div class="locked">
+    <div class="step is-active">
+      <div class="logo__top"><img src="img/logo-yellow.svg" alt="Logo"></div>
+      <div class="step__content">
+        <h2 class="title">Приходи утром чтобы <span class="highlight">узнать свой ID</span>, и забери из мега-вендинга
+          то, чего так не хватает здесь и сейчас.</h2>
+        <h3 class="title">Время работы:<br>
+          <span class="highlight">с 10:00 до 22:00</span>
+        </h3>
+      </div>
+      <img src="img/icon_logos_dark.png" class="logo__bottom" alt="">
+    </div>
+  </div>
+  <script src="js/mobile.js"></script>
 </body>
 
 </html>

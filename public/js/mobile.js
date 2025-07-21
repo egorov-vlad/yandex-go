@@ -1,26 +1,26 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  async function checkServiceAvailable() {
-    const serviceAvailable = await fetch("/service")
-      .then((res) => res.json())
-      .then((data) => data.available);
+  // async function checkServiceAvailable() {
+  //   const serviceAvailable = await fetch("/service")
+  //     .then((res) => res.json())
+  //     .then((data) => data.available);
 
-    console.log(`Service available: ${serviceAvailable}`);
+  //   console.log(`Service available: ${serviceAvailable}`);
 
-    const main = document.querySelector(".main");
-    const locked = document.querySelector(".locked");
+  //   const main = document.querySelector(".main");
+  //   const locked = document.querySelector(".locked");
 
-    if (!serviceAvailable) {
-      main.classList.remove("is-active");
-      locked.classList.add("is-active");
-    } else {
-      main.classList.add("is-active");
-      locked.classList.remove("is-active");
-    }
-  }
+  //   if (!serviceAvailable) {
+  //     main.classList.remove("is-active");
+  //     locked.classList.add("is-active");
+  //   } else {
+  //     main.classList.add("is-active");
+  //     locked.classList.remove("is-active");
+  //   }
+  // }
 
-  checkServiceAvailable();
+  // checkServiceAvailable();
 
-  setInterval(checkServiceAvailable, 20000);
+  // setInterval(checkServiceAvailable, 20000);
 
   // step navigation
   const steps = document.querySelectorAll(".step");
@@ -60,25 +60,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
-  // toggle logic for logo
-  const circleButtons = document.querySelectorAll(".step__circle-button");
-
-  circleButtons.forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-      btn.classList.toggle("is-active");
-
-      // save active to localStorage
-      const activeIndexes = Array.from(circleButtons)
-        .map((b, i) => (b.classList.contains("is-active") ? i : null))
-        .filter((i) => i !== null);
-
-      localStorage.setItem(
-        "activeCircleButtons",
-        JSON.stringify(activeIndexes)
-      );
-    });
-  });
-
   const confirmButton = document.querySelector('[data-id="confirm"]');
   const codeInput = document.querySelector(".code");
   confirmButton.addEventListener("click", async () => {
@@ -93,11 +74,387 @@ document.addEventListener("DOMContentLoaded", async function () {
       .then((response) => response.json())
       .catch((err) => alert("Что-то пошло не так"));
 
-  // state from localStorage
-  // const saved = JSON.parse(localStorage.getItem('activeCircleButtons') || '[]');
-  // saved.forEach(i => {
-  //     if (circleButtons[i]) {
-  //         circleButtons[i].classList.add('is-active');
-  //     }
-  // });
+  // предложенный код
+  class Circle {
+    constructor(x, y, radius, iconPath) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.speed = 1.5; // Единая скорость для всех движений
+      this.vx = (Math.random() - 0.5) * this.speed;
+      this.vy = (Math.random() - 0.5) * this.speed;
+      this.maxSpeed = this.speed; // Максимальная скорость
+      this.color = '#FFEA00'; // red, blue, white
+      this.iconPath = iconPath;
+      this.element = this.createElement();
+      this.stopped = false;
+      this.magnetizing = false;
+      this.magnetTarget = null;
+      this.magnetStartTime = null;
+      this.magnetDuration = 1000; // 1 секунда
+      this.startX = null;
+      this.startY = null;
+    }
+
+    createElement() {
+      const circle = document.createElement('div');
+      circle.className = 'circle';
+      circle.style.width = this.radius * 2 + 'px';
+      circle.style.height = this.radius * 2 + 'px';
+      circle.style.left = (this.x - this.radius) + 'px';
+      circle.style.top = (this.y - this.radius) + 'px';
+
+      // Вставляем иконку
+      const img = document.createElement('img');
+      img.src = this.iconPath;
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.borderRadius = '50%';
+      img.style.pointerEvents = 'none'; // чтобы клик шел по div
+      circle.appendChild(img);
+
+      circle.addEventListener('touchstart', () => {
+        if (this.stopped || this.magnetizing) {
+          this.releaseFromMainCircle();
+          // Не меняем цвет — он и так станет красным
+        } else {
+          this.magnetToMainCircle();
+          this.changeColor();
+        }
+      });
+
+      return circle;
+    }
+
+    changeColor() {
+      this.element.classList.remove('blue', 'white');
+
+      if (this.color === 'red') {
+        this.color = 'blue';
+        this.element.classList.add('blue');
+      } else if (this.color === 'blue') {
+        this.color = 'white';
+        this.element.classList.add('white');
+      } else {
+        this.color = 'red';
+        // Красный цвет - базовый, классы не нужны
+      }
+    }
+
+    magnetToMainCircle() {
+      if (this.stopped || this.magnetizing) return;
+
+      // 1. Ограничение на 5 кружков на орбите
+      const stoppedCircles = circles.filter(c => c.stopped && c !== this);
+      if (stoppedCircles.length >= 5) {
+        // "Освобождаем" самый первый магнитный кружок
+        stoppedCircles[0].releaseFromMainCircle();
+      }
+
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const bigRadius = 100;
+      const minAngleDist = 2 * Math.asin(this.radius / bigRadius) + 0.05; // минимальный угол между кружками (с запасом)
+
+      // 2. Собираем углы уже магнитных кружков
+      const takenAngles = [];
+      for (const c of circles) {
+        if (c !== this && c.stopped) {
+          const dx = c.x - centerX;
+          const dy = c.y - centerY;
+          takenAngles.push(Math.atan2(dy, dx));
+        }
+      }
+
+      // 3. Ищем ближайший свободный угол к текущему
+      let baseAngle = Math.atan2(this.y - centerY, this.x - centerX);
+      let found = false;
+      let angle = baseAngle;
+      let step = 0;
+      while (!found && step < 360) {
+        found = true;
+        for (const a of takenAngles) {
+          let diff = Math.abs(angle - a);
+          diff = Math.min(diff, 2 * Math.PI - diff); // учёт перехода через 0
+          if (diff < minAngleDist) {
+            found = false;
+            break;
+          }
+        }
+        if (!found) {
+          // Пробуем следующий угол (по часовой стрелке и против)
+          step++;
+          angle = baseAngle + (step % 2 === 0 ? 1 : -1) * (step * 0.05); // 0.05 радиан ~2.8°
+        }
+      }
+
+      // 4. Вычисляем целевую точку
+      const targetX = centerX + Math.cos(angle) * bigRadius;
+      const targetY = centerY + Math.sin(angle) * bigRadius;
+
+      this.magnetizing = true;
+      this.magnetTarget = { x: targetX, y: targetY };
+      this.magnetStartTime = performance.now();
+      this.startX = this.x;
+      this.startY = this.y;
+    }
+
+    update() {
+      if (this.magnetizing) {
+        const now = performance.now();
+        const elapsed = now - this.magnetStartTime;
+        const t = Math.min(elapsed / this.magnetDuration, 1);
+
+        // Линейная интерполяция
+        this.x = this.startX + (this.magnetTarget.x - this.startX) * t;
+        this.y = this.startY + (this.magnetTarget.y - this.startY) * t;
+
+        // Обновляем позицию DOM-элемента
+        this.element.style.left = (this.x - this.radius) + 'px';
+        this.element.style.top = (this.y - this.radius) + 'px';
+
+        if (t >= 1) {
+          this.x = this.magnetTarget.x;
+          this.y = this.magnetTarget.y;
+          this.vx = 0;
+          this.vy = 0;
+          this.stopped = true;
+          this.magnetizing = false;
+        }
+        return;
+      }
+      if (this.stopped) {
+        this.element.style.left = (this.x - this.radius) + 'px';
+        this.element.style.top = (this.y - this.radius) + 'px';
+        return;
+      }
+      // Обновление позиции
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // Ограничение максимальной скорости
+      const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+      if (currentSpeed > this.maxSpeed) {
+        this.vx = (this.vx / currentSpeed) * this.maxSpeed;
+        this.vy = (this.vy / currentSpeed) * this.maxSpeed;
+      }
+
+      // Отскок от границ экрана
+      // Bounce on horizontal edges
+      if (this.x - this.radius <= 0 || this.x + this.radius >= window.innerWidth) {
+        this.vx = -this.vx;
+        this.x = Math.max(this.radius, Math.min(window.innerWidth - this.radius, this.x));
+      }
+
+      // Bounce on vertical edges
+      if (this.y - this.radius <= 0 || this.y + this.radius >= window.innerHeight) {
+        this.vy = -this.vy;
+        this.y = Math.max(this.radius, Math.min(window.innerHeight - this.radius, this.y));
+      }
+
+      // Обновление позиции элемента
+      this.element.style.left = (this.x - this.radius) + 'px';
+      this.element.style.top = (this.y - this.radius) + 'px';
+    }
+
+    checkCollision(other) {
+      // Если оба статичны — ничего не делаем
+      if (this.stopped && other.stopped) return;
+
+      const dx = other.x - this.x;
+      const dy = other.y - this.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const minDist = this.radius + other.radius + 2;
+
+      if (distance < minDist) {
+        const overlap = 0.5 * (minDist - distance);
+        const nx = dx / distance;
+        const ny = dy / distance;
+
+        // Если один статичен, другой динамичен
+        if (this.stopped && !other.stopped) {
+          // Только other двигается и меняет скорость
+          other.x += overlap * 2 * nx;
+          other.y += overlap * 2 * ny;
+
+          // Отражаем скорость other
+          const dvx = other.vx;
+          const dvy = other.vy;
+          const dot = dvx * nx + dvy * ny;
+          if (dot < 0) {
+            other.vx -= 2 * dot * nx;
+            other.vy -= 2 * dot * ny;
+          }
+        } else if (!this.stopped && other.stopped) {
+          // Только this двигается и меняет скорость
+          this.x -= overlap * 2 * nx;
+          this.y -= overlap * 2 * ny;
+
+          // Отражаем скорость this
+          const dvx = this.vx;
+          const dvy = this.vy;
+          const dot = dvx * nx + dvy * ny;
+          if (dot < 0) {
+            this.vx -= 2 * dot * nx;
+            this.vy -= 2 * dot * ny;
+          }
+        } else {
+          // Оба динамические — обычная коллизия
+          this.x -= overlap * nx;
+          this.y -= overlap * ny;
+          other.x += overlap * nx;
+          other.y += overlap * ny;
+
+          const dvx = this.vx - other.vx;
+          const dvy = this.vy - other.vy;
+          const dot = dvx * nx + dvy * ny;
+          if (dot < 0) {
+            this.vx -= dot * nx;
+            this.vy -= dot * ny;
+            other.vx += dot * nx;
+            other.vy += dot * ny;
+          }
+        }
+      }
+    }
+
+    releaseFromMainCircle() {
+      this.stopped = false;
+      this.magnetizing = false;
+      this.color = 'red';
+      this.element.classList.remove('blue', 'white');
+      // Задаём случайную скорость
+      const angle = Math.random() * 2 * Math.PI;
+      this.vx = Math.cos(angle) * this.speed;
+      this.vy = Math.sin(angle) * this.speed;
+    }
+  }
+
+  // Создание кружочков
+  const circles = [];
+  const container = document.getElementById('container');
+  const numCircles = 13;
+  const iconPaths = [
+    'img/yandex/1.svg',
+    'img/yandex/2.png',
+    'img/yandex/3.svg',
+    'img/yandex/4.svg',
+    'img/yandex/5.svg',
+    'img/yandex/6.svg',
+    'img/yandex/7.svg',
+    'img/yandex/8.svg',
+    'img/yandex/clip-path-group.svg',
+    'img/yandex/drive.svg',
+    'img/yandex/samokaty.svg',
+    'img/yandex/transport.svg',
+    'img/yandex/zaryad.svg',
+  ];
+
+  for (let i = 0; i < numCircles; i++) {
+    const radius = 25;
+    let x, y;
+    let tries = 0;
+    let overlaps;
+
+    do {
+      x = Math.random() * (window.innerWidth - radius * 2) + radius;
+      y = Math.random() * (window.innerHeight - radius * 2) + radius;
+      overlaps = false;
+      for (let j = 0; j < circles.length; j++) {
+        const other = circles[j];
+        const dx = x - other.x;
+        const dy = y - other.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < radius * 2 + 30) { // 4 — запас, можно увеличить/уменьшить
+          overlaps = true;
+          break;
+        }
+      }
+      tries++;
+    } while (overlaps && tries < 100);
+
+    const iconPath = iconPaths[i % iconPaths.length];
+    const circle = new Circle(x, y, radius, iconPath);
+    circles.push(circle);
+    container.appendChild(circle.element);
+  }
+
+  // Анимационный цикл
+  function animate() {
+    // Проверка столкновений между всеми парами кружков
+    for (let i = 0; i < circles.length; i++) {
+      for (let j = i + 1; j < circles.length; j++) {
+        circles[i].checkCollision(circles[j]);
+      }
+    }
+
+    // Обновление позиций всех кружочков
+    circles.forEach(circle => {
+      circle.update();
+      if (!circle.stopped && !circle.magnetizing) {
+        checkCentralCircleCollision(circle);
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  // Обработка изменения размера окна
+  window.addEventListener('resize', () => {
+    circles.forEach(circle => {
+      if (circle.x > window.innerWidth - circle.radius) {
+        circle.x = window.innerWidth - circle.radius;
+      }
+      if (circle.y > window.innerHeight - circle.radius) {
+        circle.y = window.innerHeight - circle.radius;
+      }
+    });
+  });
+
+  // Запуск анимации
+  animate();
+
+  // Функция для случайного толчка незафиксированным кружкам
+  function randomPush() {
+    circles.forEach(circle => {
+      if (!circle.stopped && !circle.magnetizing) {
+        // Случайный угол и сила толчка
+        const angle = Math.random() * 1.5 * Math.PI;
+        const force = 1 + Math.random() * 1.5; // сила толчка (можно подправить)
+        circle.vx += Math.cos(angle) * force;
+        circle.vy += Math.sin(angle) * force;
+      }
+    });
+  }
+
+  // Запуск толчка раз в 5 секунд
+  setInterval(randomPush, 5000);
+
+  function checkCentralCircleCollision(circle) {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const bigRadius = 100;
+
+    // Расстояние от центра до центра кружка
+    const dx = circle.x - centerX;
+    const dy = circle.y - centerY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // Если кружок залетел внутрь центрального круга
+    if (distance < bigRadius + circle.radius) {
+      // Выталкиваем кружок наружу
+      const overlap = bigRadius + circle.radius - distance;
+      const nx = dx / distance;
+      const ny = dy / distance;
+      circle.x += nx * overlap;
+      circle.y += ny * overlap;
+
+      // Отражаем скорость (от центра)
+      const dot = circle.vx * nx + circle.vy * ny;
+      if (dot < 0) {
+        circle.vx -= 2 * dot * nx;
+        circle.vy -= 2 * dot * ny;
+      }
+    }
+  }
 });
