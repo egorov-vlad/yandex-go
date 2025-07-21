@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/mobile.css">
-  <title>Yandex</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/mobile.css" />
+    <title>Yandex</title>
+  </head>
 
 <body>
   <main class="main is-active">
@@ -39,64 +38,100 @@
           <img src="img/class/1-text.png" class="step__result--text" alt="Первооткрыватель">
         </div>
       </div>
-    </div>
-    <div class="step step--4">
-      <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
-      <div class="step__content">
-        <img src="img/class/1.svg" class="step__result--small" alt="">
-        <h2 class="title">Первооткрыватель</h2>
-        <p class="text">Похоже, вы только в начале пути — откройте для себя все возможности Яндекс Go.</p>
+      <div class="step step--3">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <div class="step__circle">
+            <img
+              src="img/class/1.svg"
+              class="step__result"
+              alt=""
+              data-id="archetypeImage"
+            />
+            <img
+              src="img/class/1-text.png"
+              class="step__result--text"
+              alt="Первооткрыватель"
+              data-id="archetypeTitleImg"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="step step--4">
+        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+        <div class="step__content">
+          <img
+            src="img/class/1.svg"
+            class="step__result--small"
+            alt=""
+            data-id="archetypeImage"
+          />
+          <h2 class="title" data-id="archetypeTitle">Первооткрыватель</h2>
+          <p class="text" data-id="archetypeText">
+            Похоже, вы только в начале пути — откройте для себя все возможности
+            Яндекс Go.
+          </p>
 
         <!-- 2 -->
         <!-- <h2 class="title">Хранитель очага</h2>
         <p class="text">Ценитель расслабленного домашнего вайба.</p> -->
 
-        <!-- 3 -->
-        <!-- <h2 class="title">Городской Странник</h2>
+          <!-- 3 -->
+          <!-- <h2 class="title">Городской Странник</h2>
         <p class="text">Вдохновляетесь свободой, которую дарят четыре колеса.</p> -->
 
-        <!-- 4 -->
-        <!-- <h2 class="title">Архитектор стиля</h2>
+          <!-- 4 -->
+          <!-- <h2 class="title">Архитектор стиля</h2>
         <p class="text">В вашей корзине только лучшие предложения.</p> -->
 
-        <!-- 5 -->
-        <!-- <h2 class="title">Дирижер улиц</h2>
+          <!-- 5 -->
+          <!-- <h2 class="title">Дирижер улиц</h2>
         <p class="text">Не тратите драгоценное время на пробки.</p> -->
 
-        <!-- 6 -->
-        <!-- <h2 class="title">Созерцатель пути</h2>
+          <!-- 6 -->
+          <!-- <h2 class="title">Созерцатель пути</h2>
         <p class="text">Открытый к новому исследователь пространств.</p> -->
 
-        <!-- 7 -->
-        <!-- <h2 class="title">Собиратель историй</h2>
+          <!-- 7 -->
+          <!-- <h2 class="title">Собиратель историй</h2>
         <p class="text">Новые места, новые звуки, новые встречи — все становится частью вашей летописи жизни.</p> -->
 
-        <!-- 8 -->
-        <!-- <h2 class="title">Гуру</h2>
+          <!-- 8 -->
+          <!-- <h2 class="title">Гуру</h2>
         <p class="text">Знаток возможностей Яндекс Go.</p> -->
 
-        <div class="code">0001</div>
-        <p class="note">Запомните или сфотографируйте свой код, без него воспользоваться вендингом не получится.</p>
-        <p class="note">Введите этот код в вендинге и заберите то, что нужно именно вам. Например, фонарик от Маркета —
-          чтобы осветить свой путь.</p>
+          <div class="code">0001</div>
+          <p class="note">
+            Запомните или сфотографируйте свой код, без него воспользоваться
+            вендингом не получится.
+          </p>
+          <p class="note">
+            Введите этот код в вендинге и заберите то, что нужно именно вам.
+            Например, фонарик от Маркета — чтобы осветить свой путь.
+          </p>
+        </div>
+        <button class="btn btn--restart">В начало</button>
       </div>
-      <button class="btn btn--restart">В начало</button>
-    </div>
-  </main>
+    </main>
 
-  <div class="locked">
-    <div class="step is-active">
-      <div class="logo__top"><img src="img/logo-yellow.svg" alt="Logo"></div>
-      <div class="step__content">
-        <h2 class="title">Приходите утром, чтобы <span class="highlight">узнать, кто вы в мире Яндекс Go</span>, и
-          забрать из вендинга то, чего вам так не хватает.</h2>
-        <h3 class="title">Время работы:<br>
-          <span class="highlight">с 10:00 до 22:00</span>
-        </h3>
+    <div class="locked">
+      <div class="step is-active">
+        <div class="logo__top">
+          <img src="img/logo-yellow.svg" alt="Logo" />
+        </div>
+        <div class="step__content">
+          <h2 class="title">
+            Приходите утром, чтобы
+            <span class="highlight">узнать, кто вы в мире Яндекс Go</span>, и
+            забрать из вендинга то, чего вам так не хватает.
+          </h2>
+          <h3 class="title">
+            Время работы:<br />
+            <span class="highlight">с 10:00 до 22:00</span>
+          </h3>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="js/mobile.js"></script>
-</body>
-
+    <script src="js/mobile.js"></script>
+  </body>
 </html>

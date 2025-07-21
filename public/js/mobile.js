@@ -28,12 +28,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   let parentWidth = 0;
   let parentHeight = 0;
 
+  const archetype = {
+    image: document.querySelectorAll('[data-id="archetypeImage"]'),
+    title: document.querySelector('[data-id="archetypeTitle"]'),
+    titleImg: document.querySelector('[data-id="archetypeTitleImg"]'),
+    text: document.querySelector('[data-id="archetypeText"]'),
+  };
+
   function updateConfirmButtonVisibility() {
-    const selected = container.querySelectorAll('.circle.highlight');
+    const selected = container.querySelectorAll(".circle.highlight");
     if (selected.length > 0) {
-      confirmButton.classList.add('is-active');
+      confirmButton.classList.add("is-active");
     } else {
-      confirmButton.classList.remove('is-active');
+      confirmButton.classList.remove("is-active");
     }
   }
 
@@ -48,11 +55,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (isRestart) {
         nextIndex = 0;
 
-        steps.forEach(step => step.classList.remove("is-active"));
+        steps.forEach((step) => step.classList.remove("is-active"));
         steps[nextIndex].classList.add("is-active");
 
-        circleButtons.forEach((b) => b.classList.remove("is-active"));
-        localStorage.removeItem("activeCircleButtons");
+        // circleButtons.forEach((b) => b.classList.remove("is-active"));
+        // localStorage.removeItem("activeCircleButtons");
         return;
       } else {
         const currentIndex = Array.from(steps).indexOf(currentStep);
@@ -82,6 +89,86 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
+  function getYandexArchetype() {
+    //8. Гуру/более 8 сервисов
+    if (selectedService.length > 8) {
+      return {
+        image: 8,
+        title: "Гуру",
+        text: "Знаток возможностей Яндекс Go.",
+      };
+    }
+
+    //1. Первооткрыватель/Такси+1 сервис
+    if (selectedService.includes("taxi") && selectedService.length == 2) {
+      return {
+        image: 1,
+        title: "Первооткрыватель",
+        text: "Похоже, вы только в начале пути — откройте для себя все возможности Яндекс Go.",
+      };
+    }
+
+    //2. Хранитель очага/Продукты+Магазины+Доставка
+    if (selectedService.includes("dostavka") && selectedService.includes("")) {
+      return {
+        image: 2,
+        title: "Хранитель очага",
+        text: "Ценитель расслабленного домашнего вайба.",
+      };
+    }
+
+    //3. Городской Странник/Драйв+Мое авто
+    if (selectedService.includes("drive") && selectedService.includes("auto")) {
+      return {
+        image: 3,
+        title: "Городской Странник",
+        text: "Вдохновляетесь свободой, которую дарят четыре колеса.",
+      };
+    }
+
+    //4. Архитектор стиля/Маркет
+    if (selectedService.includes("market")) {
+      return {
+        image: 4,
+        title: "Архитектор стиля",
+        text: "В вашей корзине только лучшие предложения.",
+      };
+    }
+    //5. Дирижер улиц/Самокат+Транспорт
+    if (
+      selectedService.includes("transport") &&
+      selectedService.includes("samokaty")
+    ) {
+      return {
+        image: 5,
+        title: "Дирижер улиц",
+        text: "Не тратите драгоценное время на пробки.",
+      };
+    }
+    //6. Созерцатель пути/Межгород+Драйв
+    if (
+      selectedService.includes("drive") &&
+      selectedService.includes("transport")
+    ) {
+      return {
+        image: 6,
+        title: "Созерцатель пути",
+        text: "Открытый к новому исследователь пространств.",
+      };
+    }
+    //7. Собиратель историй/Путешествия+Афиша
+    if (
+      selectedService.includes("afisha") &&
+      selectedService.includes("travel")
+    ) {
+      return {
+        image: 7,
+        title: "Собиратель историй",
+        text: "Новые места, новые звуки, новые встречи — все становится частью вашей летописи жизни.",
+      };
+    }
+  }
+
   const confirmButton = document.querySelector('[data-id="confirm"]');
   const codeInput = document.querySelector(".code");
   confirmButton.addEventListener("click", async () => {
@@ -89,6 +176,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const { code } = data;
     codeInput.innerHTML = code;
+
+    const { image, title, text } = getYandexArchetype();
+
+    console.log(image, title, text);
+
+    archetype.image.forEach((el) => (el.src = `img/class/${image}.svg`));
+    archetype.titleImg.src = `img/class/${image}-text.png`;
+    archetype.title.innerHTML = title;
+    archetype.text.innerHTML = text;
+
+    selectedService.length = 0;
   });
 
   const fetchNewCode = () =>
@@ -96,9 +194,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       .then((response) => response.json())
       .catch((err) => alert("Что-то пошло не так"));
 
+  const selectedService = [];
   // предложенный код
   class Circle {
-    constructor(x, y, radius, iconPath) {
+    constructor(x, y, radius, iconPath, name) {
       this.x = x;
       this.y = y;
       this.radius = radius;
@@ -106,7 +205,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       this.vx = (Math.random() - 0.5) * this.speed;
       this.vy = (Math.random() - 0.5) * this.speed;
       this.maxSpeed = this.speed; // Максимальная скорость
-      this.color = '#FFEA00'; // red, blue, white
+      this.color = "#FFEA00"; // red, blue, white
       this.iconPath = iconPath;
       this.element = this.createElement();
       this.stopped = false;
@@ -116,35 +215,40 @@ document.addEventListener("DOMContentLoaded", async function () {
       this.magnetDuration = 300; // Длительность магнитного движения в миллисекундах
       this.startX = null;
       this.startY = null;
+      this.name = name;
     }
 
     createElement() {
-      const circle = document.createElement('div');
-      circle.className = 'circle';
-      circle.style.width = this.radius * 2 + 'px';
-      circle.style.height = this.radius * 2 + 'px';
-      circle.style.left = (this.x - this.radius) + 'px';
-      circle.style.top = (this.y - this.radius) + 'px';
+      const circle = document.createElement("div");
+      circle.className = "circle";
+      circle.style.width = this.radius * 2 + "px";
+      circle.style.height = this.radius * 2 + "px";
+      circle.style.left = this.x - this.radius + "px";
+      circle.style.top = this.y - this.radius + "px";
 
       // Вставляем иконку
-      const img = document.createElement('img');
+      const img = document.createElement("img");
       img.src = this.iconPath;
-      img.style.width = '100%';
-      img.style.height = '100%';
-      img.style.borderRadius = '50%';
-      img.style.pointerEvents = 'none'; // чтобы клик шел по div
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.borderRadius = "50%";
+      img.style.pointerEvents = "none"; // чтобы клик шел по div
       circle.appendChild(img);
 
-      circle.addEventListener('click', () => {
+      circle.addEventListener("click", () => {
         if (this.stopped || this.magnetizing) {
           this.releaseFromMainCircle();
+          selectedService.splice(selectedService.indexOf(this.name), 1);
           // Не меняем цвет — он и так станет красным
         } else {
           this.magnetToMainCircle();
-          circle.classList.add('highlight');
-          this.changeColor();
+          circle.classList.add("highlight");
+          selectedService.push(this.name);
+
+          // this.changeColor();
           updateConfirmButtonVisibility();
         }
+        console.log(selectedService);
       });
 
       return circle;
@@ -152,7 +256,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     changeColor() {
       // this.element.classList.remove('blue', 'white');
-
       // if (this.color === 'red') {
       //   this.color = 'blue';
       //   this.element.classList.add('blue');
@@ -170,7 +273,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (this.stopped || this.magnetizing) return;
 
       // 1. Ограничение на 5 кружков на орбите
-      const stoppedCircles = circles.filter(c => c.stopped && c !== this);
+      const stoppedCircles = circles.filter((c) => c.stopped && c !== this);
       if (stoppedCircles.length >= 5) {
         // "Освобождаем" самый первый магнитный кружок
         stoppedCircles[0].releaseFromMainCircle();
@@ -235,8 +338,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         this.y = this.startY + (this.magnetTarget.y - this.startY) * t;
 
         // Обновляем позицию DOM-элемента
-        this.element.style.left = (this.x - this.radius) + 'px';
-        this.element.style.top = (this.y - this.radius) + 'px';
+        this.element.style.left = this.x - this.radius + "px";
+        this.element.style.top = this.y - this.radius + "px";
 
         if (t >= 1) {
           this.x = this.magnetTarget.x;
@@ -249,8 +352,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
       }
       if (this.stopped) {
-        this.element.style.left = (this.x - this.radius) + 'px';
-        this.element.style.top = (this.y - this.radius) + 'px';
+        this.element.style.left = this.x - this.radius + "px";
+        this.element.style.top = this.y - this.radius + "px";
         return;
       }
       // Обновление позиции
@@ -271,16 +374,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       // Отскок от границ экрана
       if (this.x <= this.radius || this.x >= parentWidth - this.radius) {
         this.vx = -this.vx;
-        this.x = Math.max(this.radius, Math.min(parentWidth - this.radius, this.x));
+        this.x = Math.max(
+          this.radius,
+          Math.min(parentWidth - this.radius, this.x)
+        );
       }
       if (this.y <= this.radius || this.y >= parentHeight - this.radius) {
         this.vy = -this.vy;
-        this.y = Math.max(this.radius, Math.min(parentHeight - this.radius, this.y));
+        this.y = Math.max(
+          this.radius,
+          Math.min(parentHeight - this.radius, this.y)
+        );
       }
 
       // Обновление позиции элемента
-      this.element.style.left = (this.x - this.radius) + 'px';
-      this.element.style.top = (this.y - this.radius) + 'px';
+      this.element.style.left = this.x - this.radius + "px";
+      this.element.style.top = this.y - this.radius + "px";
     }
 
     checkCollision(other) {
@@ -347,8 +456,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     releaseFromMainCircle() {
       this.stopped = false;
       this.magnetizing = false;
-      this.color = 'red';
-      this.element.classList.remove('highlight');
+      this.color = "red";
+      this.element.classList.remove("highlight");
       // Задаём случайную скорость
       const angle = Math.random() * 2 * Math.PI;
       this.vx = Math.cos(angle) * this.speed;
@@ -359,29 +468,83 @@ document.addEventListener("DOMContentLoaded", async function () {
   // --- КОНЕЦ КЛАССА ---
 
   const circles = [];
-  const container = document.getElementById('container');
+  const container = document.getElementById("container");
   const numCircles = 13;
-  const iconPaths = [
-    'img/yandex/1.svg',
-    'img/yandex/2.png',
-    'img/yandex/3.svg',
-    'img/yandex/4.svg',
-    'img/yandex/5.svg',
-    'img/yandex/6.svg',
-    'img/yandex/7.svg',
-    'img/yandex/8.svg',
-    'img/yandex/clip-path-group.svg',
-    'img/yandex/drive.svg',
-    'img/yandex/samokaty.svg',
-    'img/yandex/transport.svg',
-    'img/yandex/zaryad.svg',
+  const yandexService = [
+    {
+      name: "auto",
+      icon: "img/yandex/1.svg",
+    },
+    {
+      name: "eats",
+      icon: "img/yandex/2.png",
+    },
+    {
+      name: "travel",
+      icon: "img/yandex/3.svg",
+    },
+    {
+      name: "lavka",
+      icon: "img/yandex/4.svg",
+    },
+    {
+      name: "afisha",
+      icon: "img/yandex/5.svg",
+    },
+    {
+      name: "delivery",
+      icon: "img/yandex/6.svg",
+    },
+    {
+      name: "taxi",
+      icon: "img/yandex/7.svg",
+    },
+    {
+      name: "market",
+      icon: "img/yandex/8.svg",
+    },
+    {
+      name: "dostavka",
+      icon: "img/yandex/clip-path-group.svg",
+    },
+    {
+      name: "drive",
+      icon: "img/yandex/drive.svg",
+    },
+    {
+      name: "samokaty",
+      icon: "img/yandex/samokaty.svg",
+    },
+    {
+      name: "transport",
+      icon: "img/yandex/transport.svg",
+    },
+    {
+      name: "zaryad",
+      icon: "img/yandex/zaryad.svg",
+    },
   ];
+  // const iconPaths = [
+  //   "img/yandex/1.svg",
+  //   "img/yandex/2.png",
+  //   "img/yandex/3.svg",
+  //   "img/yandex/4.svg",
+  //   "img/yandex/5.svg",
+  //   "img/yandex/6.svg",
+  //   "img/yandex/7.svg",
+  //   "img/yandex/8.svg",
+  //   "img/yandex/clip-path-group.svg",
+  //   "img/yandex/drive.svg",
+  //   "img/yandex/samokaty.svg",
+  //   "img/yandex/transport.svg",
+  //   "img/yandex/zaryad.svg",
+  // ];
 
   // --- ФУНКЦИЯ СОЗДАНИЯ КРУГОВ И ЗАПУСКА АНИМАЦИИ ---
   function createCirclesAndAnimate() {
     // Очищаем контейнер и массив кругов (если нужно)
     circles.length = 0;
-    container.innerHTML = '';
+    container.innerHTML = "";
 
     // Получаем размеры контейнера
     parentWidth = container.clientWidth;
@@ -416,8 +579,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         tries++;
       } while (overlaps && tries < 100);
 
-      const iconPath = iconPaths[i % iconPaths.length];
-      const circle = new Circle(x, y, radius, iconPath);
+      const service = yandexService[i % yandexService.length];
+      const circle = new Circle(x, y, radius, service.icon, service.name);
       circles.push(circle);
       container.appendChild(circle.element);
     }
@@ -436,7 +599,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // Обновление позиций всех кружочков
-    circles.forEach(circle => {
+    circles.forEach((circle) => {
       circle.update();
       if (!circle.stopped && !circle.magnetizing) {
         checkCentralCircleCollision(circle);
@@ -447,10 +610,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // --- ОБРАБОТКА ИЗМЕНЕНИЯ РАЗМЕРА ОКНА ---
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     parentWidth = container.clientWidth;
     parentHeight = container.clientHeight;
-    circles.forEach(circle => {
+    circles.forEach((circle) => {
       if (circle.x > parentWidth - circle.radius) {
         circle.x = parentWidth - circle.radius;
       }
@@ -462,7 +625,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // --- ФУНКЦИЯ ДЛЯ СЛУЧАЙНОГО ТОЛЧКА ---
   function randomPush() {
-    circles.forEach(circle => {
+    circles.forEach((circle) => {
       if (!circle.stopped && !circle.magnetizing) {
         // Случайный угол и сила толчка
         const angle = Math.random() * 1.2 * Math.PI;
