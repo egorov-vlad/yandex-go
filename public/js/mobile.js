@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       this.magnetizing = false;
       this.magnetTarget = null;
       this.magnetStartTime = null;
-      this.magnetDuration = 1000; // 1 секунда
+      this.magnetDuration = 300; // Длительность магнитного движения в миллисекундах
       this.startX = null;
       this.startY = null;
     }
