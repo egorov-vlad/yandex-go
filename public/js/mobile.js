@@ -26,6 +26,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
 
+  function updateConfirmButtonVisibility() {
+    const selected = container.querySelectorAll('.circle.highlight');
+    if (selected.length > 0) {
+      confirmButton.classList.add('is-active');
+    } else {
+      confirmButton.classList.remove('is-active');
+    }
+  }
+
   nextButtons.forEach((btn, index) => {
     btn.addEventListener("click", () => {
       const currentStep = document.querySelector(".step.is-active");
@@ -132,6 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           this.magnetToMainCircle();
           circle.classList.add('highlight');
           this.changeColor();
+          updateConfirmButtonVisibility();
         }
       });
 
@@ -453,8 +463,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     circles.forEach(circle => {
       if (!circle.stopped && !circle.magnetizing) {
         // Случайный угол и сила толчка
-        const angle = Math.random() * 1.5 * Math.PI;
-        const force = 1 + Math.random() * 1.5; // сила толчка (можно подправить)
+        const angle = Math.random() * 1.2 * Math.PI;
+        const force = 1 + Math.random() * 1.2; // сила толчка (можно подправить)
         circle.vx += Math.cos(angle) * force;
         circle.vy += Math.sin(angle) * force;
       }
@@ -466,9 +476,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // --- ПРОВЕРКА СТОЛКНОВЕНИЯ С ЦЕНТРАЛЬНЫМ КРУГОМ ---
   function checkCentralCircleCollision(circle) {
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    const bigRadius = 100;
+    const centerX = window.innerWidth / 1.5;
+    const centerY = window.innerHeight / 1.5;
+    const bigRadius = 140;
 
     // Расстояние от центра до центра кружка
     const dx = circle.x - centerX;
@@ -487,8 +497,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       // Отражаем скорость (от центра)
       const dot = circle.vx * nx + circle.vy * ny;
       if (dot < 0) {
-        circle.vx -= 2 * dot * nx;
-        circle.vy -= 2 * dot * ny;
+        circle.vx -= 1.5 * dot * nx;
+        circle.vy -= 1.5 * dot * ny;
       }
     }
   }
