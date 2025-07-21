@@ -1,26 +1,26 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  // async function checkServiceAvailable() {
-  //   const serviceAvailable = await fetch("/service")
-  //     .then((res) => res.json())
-  //     .then((data) => data.available);
+  async function checkServiceAvailable() {
+    const serviceAvailable = await fetch("/service")
+      .then((res) => res.json())
+      .then((data) => data.available);
 
-  //   console.log(`Service available: ${serviceAvailable}`);
+    console.log(`Service available: ${serviceAvailable}`);
 
-  //   const main = document.querySelector(".main");
-  //   const locked = document.querySelector(".locked");
+    const main = document.querySelector(".main");
+    const locked = document.querySelector(".locked");
 
-  //   if (!serviceAvailable) {
-  //     main.classList.remove("is-active");
-  //     locked.classList.add("is-active");
-  //   } else {
-  //     main.classList.add("is-active");
-  //     locked.classList.remove("is-active");
-  //   }
-  // }
+    if (!serviceAvailable) {
+      main.classList.remove("is-active");
+      locked.classList.add("is-active");
+    } else {
+      main.classList.add("is-active");
+      locked.classList.remove("is-active");
+    }
+  }
 
-  // checkServiceAvailable();
+  checkServiceAvailable();
 
-  // setInterval(checkServiceAvailable, 20000);
+  setInterval(checkServiceAvailable, 20000);
 
   // step navigation
   const steps = document.querySelectorAll(".step");
