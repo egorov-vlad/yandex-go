@@ -314,6 +314,7 @@ body {
   opacity: 1;
   transition: .5s;
   transform: translateX(-50%);
+  min-height: 30vh;
 }
 
 .keyboard__grid {
@@ -332,7 +333,7 @@ body {
 }
 
 .key {
-  font-size: 24px;
+  font-size: 36px;
   padding: 15px;
   border: none;
   border-radius: 20px;
@@ -347,7 +348,7 @@ body {
   padding: 15px;
   background: #000;
   color: var(--yellow);
-  font-size: 24px;
+  font-size: 36px;
 }
 
 .step__circle-image {
