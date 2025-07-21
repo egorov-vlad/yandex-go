@@ -167,6 +167,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         text: "Новые места, новые звуки, новые встречи — все становится частью вашей летописи жизни.",
       };
     }
+
+    return {
+      image: 1,
+      title: "Первооткрыватель",
+      text: "Похоже, вы только в начале пути — откройте для себя все возможности Яндекс Go.",
+    };
   }
 
   const confirmButton = document.querySelector('[data-id="confirm"]');
