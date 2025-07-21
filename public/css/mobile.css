@@ -290,7 +290,7 @@ body {
   position: absolute;
   border-radius: 50%;
   background-color: #ff6b6b;
-  padding: 5vw;
+  padding: 3.5vw;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: background-color 0.3s ease;
