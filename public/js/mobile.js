@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   function animateMainCircleFLIP() {
-    // Найти .step__circle на step--3 и step--4
-    const oldCircle = document.querySelector('.step--3 .step__circle[data-id="mainCircle"]');
-    const newCircle = document.querySelector('.step--4 .step__circle[data-id="mainCircle"]');
+    // Найти элементы с data-flip="mainCircle" на обоих шагах
+    const oldCircle = document.querySelector('.step--3.is-active [data-flip="mainCircle"]');
+    const newCircle = document.querySelector('.step--4.is-active [data-flip="mainCircle"]');
     if (!oldCircle || !newCircle) return;
 
     // Получить координаты и размеры
@@ -67,9 +67,33 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Запустить анимацию на следующем кадре
     requestAnimationFrame(() => {
-      newCircle.style.transition = 'transform 0.7s cubic-bezier(.4,0,.2,1)';
+      newCircle.style.transition = 'transform 1s cubic-bezier(.4,0,.2,1)';
       newCircle.style.transform = '';
     });
+  }
+
+  function showStep4Animation() {
+    const part1 = document.querySelector('.step--4 .step__content--part.step__content--1');
+    const part2 = document.querySelector('.step--4 .step__content--part.step__content--2');
+    if (!part1 || !part2) return;
+
+    // Показываем только part1
+    part1.classList.add('is-active');
+    part1.classList.remove('is-hidden');
+    part2.classList.remove('is-active');
+
+    if (part1.classList.contains('is-active')) {
+      part1.parentElement.classList.add('part-1-shown')
+    }
+
+    // Через 500мс скрываем part1 и показываем part2
+    setTimeout(() => {
+      part1.classList.remove('is-active');
+      part1.classList.add('is-hidden');
+      part2.classList.remove('is-hidden');
+      part2.classList.add('is-active');
+      part1.parentElement.classList.remove('part-1-shown')
+    }, 1000);
   }
 
   nextButtons.forEach((btn, index) => {
@@ -91,21 +115,21 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (steps[nextIndex]) {
         // --- Не скрываем текущий шаг сразу ---
         steps[nextIndex].classList.add("is-active");
+        currentStep.classList.remove("is-active");
 
         // FLIP-анимация для step--4
-        if (steps[nextIndex].classList.contains("step--4")) {
-          setTimeout(() => {
-            animateMainCircleFLIP();
-
-            // Скрываем предыдущий шаг только после анимации (0.7s)
-            setTimeout(() => {
-              currentStep.classList.remove("is-active");
-            }, 700);
-          }, 50);
-        } else {
-          // Если не step--4, скрываем сразу
-          currentStep.classList.remove("is-active");
-        }
+        // if (steps[nextIndex].classList.contains("step--4")) {
+        //   setTimeout(() => {
+        //     // showStep4Animation();
+        //     // animateMainCircleFLIP();
+        //     setTimeout(() => {
+        //       currentStep.classList.remove("is-active");
+        //     }, 100);
+        //   }, 100);
+        // } else {
+        //   // Если не step--4, скрываем сразу
+        //   currentStep.classList.remove("is-active");
+        // }
 
         // автопереход с step--3
         if (steps[nextIndex].classList.contains("step--3")) {
@@ -113,6 +137,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             steps[nextIndex].classList.remove("is-active");
             if (steps[nextIndex + 1]) {
               steps[nextIndex + 1].classList.add("is-active");
+
+              if (steps[nextIndex + 1].classList.contains("step--4")) {
+                setTimeout(() => {
+                  showStep4Animation();
+                  // animateMainCircleFLIP();
+                }, 500);
+              }
             }
           }, 5000);
         }
@@ -121,7 +152,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (steps[nextIndex].classList.contains("step--2")) {
           setTimeout(() => {
             createCirclesAndAnimate();
-          }, 50);
+          }, 100);
         }
       }
     });

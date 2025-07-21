@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/mobile.css" />
-    <title>Yandex</title>
-  </head>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/mobile.css" />
+  <title>Yandex</title>
+</head>
 
 <body>
   <main class="main is-active">
     <div class="step step--1 is-active">
       <div class="logo__top"><img src="img/logo.svg" alt="Logo"></div>
       <div class="step__content">
-        <h1 class="title">Узнайте, кто вы в&nbsp;мире Яндекс Go и&nbsp;заберите из вендинга то, чего вам так не&nbsp;хватает</h1>
+        <h1 class="title">Узнайте, кто вы в&nbsp;мире Яндекс Go и&nbsp;заберите из вендинга то, чего вам так
+          не&nbsp;хватает</h1>
         <button class="btn">Начать</button>
       </div>
     </div>
@@ -30,42 +32,37 @@
         <p class="note">Тапните на одну или более иконок.</p>
       </div>
     </div>
-      <div class="step step--3">
-        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
-        <div class="step__content">
-          <div class="step__circle fade-anim" data-id="mainCircle">
-            <img
-              src="img/class/1.svg"
-              class="step__result"
-              data-id="archetypeImage"
-              alt=""
-            />
-            <img
-              src="img/class/1-text.png"
-              class="step__result--text"
-              data-id="archetypeTitleImg"
-              alt="Первооткрыватель"
-            />
-          </div>
+    <div class="step step--3">
+      <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+      <div class="step__content">
+        <div class="step__circle fade-anim">
+          <img src="img/class/1.svg" class="step__result" data-id="archetypeImage" data-flip="mainCircle" alt="" />
+          <img src="img/class/1-text.png" class="step__result--text" data-id="archetypeTitleImg"
+            alt="Первооткрыватель" />
         </div>
       </div>
-      <div class="step step--4">
-        <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
-        <div class="step__content">
-          <img
-            src="img/class/1.svg"
-            class="step__result--small"
-            alt=""
-            data-id="archetypeImage"
-          />
+    </div>
+    <div class="step step--4">
+      <div class="logo__top"><img src="img/logo.svg" alt="Logo" /></div>
+      <div class="step__content part-1-shown">
+        <div class="step__content--part step__content--1 is-active">
+          <div class="step__circle">
+            <img src="img/class/1.svg" class="step__result" data-id="archetypeImage" data-flip="mainCircle" alt="" />
+          </div>
+        </div>
+        <div class="step__content--part step__content--2 is-hidden">
+          <div class="step__circle--small">
+            <img src="img/class/1.svg" class="step__result--small" alt="" data-id="archetypeImage"
+              data-flip="mainCircle" />
+          </div>
           <h2 class="title" data-id="archetypeTitle">Первооткрыватель</h2>
           <p class="text" data-id="archetypeText">
             Похоже, вы только в начале пути — откройте для себя все возможности
             Яндекс Go.
           </p>
 
-        <!-- 2 -->
-        <!-- <h2 class="title">Хранитель очага</h2>
+          <!-- 2 -->
+          <!-- <h2 class="title">Хранитель очага</h2>
         <p class="text">Ценитель расслабленного домашнего вайба.</p> -->
 
           <!-- 3 -->
@@ -102,27 +99,30 @@
             Например, фонарик от Маркета — чтобы осветить свой путь.
           </p>
         </div>
-        <button class="btn btn--restart">В начало</button>
       </div>
-    </main>
+      <button class="btn btn--restart">В начало</button>
+    </div>
+  </main>
 
-    <div class="locked">
-      <div class="step is-active">
-        <div class="logo__top">
-          <img src="img/logo-yellow.svg" alt="Logo" />
-        </div>
-        <div class="step__content">
-          <h2 class="title">
-            Приходите утром, чтобы
-            <span class="highlight">узнать, кто вы в мире Яндекс Go</span>, и&nbsp;забрать из вендинга то, чего вам так не хватает.
-          </h2>
-          <h3 class="title">
-            Время работы:<br />
-            <span class="highlight">с 10:00 до 22:00</span>
-          </h3>
-        </div>
+  <div class="locked">
+    <div class="step is-active">
+      <div class="logo__top">
+        <img src="img/logo-yellow.svg" alt="Logo" />
+      </div>
+      <div class="step__content">
+        <h2 class="title">
+          Приходите утром, чтобы
+          <span class="highlight">узнать, кто вы в мире Яндекс Go</span>, и&nbsp;забрать из вендинга то, чего вам так не
+          хватает.
+        </h2>
+        <h3 class="title">
+          Время работы:<br />
+          <span class="highlight">с 10:00 до 22:00</span>
+        </h3>
       </div>
     </div>
-    <script src="js/mobile.js"></script>
-  </body>
+  </div>
+  <script src="js/mobile.js"></script>
+</body>
+
 </html>
