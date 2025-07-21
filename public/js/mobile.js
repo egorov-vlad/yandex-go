@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   // step navigation
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
+  let parentWidth = 0;
+  let parentHeight = 0;
 
   function updateConfirmButtonVisibility() {
     const selected = container.querySelectorAll('.circle.highlight');
@@ -174,9 +176,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         stoppedCircles[0].releaseFromMainCircle();
       }
 
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const bigRadius = 100;
+      const centerX = parentWidth / 2;
+      const centerY = parentHeight / 2;
+      const bigRadius = 80;
       const minAngleDist = 2 * Math.asin(this.radius / bigRadius) + 0.05; // минимальный угол между кружками (с запасом)
 
       // 2. Собираем углы уже магнитных кружков
@@ -382,8 +384,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     container.innerHTML = '';
 
     // Получаем размеры контейнера
-    const parentWidth = container.clientWidth;
-    const parentHeight = container.clientHeight;
+    parentWidth = container.clientWidth;
+    parentHeight = container.clientHeight;
 
     // Если контейнер всё ещё скрыт — пробуем позже
     if (parentWidth < 50 || parentHeight < 50) {
@@ -446,9 +448,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // --- ОБРАБОТКА ИЗМЕНЕНИЯ РАЗМЕРА ОКНА ---
   window.addEventListener('resize', () => {
+    parentWidth = container.clientWidth;
+    parentHeight = container.clientHeight;
     circles.forEach(circle => {
-      const parentWidth = container.clientWidth;
-      const parentHeight = container.clientHeight;
       if (circle.x > parentWidth - circle.radius) {
         circle.x = parentWidth - circle.radius;
       }
@@ -476,9 +478,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // --- ПРОВЕРКА СТОЛКНОВЕНИЯ С ЦЕНТРАЛЬНЫМ КРУГОМ ---
   function checkCentralCircleCollision(circle) {
-    const centerX = window.innerWidth / 1.5;
-    const centerY = window.innerHeight / 1.5;
-    const bigRadius = 140;
+    const centerX = parentWidth / 2;
+    const centerY = parentHeight / 2;
+    const bigRadius = 80;
 
     // Расстояние от центра до центра кружка
     const dx = circle.x - centerX;
@@ -505,6 +507,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // --- ЕСЛИ КОНТЕЙНЕР ВИДИМ СРАЗУ, МОЖНО ЗАПУСТИТЬ ---
   if (container.clientWidth > 50 && container.clientHeight > 50) {
+    const centerX = parentWidth / 2;
+    const centerY = parentHeight / 2;
     createCirclesAndAnimate();
   }
 });

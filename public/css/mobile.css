@@ -313,8 +313,11 @@ body {
   margin: 0;
 }
 
-.step--2 {
-  background-image: none;
+.step--2 .step__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .step--2 #container,
@@ -341,7 +344,7 @@ body {
   display: inline-block;
 }
 
-.step--2 .btn.is-active ~ p {
+.step--2 .btn.is-active~p {
   display: none;
 }
 
