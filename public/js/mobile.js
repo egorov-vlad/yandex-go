@@ -46,8 +46,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function animateMainCircleFLIP() {
     // Найти элементы с data-flip="mainCircle" на обоих шагах
-    const oldCircle = document.querySelector('.step--3.is-active [data-flip="mainCircle"]');
-    const newCircle = document.querySelector('.step--4.is-active [data-flip="mainCircle"]');
+    const oldCircle = document.querySelector(
+      '.step--3.is-active [data-flip="mainCircle"]'
+    );
+    const newCircle = document.querySelector(
+      '.step--4.is-active [data-flip="mainCircle"]'
+    );
     if (!oldCircle || !newCircle) return;
 
     // Получить координаты и размеры
@@ -61,38 +65,42 @@ document.addEventListener("DOMContentLoaded", async function () {
     const dh = oldRect.height / newRect.height;
 
     // Сброс transition, выставить стартовое положение
-    newCircle.style.transition = 'none';
-    newCircle.style.transformOrigin = 'top left';
+    newCircle.style.transition = "none";
+    newCircle.style.transformOrigin = "top left";
     newCircle.style.transform = `translate(${dx}px, ${dy}px) scale(${dw}, ${dh})`;
 
     // Запустить анимацию на следующем кадре
     requestAnimationFrame(() => {
-      newCircle.style.transition = 'transform 1s cubic-bezier(.4,0,.2,1)';
-      newCircle.style.transform = '';
+      newCircle.style.transition = "transform 1s cubic-bezier(.4,0,.2,1)";
+      newCircle.style.transform = "";
     });
   }
 
   function showStep4Animation() {
-    const part1 = document.querySelector('.step--4 .step__content--part.step__content--1');
-    const part2 = document.querySelector('.step--4 .step__content--part.step__content--2');
+    const part1 = document.querySelector(
+      ".step--4 .step__content--part.step__content--1"
+    );
+    const part2 = document.querySelector(
+      ".step--4 .step__content--part.step__content--2"
+    );
     if (!part1 || !part2) return;
 
     // Показываем только part1
-    part1.classList.add('is-active');
-    part1.classList.remove('is-hidden');
-    part2.classList.remove('is-active');
+    part1.classList.add("is-active");
+    part1.classList.remove("is-hidden");
+    part2.classList.remove("is-active");
 
-    if (part1.classList.contains('is-active')) {
-      part1.parentElement.classList.add('part-1-shown')
+    if (part1.classList.contains("is-active")) {
+      part1.parentElement.classList.add("part-1-shown");
     }
 
     // Через 500мс скрываем part1 и показываем part2
     setTimeout(() => {
-      part1.classList.remove('is-active');
-      part1.classList.add('is-hidden');
-      part2.classList.remove('is-hidden');
-      part2.classList.add('is-active');
-      part1.parentElement.classList.remove('part-1-shown')
+      part1.classList.remove("is-active");
+      part1.classList.add("is-hidden");
+      part2.classList.remove("is-hidden");
+      part2.classList.add("is-active");
+      part1.parentElement.classList.remove("part-1-shown");
     }, 1000);
   }
 
@@ -133,22 +141,21 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // автопереход с step--3
         if (steps[nextIndex].classList.contains("step--3")) {
-          new CircleType(document.querySelector('.step__result--text'))
-          .dir(-1)
-          .radius(145);
+          // new CircleType(document.querySelector(".step__result--text"))
+          //   .dir(-1)
+          //   .radius(145);
 
           setTimeout(() => {
             steps[nextIndex].classList.remove("is-active");
-            if (steps[nextIndex + 1]) {
-              steps[nextIndex + 1].classList.add("is-active");
+            // if (steps[nextIndex + 1]) {
+            steps[nextIndex + 1].classList.add("is-active");
 
-              if (steps[nextIndex + 1].classList.contains("step--4")) {
-                setTimeout(() => {
-                  showStep4Animation();
-                  // animateMainCircleFLIP();
-                }, 500);
-              }
+            if (steps[nextIndex + 1].classList.contains("step--4")) {
+              setTimeout(() => {
+                showStep4Animation();
+              }, 500);
             }
+            // }
           }, 5000);
         }
 
@@ -270,12 +277,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const { image, title, text } = getYandexArchetype();
 
-    console.log(image, title, text);
+    // console.log(image, title, text);
+    const bendElement = document.querySelector(".step__result--text");
 
     archetype.image.forEach((el) => (el.src = `img/class/${image}.svg`));
     archetype.titleImg.src = `img/class/${image}-text.png`;
-    archetype.title.innerHTML = title;
+    archetype.title.innerText = title;
+    bendElement.innerHTML = title;
+    // archetype.title.arialLabel = title;
     archetype.text.innerHTML = text;
+
+    // new CircleType(bendElement).dir(-1).radius(145);
 
     selectedService.length = 0;
   });
@@ -339,7 +351,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           // this.changeColor();
           updateConfirmButtonVisibility();
         }
-        console.log(selectedService);
+        // console.log(selectedService);
       });
 
       return circle;
@@ -367,6 +379,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const stoppedCircles = circles.filter((c) => c.stopped && c !== this);
       if (stoppedCircles.length >= 5) {
         // "Освобождаем" самый первый магнитный кружок
+        selectedService.splice(selectedService.indexOf(this.name), 1);
         stoppedCircles[0].releaseFromMainCircle();
       }
 
