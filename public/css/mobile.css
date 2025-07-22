@@ -171,6 +171,7 @@ body {
   min-height: 100vh;
   z-index: 1;
   transition: 0.3s;
+  background-image: unset;
 }
 
 .step--3:not(.part-1-shown) {
@@ -297,11 +298,12 @@ body {
 
 .step__circle {
   position: absolute;
-  background-image: url(../img/go.svg);
-  background-size: 70%;
+  background-image: url(../img/circle.svg);
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  width: 60vw;
+  width: 80vw;
+  padding: 10vw;
   min-height: 50vh;
   top: 50%;
   left: 50%;
@@ -318,6 +320,10 @@ body {
   transform: translate(-50%, -50%);
   transition: .3s;
   max-width: 90vw;
+}
+
+.step--3 .step__result {
+  max-width: 75%;
 }
 
 .code {
@@ -408,7 +414,8 @@ body {
   pointer-events: auto;
 }
 
-.step--3 .note, .step--4 .note {
+.step--3 .note,
+.step--4 .note {
   margin: 2vw 0;
 }
 
@@ -548,8 +555,17 @@ body {
     transform: translate(-50%, -50%);
   }
 
+  20% {
+    background-size: 100%;
+    width: 80vw;
+    padding: 10vw;
+  }
+
   100% {
     transform: translate(-50%, -90%);
+    background-size: 0%;
+    width: 90vw;
+    padding: 0;
   }
 }
 
