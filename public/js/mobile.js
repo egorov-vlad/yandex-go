@@ -114,6 +114,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         nextIndex = 0;
         steps.forEach((step) => step.classList.remove("is-active"));
         steps[nextIndex].classList.add("is-active");
+        window.document.location.reload();
         return;
       } else {
         const currentIndex = Array.from(steps).indexOf(currentStep);
@@ -269,12 +270,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     const { image, title, text } = getYandexArchetype();
 
     // console.log(image, title, text);
-    const bendElement = document.querySelector(".step__result--text");
+    // const bendElement = document.querySelector(".step__result--text");
 
     archetype.image.forEach((el) => (el.src = `img/class/${image}.svg`));
     archetype.titleImg.src = `img/class/${image}-text.png`;
+    archetype.titleImg.classList.add(`step__result--text-${image}`);
     archetype.title.innerText = title;
-    bendElement.innerHTML = title;
+    // bendElement.innerHTML = title;
     // archetype.title.arialLabel = title;
     archetype.text.innerHTML = text;
 
