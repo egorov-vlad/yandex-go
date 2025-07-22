@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     setTimeout(() => {
       part2.classList.remove("is-hidden");
       part2.classList.add("is-active");
-    }, 5000);
+    }, 2500);
   }
 
   nextButtons.forEach((btn, index) => {
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         steps[nextIndex].classList.add("is-active");
         currentStep.classList.remove("is-active");
 
-        if (steps[nextIndex + 1].classList.contains("step--3")) {
+        if (steps[nextIndex].classList.contains("step--3")) {
           setTimeout(() => {
             showStep4Animation();
           }, 500);
@@ -121,26 +121,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             window.document.location.reload();
           }, 30000);
         }
-
-        // автопереход с step--3
-        // if (steps[nextIndex].classList.contains("step--3")) {
-        //   // new CircleType(document.querySelector(".step__result--text"))
-        //   //   .dir(-1)
-        //   //   .radius(145);
-
-        //   setTimeout(() => {
-        //     steps[nextIndex].classList.remove("is-active");
-        //     // if (steps[nextIndex + 1]) {
-        //     steps[nextIndex + 1].classList.add("is-active");
-
-        //     if (steps[nextIndex + 1].classList.contains("step--4")) {
-        //       setTimeout(() => {
-        //         showStep4Animation();
-        //       }, 500);
-        //     }
-        //     // }
-        //   }, 20000);
-        // }
 
         // Если это шаг с контейнером, запускаем круги
         if (steps[nextIndex].classList.contains("step--2")) {
