@@ -116,6 +116,10 @@ document.addEventListener("DOMContentLoaded", async function () {
           setTimeout(() => {
             showStep4Animation();
           }, 500);
+
+          setTimeout(() => {
+            window.document.location.reload();
+          }, 30000);
         }
 
         // автопереход с step--3
