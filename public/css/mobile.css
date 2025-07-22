@@ -122,13 +122,14 @@ body {
   border-radius: 20px;
   display: block;
   cursor: pointer;
-  padding: 2vw 4vw;
+  padding: 2.5vw 4vw;
   font-weight: 500;
   max-width: 100%;
   width: 100%;
   max-width: calc(100vw - 100px);
   margin: 0 auto;
   font-size: 6vw;
+  border: 0;
 }
 
 .logo__top {
@@ -436,15 +437,17 @@ body {
 
 .step__result--text {
   position: absolute;
-  bottom: -10px;
+  bottom: 3vw;
   left: 50%;
   transform: translateX(-50%);
-  width: 70vw;
+  width: 100%;
+  font-size: 5vw;
+  white-space: nowrap;
 }
 
-.step__result--text-8 {
-  max-height: 7vw;
-  width: unset;
+.step__result--text * {
+  font-weight: 900;
+  font-family: 'YS Display Cond';
 }
 
 .step--4 .title {
@@ -501,10 +504,4 @@ body {
   transition: .3s;
   animation: fade 0.7s cubic-bezier(.4, 0, .2, 1);
   animation-fill-mode: forwards;
-}
-
-@media (max-width: 380px) {
-  .step__result--text {
-    bottom: 0;
-  }
 }

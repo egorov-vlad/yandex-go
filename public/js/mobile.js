@@ -133,6 +133,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // автопереход с step--3
         if (steps[nextIndex].classList.contains("step--3")) {
+          new CircleType(document.querySelector('.step__result--text'))
+          .dir(-1)
+          .radius(145);
+
           setTimeout(() => {
             steps[nextIndex].classList.remove("is-active");
             if (steps[nextIndex + 1]) {
