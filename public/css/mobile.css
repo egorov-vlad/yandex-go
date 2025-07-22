@@ -412,6 +412,10 @@ body {
   margin: 2vw 0;
 }
 
+.step--3 .step__content {
+  min-width: 80vw;
+}
+
 .btn--restart {
   margin-top: 4vw;
 }
@@ -526,15 +530,9 @@ body {
   animation-fill-mode: forwards;
 }
 
-.special-anim {
-  animation: special 4s cubic-bezier(.4, 0, .2, 1) forwards;
-  opacity: 1;
-  transition: .3s;
-}
-
 .special-anim .step__result--text {
   animation: fade .5s cubic-bezier(.4, 0, .2, 1);
-  animation-delay: 3s;
+  animation-delay: 2.5s;
   animation-fill-mode: forwards;
   animation-direction: reverse;
 }
@@ -547,22 +545,18 @@ body {
 
 @keyframes special {
   0% {
-    opacity: 1;
-  }
-
-  75% {
-    opacity: 1;
     transform: translate(-50%, -50%);
   }
 
-  90% {
-    opacity: 1;
-  }
-
   100% {
-    opacity: .5;
     transform: translate(-50%, -90%);
   }
+}
+
+.special-anim {
+  animation: special 1s cubic-bezier(.4, 0, .2, 1) forwards;
+  animation-delay: 3s;
+  transition: .3s;
 }
 
 @keyframes bg {

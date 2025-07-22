@@ -77,34 +77,17 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   function showStep4Animation() {
-    const part1 = document.querySelector(
-      ".step--3 .step__content--part.step__content--1"
-    );
-    const part2 = document.querySelector(
-      ".step--3 .step__content--part.step__content--2"
-    );
-    if (!part1 || !part2) return;
+    const step3 = document.querySelector(".step--3");
+    const circleStep3 = step3.querySelector(".step__circle");
 
-    // Показываем только part1
-    part1.classList.add("is-active");
-    part1.classList.remove("is-hidden");
-    part2.classList.remove("is-active");
+    // запускаем анимацию подъёма
+    circleStep3.classList.add("special-anim");
 
-    if (part1.classList.contains("is-active")) {
-      document.querySelector(".step--3").classList.add("part-1-shown");
-    }
-
-    // Через 500мс скрываем part1 и показываем part2
-
+    // показываем part 2 через 1с
+    const part2 = step3.querySelector(".step__content--2");
     setTimeout(() => {
-      part1.classList.add("special-anim");
-    }, 4000);
-    setTimeout(() => {
-      part1.classList.remove("is-active");
-      part1.classList.add("is-hidden");
       part2.classList.remove("is-hidden");
       part2.classList.add("is-active");
-      document.querySelector(".step--3").classList.remove("part-1-shown");
     }, 5000);
   }
 
