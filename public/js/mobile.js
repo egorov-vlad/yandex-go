@@ -78,10 +78,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function showStep4Animation() {
     const part1 = document.querySelector(
-      ".step--4 .step__content--part.step__content--1"
+      ".step--3 .step__content--part.step__content--1"
     );
     const part2 = document.querySelector(
-      ".step--4 .step__content--part.step__content--2"
+      ".step--3 .step__content--part.step__content--2"
     );
     if (!part1 || !part2) return;
 
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     part2.classList.remove("is-active");
 
     if (part1.classList.contains("is-active")) {
-      part1.parentElement.classList.add("part-1-shown");
+      document.querySelector(".step--3").classList.add("part-1-shown");
     }
 
     // Через 500мс скрываем part1 и показываем part2
@@ -100,8 +100,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       part1.classList.add("is-hidden");
       part2.classList.remove("is-hidden");
       part2.classList.add("is-active");
-      part1.parentElement.classList.remove("part-1-shown");
-    }, 1000);
+      document.querySelector(".step--3").classList.remove("part-1-shown");
+    }, 50000);
   }
 
   nextButtons.forEach((btn, index) => {
@@ -121,43 +121,34 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       if (steps[nextIndex]) {
-        // --- Не скрываем текущий шаг сразу ---
         steps[nextIndex].classList.add("is-active");
         currentStep.classList.remove("is-active");
 
-        // FLIP-анимация для step--4
-        // if (steps[nextIndex].classList.contains("step--4")) {
-        //   setTimeout(() => {
-        //     // showStep4Animation();
-        //     // animateMainCircleFLIP();
-        //     setTimeout(() => {
-        //       currentStep.classList.remove("is-active");
-        //     }, 100);
-        //   }, 100);
-        // } else {
-        //   // Если не step--4, скрываем сразу
-        //   currentStep.classList.remove("is-active");
-        // }
+        if (steps[nextIndex + 1].classList.contains("step--3")) {
+          setTimeout(() => {
+            showStep4Animation();
+          }, 500);
+        }
 
         // автопереход с step--3
-        if (steps[nextIndex].classList.contains("step--3")) {
-          // new CircleType(document.querySelector(".step__result--text"))
-          //   .dir(-1)
-          //   .radius(145);
+        // if (steps[nextIndex].classList.contains("step--3")) {
+        //   // new CircleType(document.querySelector(".step__result--text"))
+        //   //   .dir(-1)
+        //   //   .radius(145);
 
-          setTimeout(() => {
-            steps[nextIndex].classList.remove("is-active");
-            // if (steps[nextIndex + 1]) {
-            steps[nextIndex + 1].classList.add("is-active");
+        //   setTimeout(() => {
+        //     steps[nextIndex].classList.remove("is-active");
+        //     // if (steps[nextIndex + 1]) {
+        //     steps[nextIndex + 1].classList.add("is-active");
 
-            if (steps[nextIndex + 1].classList.contains("step--4")) {
-              setTimeout(() => {
-                showStep4Animation();
-              }, 500);
-            }
-            // }
-          }, 5000);
-        }
+        //     if (steps[nextIndex + 1].classList.contains("step--4")) {
+        //       setTimeout(() => {
+        //         showStep4Animation();
+        //       }, 500);
+        //     }
+        //     // }
+        //   }, 20000);
+        // }
 
         // Если это шаг с контейнером, запускаем круги
         if (steps[nextIndex].classList.contains("step--2")) {

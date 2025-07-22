@@ -173,6 +173,10 @@ body {
   transition: 0.3s;
 }
 
+.step--3:not(.part-1-shown) {
+  background-image: unset;
+}
+
 .step--3.is-active,
 .step--3.is-active+.step {
   display: flex;
@@ -306,10 +310,6 @@ body {
   transition: transform 0.7s cubic-bezier(.4, 0, .2, 1);
 }
 
-.step--4 {
-  background-image: unset;
-}
-
 .step__result {
   width: 100%;
   position: absolute;
@@ -329,6 +329,7 @@ body {
   line-height: 1;
   padding: 2vw 10vw;
   margin: 3.5vw auto;
+  max-width: 60%;
 }
 
 .text {
@@ -374,7 +375,7 @@ body {
   position: absolute;
   border-radius: 50%;
   background-color: var(--yellow);
-  padding: 3.5vw;
+  padding: 3vw;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -437,12 +438,25 @@ body {
 
 .step__result--text {
   position: absolute;
-  bottom: 3vw;
+  bottom: 7vw;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   font-size: 5vw;
   white-space: nowrap;
+  max-width: 20vh;
+}
+
+.step__result--text-2, .step__result--text-7 {
+  bottom: 8vw;
+}
+
+.step__result--text-3, .step__result--text-4, .step__result--text-5, .step__result--text-6 {
+  bottom: 7.5vw;
+}
+
+.step__result--text-8 {
+    max-width: 6vh;
 }
 
 .step__result--text * {
@@ -450,12 +464,14 @@ body {
   font-family: 'YS Display Cond';
 }
 
-.step--4 .title {
+.step--4 .title,
+.step--3 .title {
   margin: 2vw 0 0;
   font-size: 7vw;
 }
 
-.step--4 .text {
+.step--4 .text,
+.step--3 .text {
   margin: 3vw 0;
 }
 
@@ -496,7 +512,7 @@ body {
   display: none;
 }
 
-.part-1-shown {
+.part-1-shown .step__content {
   position: absolute;
   top: 50%;
   left: 50%;
