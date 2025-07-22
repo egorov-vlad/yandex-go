@@ -4,26 +4,28 @@ document.addEventListener("DOMContentLoaded", async function () {
   const step5 = document.querySelector(".step--5");
   const step6 = document.querySelector(".step--6");
 
-  const products = await fetch("/products/active").then(
-    async (res) => await res.json()
-  );
-  //TODO: Move to error page
-  // .catch((err) => alert("Что-то пошло не так"));
+  async function getProduct() {
+    const products = await fetch("/products/active").then(
+      async (res) => await res.json()
+    );
 
-  console.log(products.products);
+    // console.log(products.products);
+    products.products.forEach((product) => {
+      if (product.active === 0) {
+        // console.log(product);
+        const element = document.querySelector(
+          `[data-inner-id="${product.inner_id}"]`
+        );
+        element.classList.add("is-soldout");
+        const btn = element.querySelector(".btn--submit");
+        btn.disabled = true;
+        btn.textContent = "Разобрали";
+      }
+    });
+    return products.products;
+  }
 
-  products.products.forEach((product) => {
-    if (product.active === 0) {
-      console.log(product);
-      const element = document.querySelector(
-        `[data-inner-id="${product.inner_id}"]`
-      );
-      element.classList.add("is-soldout");
-      const btn = element.querySelector(".btn--submit");
-      btn.disabled = true;
-      btn.textContent = "Разобрали";
-    }
-  });
+  await getProduct();
 
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
@@ -226,10 +228,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   // }
 
   categoryButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       const currentStep = document.querySelector(".step.is-active");
       const nextStep = document.querySelector(".step--4");
       const label = btn.textContent.trim();
+
+      await getProduct();
 
       Object.values(contentBlocks).forEach((block) =>
         block.classList.remove("is-active")

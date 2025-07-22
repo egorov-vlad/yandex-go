@@ -127,6 +127,9 @@ document.addEventListener("DOMContentLoaded", async function () {
           setTimeout(() => {
             createCirclesAndAnimate();
           }, 100);
+          setTimeout(() => {
+            window.document.location.reload();
+          }, 30000);
         }
       }
     });
