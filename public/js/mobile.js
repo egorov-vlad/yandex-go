@@ -95,13 +95,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // Через 500мс скрываем part1 и показываем part2
+
+    setTimeout(() => {
+      part1.classList.add("special-anim");
+    }, 4000);
     setTimeout(() => {
       part1.classList.remove("is-active");
       part1.classList.add("is-hidden");
       part2.classList.remove("is-hidden");
       part2.classList.add("is-active");
       document.querySelector(".step--3").classList.remove("part-1-shown");
-    }, 50000);
+    }, 5000);
   }
 
   nextButtons.forEach((btn, index) => {

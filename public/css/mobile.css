@@ -408,7 +408,7 @@ body {
   pointer-events: auto;
 }
 
-.step--4 .note {
+.step--3 .note, .step--4 .note {
   margin: 2vw 0;
 }
 
@@ -447,16 +447,20 @@ body {
   max-width: 20vh;
 }
 
-.step__result--text-2, .step__result--text-7 {
+.step__result--text-2,
+.step__result--text-7 {
   bottom: 8vw;
 }
 
-.step__result--text-3, .step__result--text-4, .step__result--text-5, .step__result--text-6 {
+.step__result--text-3,
+.step__result--text-4,
+.step__result--text-5,
+.step__result--text-6 {
   bottom: 7.5vw;
 }
 
 .step__result--text-8 {
-    max-width: 6vh;
+  max-width: 6vh;
 }
 
 .step__result--text * {
@@ -520,4 +524,57 @@ body {
   transition: .3s;
   animation: fade 0.7s cubic-bezier(.4, 0, .2, 1);
   animation-fill-mode: forwards;
+}
+
+.special-anim {
+  animation: special 4s cubic-bezier(.4, 0, .2, 1) forwards;
+  opacity: 1;
+  transition: .3s;
+}
+
+.special-anim .step__result--text {
+  animation: fade .5s cubic-bezier(.4, 0, .2, 1);
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+  animation-direction: reverse;
+}
+
+.step--3.is-active.part-1-shown {
+  animation: bg .5s cubic-bezier(.4, 0, .2, 1);
+  animation-delay: 2.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes special {
+  0% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: .5;
+    transform: translate(-50%, -90%);
+  }
+}
+
+@keyframes bg {
+  0% {
+    background-image: url(../img/circle.svg);
+  }
+
+  90% {
+    background-image: url(../img/circle.svg);
+  }
+
+  100% {
+    background-image: unset;
+  }
 }
