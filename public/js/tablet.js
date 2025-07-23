@@ -18,8 +18,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         );
         element.classList.add("is-soldout");
         const btn = element.querySelector(".btn--submit");
+        const name = element.querySelector(".product__wrap-item-name");
+        name.textContent = "Разобрали";
         btn.disabled = true;
-        btn.textContent = "Разобрали";
       }
     });
     return products.products;
