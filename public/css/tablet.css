@@ -418,7 +418,7 @@ body {
   border-radius: 20px;
   transition: .3s;
   position: relative;
-  max-width: 22vw;
+  max-width: 30%;
 }
 
 .product__wrap-item.is-hidden {
@@ -436,9 +436,9 @@ body {
   position: absolute;
   width: 100%;
   left: 0;
-  bottom: -10vw;
-  font-size: 4vw;
-  height: 8vw;
+  bottom: -11vw;
+  font-size: 5vw;
+  height: 9vw;
 }
 
 .product__wrap-item-name {
@@ -448,9 +448,14 @@ body {
   font-weight: 500;
 }
 
+.product__wrap-item.is-shown .product__wrap-item-name {
+  font-size: 4vw;
+  min-height: 8vw;
+}
+
 .product__wrap-item-img {
-  width: 20vw;
-  height: 20vw;
+  width: 25vw;
+  height: 25vw;
   overflow: hidden;
   border-radius: 20px;
   background-color: white;
@@ -463,8 +468,8 @@ body {
 }
 
 .product__wrap-item.is-shown .product__wrap-item-img {
-  width: 40vw;
-  height: 40vw;
+  width: 50vw;
+  height: 50vw;
 }
 
 .btn--plus,
@@ -549,6 +554,17 @@ body {
 .step--locked .subheading,
 .step--failed .subheading {
   margin-top: 20px;
+}
+
+.step--4 {
+  background-image: unset;
+  max-width: 95vw;
+  width: 100%;
+}
+
+.step--4 .step__content--choice.is-active {
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 480px) {
