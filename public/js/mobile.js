@@ -58,37 +58,37 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  function animateMainCircleFLIP() {
-    // Найти элементы с data-flip="mainCircle" на обоих шагах
-    const oldCircle = document.querySelector(
-      '.step--3.is-active [data-flip="mainCircle"]'
-    );
-    const newCircle = document.querySelector(
-      '.step--4.is-active [data-flip="mainCircle"]'
-    );
-    if (!oldCircle || !newCircle) return;
+  // function animateMainCircleFLIP() {
+  //   // Найти элементы с data-flip="mainCircle" на обоих шагах
+  //   const oldCircle = document.querySelector(
+  //     '.step--3.is-active [data-flip="mainCircle"]'
+  //   );
+  //   const newCircle = document.querySelector(
+  //     '.step--4.is-active [data-flip="mainCircle"]'
+  //   );
+  //   if (!oldCircle || !newCircle) return;
 
-    // Получить координаты и размеры
-    const oldRect = oldCircle.getBoundingClientRect();
-    const newRect = newCircle.getBoundingClientRect();
+  //   // Получить координаты и размеры
+  //   const oldRect = oldCircle.getBoundingClientRect();
+  //   const newRect = newCircle.getBoundingClientRect();
 
-    // Вычислить разницу
-    const dx = oldRect.left - newRect.left;
-    const dy = oldRect.top - newRect.top;
-    const dw = oldRect.width / newRect.width;
-    const dh = oldRect.height / newRect.height;
+  //   // Вычислить разницу
+  //   const dx = oldRect.left - newRect.left;
+  //   const dy = oldRect.top - newRect.top;
+  //   const dw = oldRect.width / newRect.width;
+  //   const dh = oldRect.height / newRect.height;
 
-    // Сброс transition, выставить стартовое положение
-    newCircle.style.transition = "none";
-    newCircle.style.transformOrigin = "top left";
-    newCircle.style.transform = `translate(${dx}px, ${dy}px) scale(${dw}, ${dh})`;
+  //   // Сброс transition, выставить стартовое положение
+  //   newCircle.style.transition = "none";
+  //   newCircle.style.transformOrigin = "top left";
+  //   newCircle.style.transform = `translate(${dx}px, ${dy}px) scale(${dw}, ${dh})`;
 
-    // Запустить анимацию на следующем кадре
-    requestAnimationFrame(() => {
-      newCircle.style.transition = "transform 1s cubic-bezier(.4,0,.2,1)";
-      newCircle.style.transform = "";
-    });
-  }
+  //   // Запустить анимацию на следующем кадре
+  //   requestAnimationFrame(() => {
+  //     newCircle.style.transition = "transform 1s cubic-bezier(.4,0,.2,1)";
+  //     newCircle.style.transform = "";
+  //   });
+  // }
 
   function showStep4Animation() {
     const step3 = document.querySelector(".step--3");

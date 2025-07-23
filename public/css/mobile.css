@@ -86,7 +86,7 @@ body {
 
 .main {
   background-color: var(--yellow);
-  max-width: 80vw;
+  /* max-width: 80vw; */
   position: relative;
   margin: 0 auto;
 }
@@ -294,6 +294,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: auto;
+  max-width: 80vw;
 }
 
 .step__circle {
@@ -361,7 +362,7 @@ body {
 .circle__container {
   position: relative;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   height: 70vh;
   /* max-width: 400px;
   max-height: 600px; */
@@ -405,6 +406,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 90vw;
 }
 
 .step--2 .circle__container,
@@ -544,11 +546,11 @@ body {
   animation-direction: reverse;
 }
 
-.step--3.is-active.part-1-shown {
+/* .step--3.is-active.part-1-shown {
   animation: bg .5s cubic-bezier(.4, 0, .2, 1);
   animation-delay: 2.5s;
   animation-fill-mode: forwards;
-}
+} */
 
 @keyframes special {
   0% {
@@ -575,7 +577,7 @@ body {
   transition: .3s;
 }
 
-@keyframes bg {
+/* @keyframes bg {
   0% {
     background-image: url(../img/circle.svg);
   }
@@ -587,4 +589,4 @@ body {
   100% {
     background-image: unset;
   }
-}
+} */
