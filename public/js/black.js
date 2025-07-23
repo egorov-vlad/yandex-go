@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (blackScreen) {
       return;
     } else {
-      const redirectPage = new URL(window.document.location).searchParams.get(
-        "redirect"
-      );
-      window.location.replace(`http://localhost:3000/${redirectPage}`);
+      const urlData = new URL(window.document.location);
+      const host = urlData.host;
+      const redirectPage = urlData.searchParams.get("redirect");
+      window.location.replace(`http://${host}/${redirectPage}`);
     }
   }, 20000);
 });

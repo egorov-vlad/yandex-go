@@ -36,8 +36,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).then((res) => res.json());
 
     if (blackScreen) {
+      const host = new URL(window.document.location).host;
       window.location.replace(
-        `http://localhost:3000/black.html?redirect=tablet.html`
+        `http://${host}/black.html?redirect=tablet.html`
       );
     }
   }, 20000);
