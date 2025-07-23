@@ -156,7 +156,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 35px 45px;
+  padding: 45px 35px;
   display: none;
   max-width: 80vw;
   width: 900px;
@@ -442,9 +442,10 @@ body {
 }
 
 .product__wrap-item-name {
-  margin: 3vw 0 1vw;
-  font-size: 5vw;
+  margin: 1.5vw 0 1vw;
+  font-size: 3vw;
   min-height: 7vw;
+  font-weight: 500;
 }
 
 .product__wrap-item-img {
@@ -550,9 +551,15 @@ body {
   margin-top: 20px;
 }
 
+@media (max-width: 480px) {
+  .step {
+    max-width: 95vw;
+  }
+}
+
 @media (max-width: 380px) {
   .step {
-    padding: 25px 35px;
+    padding: 35px 25px;
   }
 
   .title,
