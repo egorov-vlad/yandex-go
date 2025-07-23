@@ -21,6 +21,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   checkServiceAvailable();
 
   setInterval(checkServiceAvailable, 20000);
+  setInterval(async () => {
+    const { blackScreen } = await fetch("/black-screen", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+
+    if (blackScreen) {
+      window.location.replace(
+        `http://localhost:3000/black.html?redirect=mobile.html`
+      );
+    }
+  }, 20000);
 
   // step navigation
   const steps = document.querySelectorAll(".step");

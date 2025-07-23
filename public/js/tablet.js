@@ -27,6 +27,20 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await getProduct();
 
+  setInterval(async () => {
+    const { blackScreen } = await fetch("/black-screen", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+
+    if (blackScreen) {
+      window.location.replace(
+        `http://localhost:3000/black.html?redirect=tablet.html`
+      );
+    }
+  }, 20000);
+
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
 

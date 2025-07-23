@@ -39,10 +39,6 @@ export const sendRequest = async ({ product_code }) => {
     const number = getVendingLastCommand.get()?.id || 0 + 1;
     setVendingLastCommand.run();
 
-    //TODO:move to end of function
-    decreaseProductQuantityByProductCode.run(product_code);
-    disableProductByProductCode.run(product_code);
-
     const encrypted = encrypt(
       JSON.stringify({
         command_number: number,
@@ -71,6 +67,10 @@ export const sendRequest = async ({ product_code }) => {
         reject(err);
       });
     });
+
+    //TODO:move to end of function
+    decreaseProductQuantityByProductCode.run(product_code);
+    disableProductByProductCode.run(product_code);
 
     console.log(`Command #${number}: ${r}`);
 

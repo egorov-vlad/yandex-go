@@ -28,6 +28,7 @@ const createRandomCode = () => {
 
 //TODO: set default false
 let serviceAvailable = true;
+let blackScreen = false;
 
 app.get("/service", (req, res) => {
   res.send({ available: serviceAvailable });
@@ -55,7 +56,7 @@ app.post("/code/verify/:code", (req, res) => {
   const foundCode = getCode.get(code);
 
   if (foundCode && !foundCode.used) {
-    setCodeUsed.run(code);
+    // setCodeUsed.run(code);
     return res.send({ success: true });
   }
 
@@ -116,6 +117,15 @@ app.post("/vending", async (req, res) => {
     console.error(err);
     res.status(500).send({ success: false });
   }
+});
+
+app.get("/black-screen", (req, res) => {
+  res.send({ blackScreen });
+});
+
+app.post("/black-screen", (req, res) => {
+  blackScreen = !blackScreen;
+  res.send({ blackScreen });
 });
 
 app.listen(PORT, () => {
