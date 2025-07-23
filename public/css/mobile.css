@@ -333,8 +333,8 @@ body {
   font-family: 'YS Display Cond';
   font-weight: 900;
   line-height: 1;
-  padding: 2vw 10vw;
-  margin: 3.5vw auto;
+  padding: 1.5vw 5vw;
+  margin: 3vw auto;
   max-width: 60%;
 }
 
@@ -481,13 +481,13 @@ body {
 
 .step--4 .title,
 .step--3 .title {
-  margin: 2vw 0 0;
+  margin: 1.5vw 0 0;
   font-size: 7vw;
 }
 
 .step--4 .text,
 .step--3 .text {
-  margin: 3vw 0;
+  margin: 2.5vw 0;
 }
 
 .step__content--part {
