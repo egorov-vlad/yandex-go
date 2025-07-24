@@ -59,10 +59,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   // function animateMainCircleFLIP() {
   //   // Найти элементы с data-flip="mainCircle" на обоих шагах
   //   const oldCircle = document.querySelector(
-  //     '.step--3.is-active [data-flip="mainCircle"]'
+  //     '.step--4.is-active [data-flip="mainCircle"]'
   //   );
   //   const newCircle = document.querySelector(
-  //     '.step--4.is-active [data-flip="mainCircle"]'
+  //     '.step--5.is-active [data-flip="mainCircle"]'
   //   );
   //   if (!oldCircle || !newCircle) return;
 
@@ -88,15 +88,18 @@ document.addEventListener("DOMContentLoaded", async function () {
   //   });
   // }
 
-  function showStep4Animation() {
-    const step3 = document.querySelector(".step--3");
-    const circleStep3 = step3.querySelector(".step__circle");
+  const step3 = document.querySelector(".step--3");
+  const step4 = document.querySelector(".step--4");
+  const circlestep4 = step4.querySelector(".step__circle");
+  const progressFill = step3.querySelector(".progress-bar__fill");
+
+  function showstep4Animation() {
 
     // запускаем анимацию подъёма
-    circleStep3.classList.add("special-anim");
+    circlestep4.classList.add("special-anim");
 
     // показываем part 2 через 1с
-    const part2 = step3.querySelector(".step__content--2");
+    const part2 = step4.querySelector(".step__content--2");
     setTimeout(() => {
       part2.classList.remove("is-hidden");
       part2.classList.add("is-active");
@@ -124,15 +127,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         steps[nextIndex].classList.add("is-active");
         currentStep.classList.remove("is-active");
 
-        if (steps[nextIndex].classList.contains("step--3")) {
-          setTimeout(() => {
-            showStep4Animation();
-          }, 500);
+        // if (steps[nextIndex].classList.contains("step--4")) {
+        //   setTimeout(() => {
+        //     showstep4Animation();
+        //   }, 500);
 
-          setTimeout(() => {
-            window.document.location.reload();
-          }, 30000);
-        }
+        //   setTimeout(() => {
+        //     window.document.location.reload();
+        //   }, 30000);
+        // }
 
         // Если это шаг с контейнером, запускаем круги
         if (steps[nextIndex].classList.contains("step--2")) {
@@ -141,11 +144,47 @@ document.addEventListener("DOMContentLoaded", async function () {
           }, 100);
           setTimeout(() => {
             window.document.location.reload();
-          }, 30000);
+          }, 60000);
         }
       }
     });
   });
+
+  const step3Observer = new MutationObserver(() => {
+    if (step3.classList.contains("is-active")) {
+      startProgressAndTransition();
+    }
+  });
+
+  step3Observer.observe(step3, { attributes: true, attributeFilter: ["class"] });
+
+  function startProgressAndTransition() {
+    const duration = 15000; // 15 сек
+    const intervalTime = 100;
+    let elapsed = 0;
+
+    const interval = setInterval(() => {
+      elapsed += intervalTime;
+      const percent = Math.min((elapsed / duration) * 100, 100);
+      progressFill.style.width = percent + "%";
+
+      if (elapsed >= duration) {
+        clearInterval(interval);
+        step3.classList.remove("is-active");
+        step4.classList.add("is-active");
+
+        // запуск анимации
+        setTimeout(() => {
+          showstep4Animation();
+        }, 500);
+
+        // авто перезагрузка через 30 сек
+        setTimeout(() => {
+          window.document.location.reload();
+        }, 60000);
+      }
+    }, intervalTime);
+  }
 
   function getYandexArchetype() {
     //8. Гуру/более 8 сервисов

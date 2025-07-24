@@ -74,7 +74,7 @@ body {
 .title * {
   font-family: 'YS Display Cond';
   font-weight: 900;
-  font-size: 9vw;
+  font-size: 8vw;
   line-height: 1;
 }
 
@@ -119,7 +119,7 @@ body {
 .btn {
   background-color: black;
   color: white;
-  border-radius: 20px;
+  border-radius: 4vw;
   display: block;
   cursor: pointer;
   padding: 2.5vw 4vw;
@@ -157,13 +157,13 @@ body {
   background-image: url(../img/circle.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 130%;
+  background-size: 120%;
   text-align: center;
   display: none;
 }
 
-.step--3,
-.step--4 {
+.step--4,
+.step--5 {
   position: absolute;
   top: 0;
   left: 0;
@@ -174,32 +174,32 @@ body {
   background-image: unset;
 }
 
-.step--3:not(.part-1-shown) {
+.step--4:not(.part-1-shown) {
   background-image: unset;
 }
 
-.step--3.is-active,
-.step--3.is-active+.step {
+.step--4.is-active,
+.step--4.is-active+.step {
   display: flex;
 }
 
-.step--3:not(.is-active),
-.step--4:not(.is-active) {
+.step--4:not(.is-active),
+.step--5:not(.is-active) {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
   z-index: 0;
 }
 
-.step--3.is-active,
-.step--4.is-active {
+.step--4.is-active,
+.step--5.is-active {
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
   z-index: 1;
 }
 
-.step--4.is-active {
+.step--5.is-active {
   z-index: 2;
 }
 
@@ -323,7 +323,7 @@ body {
   max-width: 90vw;
 }
 
-.step--3 .step__result {
+.step--4 .step__result {
   max-width: 75%;
 }
 
@@ -416,12 +416,12 @@ body {
   pointer-events: auto;
 }
 
-.step--3 .note,
-.step--4 .note {
+.step--4 .note,
+.step--5 .note {
   margin: 2vw 0;
 }
 
-.step--3 .step__content {
+.step--4 .step__content {
   min-width: 80vw;
 }
 
@@ -481,14 +481,14 @@ body {
   font-family: 'YS Display Cond';
 }
 
-.step--4 .title,
-.step--3 .title {
+.step--5 .title,
+.step--4 .title {
   margin: 1.5vw 0 0;
   font-size: 7vw;
 }
 
-.step--4 .text,
-.step--3 .text {
+.step--5 .text,
+.step--4 .text {
   margin: 2.5vw 0;
 }
 
@@ -546,7 +546,7 @@ body {
   animation-direction: reverse;
 }
 
-/* .step--3.is-active.part-1-shown {
+/* .step--4.is-active.part-1-shown {
   animation: bg .5s cubic-bezier(.4, 0, .2, 1);
   animation-delay: 2.5s;
   animation-fill-mode: forwards;
@@ -590,3 +590,30 @@ body {
     background-image: unset;
   }
 } */
+
+.progress-bar {
+  width: 100%;
+  height: 3vw;
+  background-color: rgba(255, 255, 255, .5);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  width: 0;
+  background-color: black;
+  transition: 0.1s linear;
+}
+
+.step--3 .step__content {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.step--3 .title {
+  margin-top: 0;
+}
