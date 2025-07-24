@@ -260,22 +260,22 @@ document.addEventListener("DOMContentLoaded", async function () {
           step6.classList.add("is-active");
         }, 5000);
 
-        // const response = await fetch(`/vending`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     innerId: container.dataset.innerId,
-        //   }),
-        // });
+        const response = await fetch(`/vending`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            innerId: container.dataset.innerId,
+          }),
+        });
 
-        // if (!response.ok) {
-        //   clearTimeout(timeoutId);
-        //   step5.classList.remove("is-active");
-        //   stepFailed.classList.add("is-active");
-        //   return;
-        // }
+        if (!response.ok) {
+          clearTimeout(timeoutId);
+          step5.classList.remove("is-active");
+          stepFailed.classList.add("is-active");
+          return;
+        }
       } catch (err) {
         clearTimeout(timeoutId);
         step5.classList.remove("is-active");
