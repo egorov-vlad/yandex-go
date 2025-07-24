@@ -10,6 +10,29 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.document.location.reload();
   });
 
+  async function checkServiceAvailable() {
+    const serviceAvailable = await fetch("/service")
+      .then((res) => res.json())
+      .then((data) => data.available);
+
+    console.log(`Service available: ${serviceAvailable}`);
+
+    const main = document.querySelector(".main");
+    const locked = document.querySelector(".locked");
+
+    if (!serviceAvailable) {
+      main.classList.remove("is-active");
+      locked.classList.add("is-active");
+    } else {
+      main.classList.add("is-active");
+      locked.classList.remove("is-active");
+    }
+  }
+
+  checkServiceAvailable();
+
+  setInterval(checkServiceAvailable, 20000);
+
   async function getProduct() {
     const products = await fetch("/products/active").then(
       async (res) => await res.json()
@@ -43,9 +66,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (blackScreen) {
       const host = new URL(window.document.location).host;
-      window.location.replace(
-        `http://${host}/black.html?redirect=tablet.html`
-      );
+      window.location.replace(`http://${host}/black.html?redirect=tablet.html`);
     }
   }, 20000);
 
@@ -86,7 +107,6 @@ document.addEventListener("DOMContentLoaded", async function () {
           window.document.location.reload();
         }, 30000);
       }
-
     });
   });
 
