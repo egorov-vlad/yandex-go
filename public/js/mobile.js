@@ -29,10 +29,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).then((res) => res.json());
 
     if (blackScreen) {
-       const host = new URL(window.document.location).host;
-      window.location.replace(
-        `http://${host}/black.html?redirect=mobile.html`
-      );
+      const host = new URL(window.document.location).host;
+      window.location.replace(`http://${host}/black.html?redirect=mobile.html`);
     }
   }, 20000);
 
@@ -649,10 +647,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     for (let i = 0; i < numCircles; i++) {
       let radius;
 
-      if (window.innerWidth < 768) {
-        radius = 40;
+      if (window.innerWidth < 1024) {
+        radius = 70;
       } else {
-        radius = 80;
+        radius = 130;
       }
       let x, y;
       let tries = 0;
@@ -741,9 +739,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const centerY = parentHeight / 2;
     let bigRadius;
     if (window.innerWidth < 768) {
-      bigRadius = 90;
+      bigRadius = 160;
     } else {
-      bigRadius = 200;
+      bigRadius = 580;
     }
 
     // Расстояние от центра до центра кружка
