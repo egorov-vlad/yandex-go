@@ -4,6 +4,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   const step5 = document.querySelector(".step--5");
   const step6 = document.querySelector(".step--6");
 
+  const btnToStart = document.querySelector('[data-id="btnToStart"]');
+
+  btnToStart.addEventListener("click", () => {
+    window.document.location.reload();
+  });
+
   async function getProduct() {
     const products = await fetch("/products/active").then(
       async (res) => await res.json()
@@ -71,6 +77,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         currentStep.classList.remove("is-active");
         steps[nextIndex].classList.add("is-active");
       }
+
+      if (steps[nextIndex].classList.contains("step--6")) {
+          setTimeout(() => {
+            window.document.location.reload();
+          }, 30000);
+        }
+
     });
   });
 
@@ -218,22 +231,22 @@ document.addEventListener("DOMContentLoaded", async function () {
           step6.classList.add("is-active");
         }, 5000);
 
-        const response = await fetch(`/vending`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            innerId: container.dataset.innerId,
-          }),
-        });
+        // const response = await fetch(`/vending`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     innerId: container.dataset.innerId,
+        //   }),
+        // });
 
-        if (!response.ok) {
-          clearTimeout(timeoutId);
-          step5.classList.remove("is-active");
-          stepFailed.classList.add("is-active");
-          return;
-        }
+        // if (!response.ok) {
+        //   clearTimeout(timeoutId);
+        //   step5.classList.remove("is-active");
+        //   stepFailed.classList.add("is-active");
+        //   return;
+        // }
       } catch (err) {
         clearTimeout(timeoutId);
         step5.classList.remove("is-active");
