@@ -16,12 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       main.classList.add("is-active");
       locked.classList.remove("is-active");
     }
-  }
 
-  checkServiceAvailable();
-
-  setInterval(checkServiceAvailable, 20000);
-  setInterval(async () => {
     const { blackScreen } = await fetch("/black-screen", {
       headers: {
         "Content-Type": "application/json",
@@ -30,9 +25,31 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (blackScreen) {
       const host = new URL(window.document.location).host;
-      window.location.replace(`http://${host}/black.html?redirect=mobile.html`);
+      window.location.replace(`http://${host}/black.html?redirect=tablet.html`);
     }
-  }, 20000);
+
+    const { reloadScreen } = await fetch("/reload", {}).then((res) =>
+      res.json()
+    );
+
+    console.log(`Reload screen: ${reloadScreen}`);
+
+    const reload = document.querySelector(".reload");
+
+    if (reloadScreen) {
+      main.classList.remove("is-active");
+      if (!serviceAvailable) {
+        locked.classList.remove("is-active");
+      }
+      reload.classList.add("is-active");
+    } else {
+      reload.classList.remove("is-active");
+    }
+  }
+
+  checkServiceAvailable();
+
+  setInterval(checkServiceAvailable, 20000);
 
   // step navigation
   const steps = document.querySelectorAll(".step");
@@ -788,7 +805,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (window.innerWidth < 1024) {
       bigRadius = 100;
     } else {
-      bigRadius = 580;
+      bigRadius = 280;
     }
 
     // Расстояние от центра до центра кружка
