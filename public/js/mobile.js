@@ -769,8 +769,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     circles.forEach((circle) => {
       if (!circle.stopped && !circle.magnetizing) {
         // Случайный угол и сила толчка
-        const angle = Math.random() * 1.2 * Math.PI;
-        const force = 1 + Math.random() * 1.2; // сила толчка (можно подправить)
+        const angle = Math.random() * 2 * Math.PI;
+        const force = 1 + Math.random() * 2; // сила толчка (можно подправить)
         circle.vx += Math.cos(angle) * force;
         circle.vy += Math.sin(angle) * force;
       }
