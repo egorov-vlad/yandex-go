@@ -29,6 +29,7 @@ const createRandomCode = () => {
 //TODO: set default false
 let serviceAvailable = true;
 let blackScreen = false;
+let reloadScreen = false;
 
 app.get("/service", (req, res) => {
   res.send({ available: serviceAvailable });
@@ -126,6 +127,15 @@ app.get("/black-screen", (req, res) => {
 app.post("/black-screen", (req, res) => {
   blackScreen = !blackScreen;
   res.send({ blackScreen });
+});
+
+app.get("/reload", (req, res) => {
+  res.send({ reloadScreen });
+});
+
+app.post("/reload", (req, res) => {
+  reloadScreen = !reloadScreen;
+  res.send({ reloadScreen });
 });
 
 app.listen(PORT, () => {

@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const availableInput = document.querySelector('[data-id="available"]');
   const blackScreenInput = document.querySelector('[data-id="blackScreen"]');
+  const reloadScreenInput = document.querySelector('[data-id="reloadScreen"]');
 
   const serviceAvailable = await fetch("/service")
     .then((res) => res.json())
@@ -10,8 +11,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     .then((res) => res.json())
     .then((data) => data.blackScreen);
 
+  const reloadScreen = await fetch("/reload")
+    .then((res) => res.json())
+    .then((data) => data.reloadScreen);
+
   availableInput.checked = serviceAvailable;
   blackScreenInput.checked = blackScreen;
+  reloadScreenInput.checked = reloadScreen;
 
   availableInput.addEventListener("change", async () => {
     await fetch("/service", {
@@ -25,6 +31,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   blackScreenInput.addEventListener("change", async () => {
     await fetch("/black-screen", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).catch((err) => alert("Что-то пошло не так"));
+  });
+
+  reloadScreenInput.addEventListener("change", async () => {
+    await fetch("/reload", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -72,6 +72,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }, 20000);
 
+  setInterval(async () => {
+    const { reloadScreen } = await fetch("/reload", {}).then((res) =>
+      res.json()
+    );
+
+    console.log(`Reload screen: ${reloadScreen}`);
+
+    const main = document.querySelector(".main");
+    const reload = document.querySelector(".reload");
+
+    if (reloadScreen) {
+      main.classList.remove("is-active");
+      reload.classList.add("is-active");
+    } else {
+      main.classList.add("is-active");
+      reload.classList.remove("is-active");
+    }
+  }, 20000);
+
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
 
