@@ -68,16 +68,16 @@ body {
 .title * {
   font-family: 'YS Display Cond';
   font-weight: 900;
-  font-size: 60px;
+  font-size: 7vw;
   line-height: 1;
 }
 
 .title--big {
-  font-size: 80px;
+  font-size: 10vw;
 }
 
 .subheading {
-  font-size: 40px;
+  font-size: 5vw;
   font-weight: 900;
   font-family: 'YS Display Cond';
 }
@@ -126,12 +126,12 @@ body {
   border-radius: 20px;
   display: block;
   cursor: pointer;
-  padding: 13px 20px;
+  padding: 2vw 3vw;
   font-weight: 500;
   max-width: 100%;
   width: 400px;
   margin: 0 auto;
-  font-size: 32px;
+  font-size: 4vw;
   border: 0;
 }
 
@@ -167,8 +167,8 @@ body {
   display: flex;
 }
 
-.locked .step {
-  background-image: url(../img/circle-dark.svg);
+.locked {
+  background: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(255, 255, 255, 1) 100%);
 }
 
 .step__circle-button {
@@ -390,7 +390,7 @@ body {
   background-color: white;
   color: black;
   padding: 25px 34px;
-  width: 420px;
+  min-width: 50vw;
 }
 
 .step__content--choice {

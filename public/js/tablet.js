@@ -76,13 +76,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (steps[nextIndex]) {
         currentStep.classList.remove("is-active");
         steps[nextIndex].classList.add("is-active");
+        if (nextIndex === 1) {
+          keyboard.classList.remove("is-hidden");
+        }
       }
 
       if (steps[nextIndex].classList.contains("step--6")) {
-          setTimeout(() => {
-            window.document.location.reload();
-          }, 30000);
-        }
+        setTimeout(() => {
+          window.document.location.reload();
+        }, 30000);
+      }
 
     });
   });
