@@ -108,6 +108,10 @@ body {
   background: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(255, 255, 255, 1) 100%);
 }
 
+.reload .step {
+  background-image: unset;
+}
+
 .locked .title,
 .reload .title {
   color: white;
@@ -123,6 +127,10 @@ body {
 
 .highlight, .reload .highlight {
   color: var(--yellow);
+}
+
+.reload .title {
+    margin: 3vw 0;
 }
 
 .btn {
