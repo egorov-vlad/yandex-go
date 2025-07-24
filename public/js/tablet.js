@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", async function () {
   const step5 = document.querySelector(".step--5");
   const step6 = document.querySelector(".step--6");
 
-  const btnToStart = document.querySelector('[data-id="btnToStart"]');
+  const btnToStart = document.querySelectorAll('[data-id="btnToStart"]');
 
-  btnToStart.addEventListener("click", () => {
-    window.document.location.reload();
-  });
+  btnToStart.forEach((btn) =>
+    btn.addEventListener("click", () => {
+      window.document.location.reload();
+    })
+  );
 
   async function checkServiceAvailable() {
     const serviceAvailable = await fetch("/service")
