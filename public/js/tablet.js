@@ -105,10 +105,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         currentStep.classList.remove("is-active");
         steps[nextIndex].classList.add("is-active");
         if (nextIndex === 1) {
-            setTimeout(() => {
-              keyboard.classList.remove("is-hidden");
-              keyboard.classList.add("is-active");
-            }, 100);
+          setTimeout(() => {
+            keyboard.classList.remove("is-hidden");
+            keyboard.classList.add("is-active");
+          }, 100);
         }
       }
 
