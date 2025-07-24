@@ -79,7 +79,7 @@ body {
 }
 
 .main,
-.locked {
+.locked,.reload {
   min-height: 100vh;
   display: none;
 }
@@ -92,7 +92,7 @@ body {
 }
 
 .main.is-active,
-.locked.is-active {
+.locked.is-active,.reload.is-active {
   display: flex;
   flex-direction: column;
 }
@@ -104,7 +104,12 @@ body {
   background-position: center;
 }
 
-.locked .title {
+.reload {
+  background: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(255, 255, 255, 1) 100%);
+}
+
+.locked .title,
+.reload .title {
   color: white;
 }
 
@@ -113,6 +118,10 @@ body {
 }
 
 .highlight {
+  color: var(--yellow);
+}
+
+.highlight, .reload .highlight {
   color: var(--yellow);
 }
 
@@ -329,25 +338,25 @@ body {
 
 .code {
   font-size: 10vw;
-  border-radius: 20px;
+  border-radius: 4vw;
   background-color: white;
   font-family: 'YS Display Cond';
   font-weight: 900;
   line-height: 1;
   padding: 1.5vw 5vw;
-  margin: 3vw auto;
-  max-width: 60%;
+  margin: 5vw auto;
+  max-width: 35vw;
 }
 
 .text {
-  font-size: 4.5vw;
+  font-size: 4vw;
   font-weight: 700;
   line-height: 1;
   margin-bottom: 6vw;
 }
 
 .note {
-  font-size: 3.5vw;
+  font-size: 3vw;
   font-weight: 700;
   margin: 4vw 0 8vw;
 }
@@ -382,7 +391,7 @@ body {
   position: absolute;
   border-radius: 50%;
   background-color: var(--yellow);
-  padding: 3vw;
+  padding: 2vw;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -403,7 +412,7 @@ body {
 
 .step--2 .step__content {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 90vw;
@@ -418,7 +427,7 @@ body {
 
 .step--4 .note,
 .step--5 .note {
-  margin: 2vw 0;
+  margin: 1.5vw 0;
 }
 
 .step--4 .step__content {
@@ -447,6 +456,11 @@ body {
   flex-direction: column;
   gap: 4vw;
   justify-content: flex-end;
+  margin-top: 6vw;
+}
+
+.step--2 .note {
+  font-size: 4vw;
 }
 
 .step__result--text {
@@ -489,7 +503,7 @@ body {
 
 .step--5 .text,
 .step--4 .text {
-  margin: 2.5vw 0;
+  margin: 2vw 0;
 }
 
 .step__content--part {
@@ -527,6 +541,12 @@ body {
 
 .step__content--1.is-hidden {
   display: none;
+}
+
+.step--2 {
+  background-size: 120%;
+  background-position: 50% 80%;
+  justify-content: flex-start;
 }
 
 .part-1-shown .step__content {

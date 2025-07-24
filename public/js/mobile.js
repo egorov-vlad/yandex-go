@@ -412,8 +412,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       const centerX = parentWidth / 2;
       const centerY = parentHeight / 2;
       let bigRadius;
-      if (window.innerWidth < 768) {
-        bigRadius = 90;
+      if (window.innerWidth < 1024) {
+        bigRadius = 100;
       } else {
         bigRadius = 200;
       }
@@ -695,7 +695,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       let radius;
 
       if (window.innerWidth < 1024) {
-        radius = 70;
+        radius = 50;
       } else {
         radius = 130;
       }
@@ -785,8 +785,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const centerX = parentWidth / 2;
     const centerY = parentHeight / 2;
     let bigRadius;
-    if (window.innerWidth < 768) {
-      bigRadius = 160;
+    if (window.innerWidth < 1024) {
+      bigRadius = 100;
     } else {
       bigRadius = 580;
     }

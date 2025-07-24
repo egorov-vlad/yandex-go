@@ -131,7 +131,7 @@ body {
 .btn {
   background-color: black;
   color: white;
-  border-radius: 20px;
+  border-radius: 4vw;
   display: block;
   cursor: pointer;
   padding: 2vw 3vw;
@@ -281,7 +281,7 @@ body {
 
 .code {
   font-size: 60px;
-  border-radius: 20px;
+  border-radius: 4vw;
   background-color: white;
   font-family: 'YS Display Cond';
   font-weight: 900;
