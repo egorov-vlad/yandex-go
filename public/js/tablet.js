@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         steps[nextIndex].classList.add("is-active");
         if (nextIndex === 1) {
           keyboard.classList.remove("is-hidden");
+          keyboard.classList.add("is-active");
         }
       }
 
