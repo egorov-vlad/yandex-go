@@ -83,7 +83,8 @@ body {
 }
 
 .main,
-.locked {
+.locked,
+.reload {
   min-height: 100vh;
   display: none;
 }
@@ -96,7 +97,8 @@ body {
 }
 
 .main.is-active,
-.locked.is-active {
+.locked.is-active,
+.reload.is-active {
   display: flex;
   flex-direction: column;
 }
@@ -106,9 +108,15 @@ body {
   background-image: url(../img/bg-dark.png);
   background-size: cover;
   background-position: center;
+  background: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(255, 255, 255, 1) 100%);
 }
 
-.locked .title {
+.reload {
+  background: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(255, 255, 255, 1) 100%);
+}
+
+.locked .title,
+.reload .title {
   color: white;
 }
 
@@ -116,8 +124,12 @@ body {
   margin: 0 0 40px;
 }
 
-.highlight {
+.highlight, .reload .highlight {
   color: var(--yellow);
+}
+
+.reload .title {
+    margin: 3vw 0;
 }
 
 .btn {
@@ -165,10 +177,6 @@ body {
 
 .step.is-active {
   display: flex;
-}
-
-.locked {
-  background: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(255, 255, 255, 1) 100%);
 }
 
 .step__circle-button {
