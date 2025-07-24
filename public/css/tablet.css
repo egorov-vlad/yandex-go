@@ -61,7 +61,7 @@ body {
 }
 
 .logo__top img {
-  width: 220px;
+  width: 30vw;
 }
 
 .title,
@@ -124,8 +124,13 @@ body {
   margin: 0 0 40px;
 }
 
-.highlight, .reload .highlight {
+.highlight,
+.reload .highlight {
   color: var(--yellow);
+}
+
+.reload .title {
+  margin: 3vw 0;
 }
 
 .btn {
