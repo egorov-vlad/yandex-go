@@ -88,6 +88,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.document.location.reload();
   });
 
+  const keyboard = document.querySelector(".keyboard");
+  const input = document.querySelector(".code__input");
+  const keys = keyboard.querySelectorAll(".key");
+  const maxLength = 4;
+
   nextButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const currentStep = document.querySelector(".step.is-active");
@@ -110,11 +115,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     });
   });
-
-  const input = document.querySelector(".code__input");
-  const keyboard = document.querySelector(".keyboard");
-  const keys = keyboard.querySelectorAll(".key");
-  const maxLength = 4;
 
   input.addEventListener("click", () => {
     keyboard.classList.remove("is-hidden");
