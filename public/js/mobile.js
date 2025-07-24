@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (blackScreen) {
         const host = new URL(window.document.location).host;
         window.location.replace(
-          `http://${host}/black.html?redirect=tablet.html`
+          `http://${host}/black.html?redirect=mobile.html`
         );
       }
     } catch (error) {
