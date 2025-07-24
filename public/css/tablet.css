@@ -318,6 +318,11 @@ body {
   min-height: 30vh;
 }
 
+.keyboard.is-active {
+  opacity: 1;
+  bottom: 0;
+}
+
 .keyboard__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
