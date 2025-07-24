@@ -35,51 +35,54 @@ export const decrypt = (encryptedBase64) => {
 };
 
 export const sendRequest = async ({ product_code }) => {
-  try {
-    const number = getVendingLastCommand.get()?.id || 0 + 1;
-    setVendingLastCommand.run();
+  const number = (getVendingLastCommand.get()?.id || 0) + 1;
+  setVendingLastCommand.run();
 
-    const encrypted = encrypt(
-      JSON.stringify({
-        command_number: number,
-        command_code: "dispense",
-        data: {
-          product_code: String(product_code),
-        },
-      })
+  const command = {
+    command_number: number,
+    command_code: "dispense",
+    data: {
+      product_code: String(product_code),
+    },
+  };
+
+  const encrypted = encrypt(JSON.stringify(command));
+  const jsonWithNewline = JSON.stringify({ message: encrypted }) + "\n"; // NDJSON!
+
+  console.log(`Command #${number}: ${encrypted}`);
+
+  return new Promise((resolve, reject) => {
+    const socket = net.createConnection(
+      { host: VENDING_HOST, port: VENDING_PORT },
+      () => {
+        socket.write(jsonWithNewline);
+      }
     );
 
-    console.log(`Command #${number}: ${encrypted}`);
-    const socket = net.createConnection({
-      host: VENDING_HOST,
-      port: VENDING_PORT,
-    });
+    socket.on("data", (data) => {
+      try {
+        const parsed = JSON.parse(data.toString());
+        const decrypted = decrypt(parsed.message);
+        console.log(`Response for Command #${number}: ${decrypted}`);
 
-    socket.write(encrypted);
+        decreaseProductQuantityByProductCode.run(product_code);
+        disableProductByProductCode.run(product_code);
 
-    const r = await new Promise((resolve, reject) => {
-      socket.on("data", (data) => {
-        resolve(decrypt(data.toString()));
-      });
-
-      socket.on("error", (err) => {
-        console.error(err);
+        resolve(decrypted);
+      } catch (err) {
         reject(err);
-      });
+      } finally {
+        socket.end();
+      }
     });
 
-    //TODO:move to end of function
-    decreaseProductQuantityByProductCode.run(product_code);
-    disableProductByProductCode.run(product_code);
+    socket.on("error", (err) => {
+      console.error("Socket error:", err);
+      reject(err);
+    });
 
-    console.log(`Command #${number}: ${r}`);
-
-    //TODO: error separation
-
-    socket.end();
-
-    return r;
-  } catch (e) {
-    return Promise.reject(e);
-  }
+    socket.on("close", () => {
+      console.log("Socket closed");
+    });
+  });
 };
