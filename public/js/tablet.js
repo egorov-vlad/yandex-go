@@ -123,6 +123,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   document.addEventListener("click", (e) => {
     if (!keyboard.contains(e.target) && e.target !== input) {
       keyboard.classList.add("is-hidden");
+      keyboard.classList.remove("is-active");
     }
   });
 
