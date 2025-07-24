@@ -12,22 +12,42 @@ document.addEventListener("DOMContentLoaded", async function () {
     })
   );
 
+  const fetchData = (url) => fetch(url).then((res) => res.json());
+
   async function checkServiceAvailable() {
-    const serviceAvailable = await fetch("/service")
-      .then((res) => res.json())
-      .then((data) => data.available);
+    try {
+      const [serviceAvailable, blackScreen, reloadScreen] = await Promise.all([
+        fetchData("/service").then((data) => data.available),
+        fetchData("/black-screen").then((data) => data.blackScreen),
+        fetchData("/reload").then((data) => data.reloadScreen),
+      ]);
 
-    console.log(`Service available: ${serviceAvailable}`);
+      const main = document.querySelector(".main");
+      const locked = document.querySelector(".locked");
+      const reload = document.querySelector(".reload");
 
-    const main = document.querySelector(".main");
-    const locked = document.querySelector(".locked");
-
-    if (!serviceAvailable) {
+      // Сбрасываем все активные состояния
       main.classList.remove("is-active");
-      locked.classList.add("is-active");
-    } else {
-      main.classList.add("is-active");
       locked.classList.remove("is-active");
+      reload.classList.remove("is-active");
+
+      // Определение нового состояния
+      if (serviceAvailable && reloadScreen) {
+        reload.classList.add("is-active");
+      } else if (!serviceAvailable) {
+        locked.classList.add("is-active");
+      } else {
+        main.classList.add("is-active");
+      }
+
+      if (blackScreen) {
+        const host = new URL(window.document.location).host;
+        window.location.replace(
+          `http://${host}/black.html?redirect=tablet.html`
+        );
+      }
+    } catch (error) {
+      console.error("Check failed:", error);
     }
   }
 
@@ -59,38 +79,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await getProduct();
 
-  setInterval(async () => {
-    const { blackScreen } = await fetch("/black-screen", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
-
-    if (blackScreen) {
-      const host = new URL(window.document.location).host;
-      window.location.replace(`http://${host}/black.html?redirect=tablet.html`);
-    }
-  }, 20000);
-
-  setInterval(async () => {
-    const { reloadScreen } = await fetch("/reload", {}).then((res) =>
-      res.json()
-    );
-
-    console.log(`Reload screen: ${reloadScreen}`);
-
-    const main = document.querySelector(".main");
-    const reload = document.querySelector(".reload");
-
-    if (reloadScreen) {
-      main.classList.remove("is-active");
-      reload.classList.add("is-active");
-    } else {
-      main.classList.add("is-active");
-      reload.classList.remove("is-active");
-    }
-  }, 20000);
-
   const steps = document.querySelectorAll(".step");
   const nextButtons = document.querySelectorAll(".step .btn");
 
@@ -100,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const loadingTitles = {
     lavka: "Выбираем любимое...",
     market: "Выгружаем полезное...",
-    food: "Выдаёмвкусное...",
+    food: "Выдаём вкусное...",
   };
 
   const toStartBtn = document.querySelector(".location");

@@ -1,49 +1,40 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  const fetchData = (url) => fetch(url).then((res) => res.json());
+
   async function checkServiceAvailable() {
-    const serviceAvailable = await fetch("/service")
-      .then((res) => res.json())
-      .then((data) => data.available);
+    try {
+      const [serviceAvailable, blackScreen, reloadScreen] = await Promise.all([
+        fetchData("/service").then((data) => data.available),
+        fetchData("/black-screen").then((data) => data.blackScreen),
+        fetchData("/reload").then((data) => data.reloadScreen),
+      ]);
 
-    console.log(`Service available: ${serviceAvailable}`);
+      const main = document.querySelector(".main");
+      const locked = document.querySelector(".locked");
+      const reload = document.querySelector(".reload");
 
-    const main = document.querySelector(".main");
-    const locked = document.querySelector(".locked");
-
-    if (!serviceAvailable) {
+      // Сбрасываем все активные состояния
       main.classList.remove("is-active");
-      locked.classList.add("is-active");
-    } else {
-      main.classList.add("is-active");
       locked.classList.remove("is-active");
-    }
-
-    const { blackScreen } = await fetch("/black-screen", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
-
-    if (blackScreen) {
-      const host = new URL(window.document.location).host;
-      window.location.replace(`http://${host}/black.html?redirect=tablet.html`);
-    }
-
-    const { reloadScreen } = await fetch("/reload", {}).then((res) =>
-      res.json()
-    );
-
-    console.log(`Reload screen: ${reloadScreen}`);
-
-    const reload = document.querySelector(".reload");
-
-    if (reloadScreen) {
-      main.classList.remove("is-active");
-      if (!serviceAvailable) {
-        locked.classList.remove("is-active");
-      }
-      reload.classList.add("is-active");
-    } else {
       reload.classList.remove("is-active");
+
+      // Определение нового состояния
+      if (serviceAvailable && reloadScreen) {
+        reload.classList.add("is-active");
+      } else if (!serviceAvailable) {
+        locked.classList.add("is-active");
+      } else {
+        main.classList.add("is-active");
+      }
+
+      if (blackScreen) {
+        const host = new URL(window.document.location).host;
+        window.location.replace(
+          `http://${host}/black.html?redirect=tablet.html`
+        );
+      }
+    } catch (error) {
+      console.error("Check failed:", error);
     }
   }
 
@@ -124,6 +115,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }, 2500);
   }
 
+  let timeoutId;
+
   nextButtons.forEach((btn, index) => {
     btn.addEventListener("click", () => {
       const currentStep = document.querySelector(".step.is-active");
@@ -160,9 +153,12 @@ document.addEventListener("DOMContentLoaded", async function () {
           setTimeout(() => {
             createCirclesAndAnimate();
           }, 100);
-          setTimeout(() => {
+          timeoutId = setTimeout(() => {
             window.document.location.reload();
           }, 60000);
+        }
+        if (steps[nextIndex].classList.contains("step--4")) {
+          clearTimeout(timeoutId);
         }
       }
     });
@@ -184,6 +180,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const intervalTime = 100;
     let elapsed = 0;
 
+    //clear older timeout
+    clearTimeout(timeoutId);
+
     setTimeout(() => {
       loadingElement.textContent = "Генерируется код...";
     }, 7000);
@@ -204,7 +203,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }, 500);
 
         // авто перезагрузка через 30 сек
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
           window.document.location.reload();
         }, 60000);
       }
