@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     text: document.querySelector('[data-id="archetypeText"]'),
   };
 
+  const loadingElement = document.querySelector('[data-id="loading"]');
+
   function updateConfirmButtonVisibility() {
     const selected = container.querySelectorAll(".circle.highlight");
     if (selected.length > 0) {
@@ -94,7 +96,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const progressFill = step3.querySelector(".progress-bar__fill");
 
   function showstep4Animation() {
-
     // запускаем анимацию подъёма
     circlestep4.classList.add("special-anim");
 
@@ -156,12 +157,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  step3Observer.observe(step3, { attributes: true, attributeFilter: ["class"] });
+  step3Observer.observe(step3, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
 
   function startProgressAndTransition() {
     const duration = 15000; // 15 сек
     const intervalTime = 100;
     let elapsed = 0;
+
+    setTimeout(() => {
+      loadingElement.textContent = "Генерируется код...";
+    }, 7000);
 
     const interval = setInterval(() => {
       elapsed += intervalTime;
