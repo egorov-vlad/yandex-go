@@ -79,7 +79,8 @@ body {
 }
 
 .main,
-.locked,.reload {
+.locked,
+.reload {
   min-height: 100vh;
   display: none;
 }
@@ -92,7 +93,8 @@ body {
 }
 
 .main.is-active,
-.locked.is-active,.reload.is-active {
+.locked.is-active,
+.reload.is-active {
   display: flex;
   flex-direction: column;
 }
@@ -125,12 +127,13 @@ body {
   color: var(--yellow);
 }
 
-.highlight, .reload .highlight {
+.highlight,
+.reload .highlight {
   color: var(--yellow);
 }
 
 .reload .title {
-    margin: 3vw 0;
+  margin: 3vw 0;
 }
 
 .btn {
@@ -416,11 +419,16 @@ body {
 
 .step--2 .note {
   margin: 0;
+  font-size: 2.75vw;
+}
+
+.step--2 .note:last-of-type {
+    margin-bottom: auto;
 }
 
 .step--2 .step__content {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 90vw;
@@ -448,6 +456,8 @@ body {
 
 .step--2 .btn {
   display: none;
+  order: 3;
+  margin-top: auto;
 }
 
 .step--2 .btn.is-active {
@@ -455,20 +465,16 @@ body {
 }
 
 .step--2 .btn.is-active~p {
-  display: none;
+  /* display: none; */
 }
 
 .step--2 .step__bottom {
-  min-height: 13vw;
+  min-height: 10vw;
   display: flex;
   flex-direction: column;
-  gap: 4vw;
   justify-content: flex-end;
-  margin-top: 6vw;
-}
-
-.step--2 .note {
-  font-size: 4vw;
+  margin-top: 3vw;
+  flex-grow: 1;
 }
 
 .step__result--text {
@@ -553,7 +559,7 @@ body {
 
 .step--2 {
   background-size: 120%;
-  background-position: 50% 80%;
+  background-position: 50% 50%;
   justify-content: flex-start;
 }
 
